@@ -1,0 +1,12 @@
+Package: spm12r
+Type: Package
+Title: Installs SPM12
+Version: 1.0
+Date: 2015-04-13
+Author: John Muschelli
+Maintainer: John Muschelli <muschellij2@gmail.com>
+Description: Just installs SPM12 to the R library directory
+License: GPL-2
+Imports:
+	matlabr
+SystemRequirements: MATLAB

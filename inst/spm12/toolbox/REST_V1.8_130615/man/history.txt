@@ -1,0 +1,514 @@
+
+20040401~20070510,	no REST but the origin of REST
+REST is still a command line tool to compute ReHo in MATLAB. This version is written by He Yong (yhe@nlpr.ia.ac.cn).
+details:
+	reho.m					1.0		He Yong
+	reho_readfile.m			1.0		He Yong
+	reho_writefile.m		1.0		He Yong
+	mask/reho_mask02.mat	1.0		He Yong
+	mask/reho_mask03.mat	1.0		He Yong
+	mask/reho_mask12.mat	1.0		He Yong
+	mask/reho_mask13.mat	1.0		He Yong
+	
+20070510~20070609,	REST v1.0
+REST is born and can be called a toolkit now. It is coded by Xiao-Wei Song(dawnwei.song@gmail.com).
+It contain Slice Viewer, Power Spectrum, ReHo-GUI, ALFF-GUI and can do batch job.
+details:
+	alff.m					1.0		Xiao-Wei Song
+	alff_gui.m				1.0		Xiao-Wei Song
+	alff_gui.fig			1.0		Xiao-Wei Song
+	reho.m					1.5		He Yong, revised by Xiao-Wei Song
+	reho_gui.m				1.0		Xiao-Wei Song
+	reho_gui.fig			1.0		Xiao-Wei Song
+	reho_readfile.m			1.0		He Yong
+	reho_writefile.m		1.0		He Yong
+	mask/reho_mask02.mat	1.0		He Yong
+	mask/reho_mask03.mat	1.0		He Yong
+	mask/reho_mask12.mat	1.0		He Yong
+	mask/reho_mask13.mat	1.0		He Yong
+	rest.m					1.0		Xiao-Wei Song
+	rest_DivideMeanWithinMask.m				1.0		Xiao-Wei Song
+	rest_bandpass.m			1.0		Xiao-Wei Song
+	rest_detrend.m			1.0		Xiao-Wei Song
+	rest_loadmask.m			1.0		Xiao-Wei Song
+	rest_misc.m				1.0		Xiao-Wei Song
+	rest_nextpow2_one35.m	1.0		Xiao-Wei Song
+	rest_powerspectrum.m	1.0		Xiao-Wei Song
+	rest_progress.m			1.0		Xiao-Wei Song
+	rest_sliceviewer.m		1.0		Xiao-Wei Song
+	rest_to4d.m				1.0		Xiao-Wei Song
+	rest_waitbar.m			1.0		Xiao-Wei Song
+	Help files(Chinese, English)		1.0		Xiao-Wei Song
+	
+	
+20070701~20071210,	REST v1.1
+REST implemented ReHo, ALFF, Functional connectivity, SliceViewer, ROI/Mask Definition, Time course extraction and so on
+details:
+	alff.m					1.1		Xiao-Wei Song
+	alff_gui.m				1.1		Xiao-Wei Song
+	alff_gui.fig			1.1		Xiao-Wei Song
+	reho.m					1.5		He Yong, revised by Xiao-Wei Song
+	reho_gui.m				1.1		Xiao-Wei Song
+	reho_gui.fig			1.1		Xiao-Wei Song
+	rest_readfile.m			1.1		He Yong, revised by Xiao-Wei Song
+	rest_writefile.m		1.1		He Yong, revised by Xiao-Wei Song
+	rest.m					1.1		Xiao-Wei Song
+	rest_DivideMeanWithinMask.m					1.1		Xiao-Wei Song
+	rest_bandpass.m					1.1		Xiao-Wei Song
+	rest_detrend.m					1.1		Xiao-Wei Song
+	rest_loadmask.m					1.1		Xiao-Wei Song
+	rest_misc.m						1.1		Xiao-Wei Song
+	rest_nextpow2_one35.m			1.0		Xiao-Wei Song
+	rest_powerspectrum.m			1.1		Xiao-Wei Song
+	rest_progress.m					1.0		Xiao-Wei Song
+	rest_sliceviewer.m				1.1		Xiao-Wei Song
+	rest_to4d.m						1.1		Xiao-Wei Song
+	rest_waitbar.m					1.0		Xiao-Wei Song
+	#20071008 Added functional connectivity tool
+	rest_mni2tal.m					1.0		Matthew Brett
+	rest_tal2mni.m					1.0		Matthew Brett
+	rest_spm_matrix.m				1.0		SPM
+	rest_ROIList_gui.m				1.0		Xiao-Wei Song
+	rest_ROIList_gui.fig			1.0		Xiao-Wei Song
+	rest_SphereROI.m				1.0		Xiao-Wei Song
+	rest_SetROI.m					1.0		Xiao-Wei Song
+	rest_ReadLutColorScheme.m		1.0		Xiao-Wei Song
+	fc_gui.m						1.0		Xiao-Wei Song
+	fc_gui.fig						1.0		Xiao-Wei Song
+	fc.m							1.0		Xiao-Wei Song
+	rest_Corr2FisherZ.m				1.0		Xiao-Wei Song
+
+	rest_ChangeOrigin.m				1.0		Xiao-Wei Song
+	rest_ChangeOrigin_Recursive.m	1.0		Xiao-Wei Song
+
+	rest_RecursiveDir.m				1.0		Xiao-Wei Song
+
+	README.txt						1.1		Xiao-Wei Song
+	logo.jpg						1.1		Xiang-Yu Long
+	icoTransverse.jpg				1.0		MRIcro
+	icoCoronal.jpg					1.0		MRIcro
+	icoSagittal.jpg					1.0		MRIcro
+	icoOrthogonal.jpg				1.0		MRIcro
+
+	Template/aal.hdr				1.0		MRIcro
+	Template/aal.img.gz				1.0		MRIcro
+	Template/aal.lut				1.0		MRIcro
+	Template/aal.txt				1.0		MRIcro
+	Template/brodmann.hdr			1.0		MRIcro
+	Template/brodmann.img.gz		1.0		MRIcro
+	Template/brodmann.lut			1.0		MRIcro
+	Template/ch2.hdr				1.0		MRIcro
+	Template/ch2.img.gz				1.0		MRIcro
+
+	mask/reho_mask02.mat			1.0		He Yong
+	mask/reho_mask03.mat			1.0		He Yong
+	mask/reho_mask12.mat			1.0		He Yong
+	mask/reho_mask13.mat			1.0		He Yong
+
+	info.xml						1.0		Xiao-Wei Song	
+	man/AFL.txt						1.0		Xiao-Wei Song
+	man/history.txt					1.1		Xiao-Wei Song
+	
+20080308~20080626,	REST v1.2 Release 080626 YAN Chao-Gan
+REST now can read and write NIFTI format data. REST will give NIFTI format data if input with NIFTI format data. And REST will give ANALYZE7.5 format data if input with ANALYZE7.5 format data.
+details:
+	rest_readfile.m 1.2 YAN Chao-Gan
+	rest_writefile.m 1.2 YAN Chao-Gan
+	rest_WriteNiftiImage.m 1.2 CHEN Gui-Wen and YAN Chao-Gan
+  rest_ReadNiftiImage.m 1.2 CHEN Gui-Wen and YAN Chao-Gan
+  rest_to4d.m	1.2	YAN Chao-Gan Revised
+  rest_SphereROI.m	1.2	YAN Chao-Gan Revised
+  rest_sliceviewer.m	1.2	YAN Chao-Gan Revised
+  rest_ROIList_gui.m	1.2	YAN Chao-Gan Revised
+  rest_powerspectrum.m	1.2	YAN Chao-Gan Revised
+  rest_misc.m	1.2	YAN Chao-Gan Revised
+  rest_loadmask.m	1.2	YAN Chao-Gan Revised
+  rest_DivideMeanWithinMask.m	1.2	YAN Chao-Gan Revised
+  rest_detrend.m	1.2	YAN Chao-Gan Revised
+  rest_Corr2FisherZ.m	1.2	YAN Chao-Gan Revised
+  rest_bandpass.m	1.2	YAN Chao-Gan Revised
+  fc.m	1.2	YAN Chao-Gan Revised
+  alff.m	1.2	YAN Chao-Gan Revised
+  reho.m	1.2	YAN Chao-Gan Revised
+  rest.m	1.2	YAN Chao-Gan Revised
+  
+  rest_spm5_files/*.* 1.2 Wellcome Department of Imaging Neuroscience. Adding for read NIFTI files by YAN Chao-Gan
+  
+  mask/BrainMask_05_61x73x61.img 1.2 YAN Chao-Gan
+  mask/BrainMask_05_61x73x61.hdr 1.2 YAN Chao-Gan
+  mask/WhiteMask_09_61x73x61.img 1.2 YAN Chao-Gan
+  mask/WhiteMask_09_61x73x61.hdr 1.2 YAN Chao-Gan
+  mask/CsfMaskData_08_61x73x61.img 1.2 YAN Chao-Gan
+  mask/CsfMaskData_08_61x73x61.hdr 1.2 YAN Chao-Gan
+  
+  Template/ch2_NIfTI.img 1.2 MRIcroN
+  Template/ch2_NIfTI.hdr 1.2 MRIcroN
+  
+  man/history.txt 1.2 YAN Chao-Gan
+  
+20080627~20080926,	REST v1.2 Release 080808 YAN Chao-Gan
+REST now can process multiple subjects with different covaribles in batch mode.
+details:
+	rest_writefile.m 1.2 YAN Chao-Gan 080808
+	rest.m 1.2 YAN Chao-Gan 080808
+	alff_gui.m 1.2 YAN Chao-Gan 080808
+	reho.m 1.2 YAN Chao-Gan 080808
+	reho_gui.m 1.2 YAN Chao-Gan 080808
+	rest_misc.m 1.2 YAN Chao-Gan 080808
+	rest_ROIList_gui.m 1.2 YAN Chao-Gan 080808
+	rest_SetROI.m 1.2 YAN Chao-Gan 080808
+	rest_sliceviewer.m 1.2 YAN Chao-Gan 080903
+	fc_gui.m 1.2 080903
+	rest_readfile.m 1.2 YAN Chao-Gan 080926
+
+	man/history.txt 1.2 YAN Chao-Gan 080926
+	
+20080926~20090101,	REST v1.2 Release 090101 YAN Chao-Gan
+REST now can save images in rest_sliceviewer and use the new mask files.
+details:
+	rest_SetROI.m 1.2 YAN Chao-Gan 081223
+	rest_misc.m 1.2 YAN Chao-Gan 081223
+	rest_loadmask.m 1.2 YAN Chao-Gan 081224
+	rest_sliceviewer.m 1.2 YAN Chao-Gan 09101
+	rest.m 1.2 YAN Chao-Gan 090101
+
+	man/history.txt 1.2 YAN Chao-Gan 090101
+	
+	
+20090101~20090401,	REST v1.3 Release 090401 YAN Chao-Gan
+REST now can compute fractional ALFF. Data in processing will not be converted to the format 'int16'. Result data will be saved in the format 'single'. Added "Correction Thresholds by AlphaSim" (under Misc menu). Fixed the bug of 'Set Overlay's Color bar' in Matlab R2007a or latter version which caused by the revision of imresize funtion in Matlab R2007a. Thank Dr. CHENG Wen-Lian for some helpful works.
+details:
+	f_alff_gui.fig 1.3 YAN Chao-Gan 090321
+	f_alff_gui.m 1.3 YAN Chao-Gan 090321
+	f_alff.m 1.3 YAN Chao-Gan 090321
+  rest_to4d.m 1.3 YAN Chao-Gan 090321
+  rest_bandpass.m	1.3	YAN Chao-Gan Revised 090321
+  rest_detrend.m	1.3	YAN Chao-Gan Revised 090321
+  alff.m	1.3	YAN Chao-Gan Revised 090321
+  fc.m	1.3	YAN Chao-Gan Revised 090321
+  reho.m	1.3	YAN Chao-Gan Revised 090321
+  rest_Corr2FisherZ.m	1.3	YAN Chao-Gan Revised 090321
+  rest_DivideMeanWithinMask.m	1.3	YAN Chao-Gan Revised 090321
+  rest.m 1.3 YAN Chao-Gan 090401
+  rest_sliceviewer.m 1.3 YAN Chao-Gan 090401
+  man/history.txt 1.3 YAN Chao-Gan 090401
+
+20090401~20090422,	REST v1.3 Release 090422 YAN Chao-Gan
+Re-write the algorithm to speed up the calculation of ReHo. Fixed the bug of computing ReHo with 7 voxels or 19 voxels in a cluster.
+details:
+  reho_gui.m	1.3	YAN Chao-Gan Revised 090420
+  rest.m	1.3	YAN Chao-Gan Revised 090420
+  rest_loadmask.m	1.3	YAN Chao-Gan Revised 090420
+  reho.m	1.3	YAN Chao-Gan Revised 090422
+  man/history.txt 1.3 YAN Chao-Gan 090422
+  
+20090422~20090525,	REST v1.3 Release 090525 YAN Chao-Gan
+Fixed the bug of reading and writing error under the linux operation system.
+  rest_spm5_files/*.mex* 1.3 Wellcome Department of Imaging Neuroscience. Adding for read NIFTI files by YAN Chao-Gan in linux, unix and mac OS. 090525
+  rest.m	1.3	YAN Chao-Gan Revised 090525
+  man/history.txt 1.3 YAN Chao-Gan 090525
+  
+20090525~20091201,	REST v1.3 Release 091201 YAN Chao-Gan, DONG Zhang-Ye and ZHU Wei-Xuan
+New Functions added.
+  rest_readfile.m 1.3 YAN Chao-Gan Revised 090712
+  rest_writefile.m 1.3 YAN Chao-Gan Revised 090713
+  reho.m 1.3 YAN Chao-Gan Revised 090801
+  fc_gui.m 1.3 YAN Chao-Gan Revised 091104
+  rest_CorrectionThresholdsByAlphaSim.m 1.0 YAN Chao-Gan Added 091108
+  rest_CorrectionThresholdsByAlphaSim.fig 1.0 YAN Chao-Gan Added 091108
+  rest_bandpass.m 1.3 YAN Chao-Gan Revised 091108
+  rest_to4d.m 1.3 YAN Chao-Gan Revised 091108
+  rest_AlphaSim_gui.fig 1.0 YAN Chao-Gan and DONG Zhang-Ye Added 091126
+  rest_AlphaSim_gui.m 1.0 YAN Chao-Gan and DONG Zhang-Ye Added 091126
+  rest_AlphaSim.m 1.0 YAN Chao-Gan, DONG Zhang-Ye and ZHU Wei-Xun Added 091126
+  rest_SphereROI.m  1.3 YAN Chao-Gan Revised 091126
+  rest_misc.m 1.3 YAN Chao-Gan Revised 091126
+  rest_Fix_Read_Write_Error.m 1.0 YAN Chao-Gan Added 091126
+  rest_ExtractROITC_gui.fig 1.0 YAN Chao-Gan and DONG Zhang-Ye Added 091126
+  rest_ExtractROITC_gui.m 1.0 YAN Chao-Gan and DONG Zhang-Ye Added 091126
+  rest_ExtractROITC.m 1.0 YAN Chao-Gan Added 091126
+  rest_RegressOutCovariates_gui.fig 1.0 YAN Chao-Gan and DONG Zhang-Ye Added 091126
+  rest_RegressOutCovariates_gui.m 1.0 YAN Chao-Gan and DONG Zhang-Ye Added 091126
+  rest_RegressOutCovariates.m 1.0 YAN Chao-Gan Added 091126
+  rest_ResliceImage_gui.fig 1.0 YAN Chao-Gan and DONG Zhang-Ye Added 091126
+  rest_ResliceImage_gui.m 1.0 YAN Chao-Gan and DONG Zhang-Ye Added 091126
+  rest_ResliceImage.m  1.0 YAN Chao-Gan Added 091126
+  rest_Utilities_gui.fig 1.0 YAN Chao-Gan and DONG Zhang-Ye Added 091127
+  rest_Utilities_gui.m 1.0 YAN Chao-Gan and DONG Zhang-Ye Added 091127
+  rest_Nii2NiftiPairs_gui.fig 1.0 YAN Chao-Gan Added 091127
+  rest_Nii2NiftiPairs_gui.m 1.0 YAN Chao-Gan Added 091127
+  rest_Nii2NiftiPairs.m 1.0 YAN Chao-Gan Added 091127
+  rest_ImgCal_gui.fig 1.0 YAN Chao-Gan and DONG Zhang-Ye Added 091127
+  rest_ImgCal_gui.m 1.0 YAN Chao-Gan and DONG Zhang-Ye Added 091127
+  rest_TwoGroupCorr.m 1.0 YAN Chao-Gan and DONG Zhang-Ye Added 091127
+  rest_sliceviewer.m 1.3 YAN Chao-Gan, DONG Zhang-Ye and ZHU Wei-Xun Revised 091201
+  rest.m 1.3 YAN Chao-Gan Revised 091201
+  
+  Template/AAL_61x73x61.nii 1.0 MRIcroN and YAN Chao-Gan Resliced 091127
+  Template/Brodmann_61x73x61.nii 1.0 MRIcroN and YAN Chao-Gan Resliced 091127
+  
+  man/history.txt 1.3 YAN Chao-Gan Revised 091201
+  
+20091201~20091215,	REST v1.3 Release 091212 YAN Chao-Gan and DONG Zhang-Ye
+REST DICOM sorter added. Fixed a bug in REST AlphaSim when rmm=6. Fixed a bug in REST Image Calculator when creating output directory.
+  rest_ChangeDicomInfo.m 1.0 YAN Chao-Gan Added 091212
+  rest_Utilities_gui.fig 1.0 YAN Chao-Gan Revised 091212
+  rest_Utilities_gui.m 1.0 YAN Chao-Gan Revised 091212
+  rest_DicomSorter_gui.m 1.0 YAN Chao-Gan and DONG Zhang-Ye Added 091212
+  rest_DicomSorter_gui.fig  1.0 YAN Chao-Gan and DONG Zhang-Ye Added 091212
+  rest_DicomSorter.m  1.0 YAN Chao-Gan and DONG Zhang-Ye Added 091212
+  rest_AlphaSim.m 1.0 YAN Chao-Gan Revised 091215
+  f_alff_gui.fig 1.3 YAN Chao-Gan Revised 091215
+  f_alff_gui.m 1.3 YAN Chao-Gan Revised 091215
+  rest_SphereROI.m 1.3 YAN Chao-Gan Revised 091215
+  rest_ImgCal_gui.m 1.0 YAN Chao-Gan Revised 091215
+  rest.m 1.3 YAN Chao-Gan Revised 091215
+  man/history.txt 1.3 YAN Chao-Gan Revised 091215
+ 
+20091215~20100201, REST V1.3 Release 100201 YAN Chao-Gan, DONG Zhang-Ye and ZANG Zhen-Xiang
+Added False Discovery Rate (FDR) Correction, Added Granger Causality Analysis. Fixed the bug in ROI-wise functional connectivity calculation. Make the outputname as 00001.img other than 1.img in REST Image Calculator.
+  fc_gui.m 1.3 YAN Chao-Gan Revised 100130
+  rest_loadmask.m 1.3 YAN Chao-Gan Revised 100130
+  rest_SetROI.m 1.3 YAN Chao-Gan Revised 100130
+  rest_ImgCal_gui.m 1.0 YAN Chao-Gan Revised 100130
+  rest_gca.m 1.0 Beta ZANG Zhen-Xiang Added 100201
+  gca_gui.m 1.0 Beta ZANG Zhen-Xiang Added 100201
+  gca_gui.fig 1.0 Beta ZANG Zhen-Xiang Added 100201
+  rest_Utilities_gui.m 1.0 YAN Chao-Gan Revised 100201
+  rest_Utilities_gui.fig 1.0 YAN Chao-Gan Revised 100201
+  rest_sliceviewer.m 1.3 YAN Chao-Gan Revised 100201
+  rest_FDR_gui.fig 1.0 YAN Chao-Gan and DONG Zhang-Ye Added 100201
+  rest_FDR_gui.m 1.0 YAN Chao-Gan and DONG Zhang-Ye Added 100201
+  rest.m 1.3 YAN Chao-Gan Revised 100201
+  man/history.txt 1.3 YAN Chao-Gan Revised 100201
+  
+20100201~20100420, REST V1.4 Release 100420 YAN Chao-Gan, DONG Zhang-Ye and ZANG Zhen-Xiang
+Added Statistical Analysis; updated Granger Causality Analysis; updated band pass filter; updated ALFF and fALFF calculation; updated REST Slice Viewer: fixed the bug in displaying overlay with different bounding box from the underlay's bounding box.
+  rest_sliceviewer.m 1.4 DONG Zhang-Ye Revised 100401
+  rest_SetROI.m 1.3 DONG Zhang-Ye Revised 100401
+  alff_gui.fig 1.3 DONG Zhang-Ye Revised 100401
+  rest_RegressOutCovariates_gui.fig 1.0 DONG Zhang-Ye Revised 100401
+  fc_gui.m 1.3 DONG Zhang-Ye Revised 100401
+  rest_ResliceImage_gui.m 1.0 DONG Zhang-Ye Revised 100401
+  rest_RegressOutCovariates_gui.m 1.0 DONG Zhang-Ye Revised 100401
+  reho_gui.m 1.3 DONG Zhang-Ye Revised 100401
+  rest_DicomSorter_gui.m 1.0 DONG Zhang-Ye Revised 100401
+  rest_ExtractROITC_gui.m 1.0 DONG Zhang-Ye Revised 100401
+  rest_ImgCal_gui.m 1.0 DONG Zhang-Ye Revised 100401
+  rest_Nii2NiftiPairs_gui.m 1.0 DONG Zhang-Ye Revised 100401
+  rest_Utilities_gui.fig 1.0 DONG Zhang-Ye Revised 100401
+  rest_Utilities_gui.m 1.0 DONG Zhang-Ye Revised 100401
+  rest_FDR_gui.fig 1.0 DONG Zhang-Ye Revised 100401
+  
+  rest_gca_gui.m 1.1 ZANG Zhen-Xiang Added 100401
+  rest_gca_gui.fig 1.1 ZANG Zhen-Xiang Added 100401
+  rest_gca_residual.m 1.1 ZANG Zhen-Xiang Added 100401
+  rest_gca_coefficient.m 1.1 ZANG Zhen-Xiang Added 100401
+  
+  rest_ResliceImage.m 1.1 YAN Chao-Gan Revised 100401
+  rest_writefile.m 1.4 YAN Chao-Gan Revised 100401
+  rest_ancova1.m 1.0 YAN Chao-Gan Added 100401
+  rest_ancova1_Image.m 1.0 YAN Chao-Gan Added 100401
+  rest_ancova1_gui.fig 1.0 YAN Chao-Gan Added 100401
+  rest_ancova1_gui.m 1.0 YAN Chao-Gan Added 100401
+  rest_ttest1_Image.m 1.0 YAN Chao-Gan Added 100401
+  rest_ttest1_gui.fig 1.0 YAN Chao-Gan Added 100401
+  rest_ttest1_gui.m 1.0 YAN Chao-Gan Added 100401
+  rest_ttest2cov_Image.m 1.0 YAN Chao-Gan Added 100401
+  rest_ttest2cov_gui.fig 1.0 YAN Chao-Gan Added 100401
+  rest_ttest2cov_gui.m 1.0 YAN Chao-Gan Added 100401
+  rest_ttestpaired_Image.m 1.0 YAN Chao-Gan Added 100401
+  rest_ttestpaired_gui.fig 1.0 YAN Chao-Gan Added 100401
+  rest_ttestpaired_gui.m 1.0 YAN Chao-Gan Added 100401
+  rest_Statistic_gui.fig 1.0 YAN Chao-Gan Added 100401
+  rest_Statistic_gui.m 1.0 YAN Chao-Gan Added 100401
+  rest_regress_ss.m 1.0 YAN Chao-Gan Added 100401
+  rest_bandpass.m 1.4 YAN Chao-Gan Revised 100420
+  alff.m 1.4 YAN Chao-Gan Revised 100420
+  alff_gui.m 1.3 DONG Zhang-Ye Revised 100401
+  f_alff.m 1.4 YAN Chao-Gan Revised 100420
+  f_alff_gui.m 1.4 YAN Chao-Gan Revised 100420
+
+  rest.m 1.4 YAN Chao-Gan Revised 100420
+  man/history.txt 1.4 YAN Chao-Gan Revised 100420
+    
+    
+20100420~20100426, REST V1.4 Release 100426 YAN Chao-Gan
+Fixed a reading and writing bug of compatibility with SPM8.
+  rest_Fix_Read_Write_Error.m 1.1 YAN Chao-Gan Revised 100426
+  rest_ReadNiftiImage.m 1.3 YAN Chao-Gan Revised 100426
+  rest_WriteNiftiImage.m 1.3 YAN Chao-Gan Revised 100426
+
+  rest.m 1.4 YAN Chao-Gan Revised 100426
+  man/history.txt 1.4 YAN Chao-Gan Revised 100426
+
+
+
+20100426~20101025, REST V1.5 Release 101025 YAN Chao-Gan, DONG Zhang-Ye and LIU Dong-Qinag
+  rest_readfile.m 1.4 YAN Chao-Gan Revised 101013
+  rest_corr_gui.fig 1.0 YAN Chao-Gan Revised 101022
+  rest_corr_gui.m 1.0 YAN Chao-Gan Revised 101022
+  rest_ancova1_gui.fig 1.0 YAN Chao-Gan Revised 101022
+  rest_ancova1_gui.m 1.0 YAN Chao-Gan Revised 101022
+  rest_ttest2cov_gui.fig 1.0 YAN Chao-Gan Revised 101022
+  rest_ttest2cov_gui.m 1.0 YAN Chao-Gan Revised 101022
+  rest_RegressOutCovariates_gui.m 1.1 YAN Chao-Gan Revised 101025
+  rest_Utilities_gui.m 1.1 YAN Chao-Gan Revised 101025
+  f_alff_gui.m 1.4 YAN Chao-Gan Revised 101025
+  alff_gui.m 1.4 YAN Chao-Gan Revised 101025
+  fc_gui.m 1.4 YAN Chao-Gan Revised 101025
+  rest_gca_gui.m 1.2 YAN Chao-Gan Revised 101025
+  reho_gui.fig 1.3 YAN Chao-Gan Revised 101025
+  reho_gui.m 1.3 YAN Chao-Gan Revised 101025
+  rest_Nii2NiftiPairs.m 1.1 YAN Chao-Gan Revised 101025
+  rest_SphereROI.m 1.4 YAN Chao-Gan Revised 101025
+  rest_sliceviewer.m 1.5 YAN Chao-Gan and DONG Zhang-Ye Revised 101025
+  rest_ImgCal_gui.m 1.0 DONG Zhang-Ye Revised 101022
+  rest_TwoGroupCorr.m 1.0 DONG Zhang-Ye Revised 101022
+  rest_ResliceImage_gui 1.0 DONG Zhang-Ye Revised 101022
+  rest_Powerspectrum_start.m 1.0 DONG Zhang-Ye Added 101025
+  rest_cohe_gui.fig 1.0 DONG Zhang-Ye Added 101025
+  rest_cohe_gui.m 1.0 DONG Zhang-Ye Added 101025
+  rest_Cohe_ReHo.m 1.0 LIU Dong-Qinag and DONG Zhang-Ye Added 101025
+  rest_Cohe_ReHo_Brain.m 1.0 LIU Dong-Qinag and DONG Zhang-Ye Added 101025
+  
+  rest.m 1.5 YAN Chao-Gan Revised 101025
+  man/history.txt 1.5 YAN Chao-Gan Revised 101025
+  
+  
+20101025~20101101, REST V1.5 Release 101101 YAN Chao-Gan
+Fixed a bug in rest_RegressOutCovariates_gui.m while processing multiple subjects with different covaribles in batch mode.
+  rest_RegressOutCovariates_gui.m 1.2 YAN Chao-Gan Revised 101101
+  
+  rest.m 1.5 YAN Chao-Gan Revised 101101
+  man/history.txt 1.5 YAN Chao-Gan Revised 101101
+  
+    
+20101101~20110505, REST V1.6 Release 110505 YAN Chao-Gan, DONG Zhang-Ye and ZANG Zhen-Xiang
+Fixed a waring in the latest MATLAB in "[pathstr, name, ext, versn] = fileparts...". For REST Slice Viewer: Fixed a bug in dispalying "only -"; Fixed a bug in dispaying unerlay with 2x2x2 voxel size. Fox REST Image Calculator: Fixed an error when processing images of i10, i11.... For defining ROIs, supporting keep "shift" key and select multiple mask files. Fox Extracting ROI signals, also support Multiple label values in a single mask file. For REST-GCA: provides a method that could transform the residual-based F into normally distributed Z score.
+  alff_gui.m 1.4 YAN Chao-Gan Revised 110309
+  f_alff_gui.m 1.4 YAN Chao-Gan Revised 110309
+  fc.m 1.4 YAN Chao-Gan Revised 110309
+  reho_gui.m 1.4 YAN Chao-Gan Revised 110309
+  rest_cohe_gui.m 1.4 YAN Chao-Gan Revised 110309
+  rest_loadmask.m 1.4 YAN Chao-Gan Revised 110309
+  rest_misc.m 1.4 YAN Chao-Gan Revised 110309
+  rest_RegressOutCovariates_gui.m 1.4 YAN Chao-Gan Revised 110309
+  fc_gui.m 1.4 YAN Chao-Gan Revised 110309
+  rest_ttestpaired_Image.m 1.0 YAN Chao-Gan Revised 110505
+  rest_ReadNiftiImage.m 1.3 YAN Chao-Gan Revised 110505
+  rest_WriteNiftiImage.m 1.3 YAN Chao-Gan Revised 110505
+  rest_RegressOutCovariates.m 1.1 YAN Chao-Gan Revised 110505
+  rest_RegressOutCovariates_gui.m 1.1 YAN Chao-Gan Revised 110505
+  rest_Utilities_gui.fig 1.0 YAN Chao-Gan Revised 110505
+  
+  rest_sliceviewer.m 1.6 DONG Zhang-Ye and YAN Chao-Gan Revised 110505
+  rest_ExtractROITC_MultiValues.m 1.0 DONG Zhang-Ye Added 110505
+  rest_ExtractROITC_gui.fig 1.1 DONG Zhang-Ye Revised 110505
+  rest_ExtractROITC.m 1.1 DONG Zhang-Ye Revised 110505
+  rest_SetROI.m 1.4 DONG Zhang-Ye Revised 110505
+  rest_ExtractROITC_gui.m 1.1 DONG Zhang-Ye Revised 110505
+  rest_ROIList_gui.m 1.3 DONG Zhang-Ye Revised 110505
+  rest_ImgCal_gui.fig 1.1 DONG Zhang-Ye Revised 110505
+  rest_ImgCal_gui.m 1.1 DONG Zhang-Ye Revised 110505
+  
+  rest_gca_coefficient.m 1.2 ZANG Zhen-Xiang Revised 110505
+  rest_gca_residual.m 1.2 ZANG Zhen-Xiang Revised 110505
+  rest_gca_Std.m 1.2 ZANG Zhen-Xiang Revised 110505
+  rest_gca_gui.fig 1.2 ZANG Zhen-Xiang Revised 110505
+  rest_gca_gui.m 1.2 ZANG Zhen-Xiang Revised 110505
+  
+  rest.m 1.6 YAN Chao-Gan Revised 110505
+  man/history.txt 1.6 YAN Chao-Gan Revised 110505
+  
+
+
+20110505~20120101, REST V1.7 Release 120101 YAN Chao-Gan, DONG Zhang-Ye, ZANG Zhen-Xiang
+1. REST now support .nii and .nii.gz 3D or 4D files. (By DONG Zhang-Ye and YAN Chao-Gan) 
+2. New module of Normality Test added at REST->Utilities->REST Normality Test. Please see an application in Zang, Z.X., Yan, C.G., Dong, Z.Y., Huang, J., Zang, Y.F., 2012. Granger causality analysis implementation on MATLAB: A graphic user interface toolkit for fMRI data processing. Journal of Neuroscience Methods 203, 418-426. (By ZANG Zhen-Xiang)
+3. Surface Map View Mode work with BrainNet Viewer (by Mingrui Xia, http://www.nitrc.org/projects/bnv). REST Slice Viewer->Misc->Surface View with BrainNet Viewer. Command line version: rest_CallBrainNetViewer.m or named to BrainNet_MapVolume.m in BrainNet Viewer. (By YAN Chao-Gan) 
+4. The GUI view in Linux or Mac OS has been optimized. (By YAN Chao-Gan)
+5. Fixed a bug while frequency start with 0 or up to sampleFreq/2 in alff.m. (By YAN Chao-Gan)
+6. The coordinates convertion from Talairach space to MNI space has changed from tal2mni.m to tal2icbm_spm.m. The function is developed and validated by Jack Lancaster (Lancaster et al., 2007). The same for icbm_spm2tal.m. (By YAN Chao-Gan)
+
+  YAN Chao-Gan Added
+    rest_CallBrainNetViewer.m
+    rest_tal2icbm_spm.m
+    rest_icbm_spm2tal.m
+  
+  YAN Chao-Gan Revised:
+    rest.m
+    rest_Utilities_gui.m
+    rest_Utilities_gui.fig
+    rest_Fix_Read_Write_Error.m
+    rest_sliceviewer.m
+    rest_SphereROI.m
+    rest_SetROI.m
+    rest_ROIList_gui.m
+    rest_misc.m
+    rest_FDR_gui.m
+    rest_readfile.m
+    alff.m
+    rest_cohe_gui.fig
+    rest_RegressOutCovariates_gui.fig
+    rest_Nii2NiftiPairs_gui.fig
+    rest_ResliceImage_gui.fig
+    rest_DicomSorter_gui.fig
+  
+  
+  DONG Zhang-Ye Added:
+    rest_ReadNiiNum.m
+    rest_CheckDataDir.m
+  
+  DONG Zhang-Ye Revised:
+    rest_ttestpaired_gui.m
+    rest_ttest2cov_gui.m
+    rest_ttest1_gui.m
+    rest_ResliceImage_gui.m
+    rest_RegressOutCovariates_gui.m
+    rest_Powerspectrum_start.m
+    rest_ImgCal_gui.m
+    rest_gca_gui.m
+    rest_corr_gui.m
+    rest_cohe_gui.m
+    rest_ancova1_gui.m
+    rest_AlphaSim_gui.m
+    reho_gui.m
+    fc_gui.m
+    f_alff_gui.m
+    alff_gui.m
+    rest_to4d.m
+    rest_DicomSorter_gui.m
+    rest_ExtractROITC_gui.m
+    rest_Nii2NiftiPairs_gui.m
+    f_alff.m
+    fc.m
+    rest_ancova1_Image.m
+    rest_detrend.m
+    rest_TwoGroupCorr.m
+    rest_ttest2cov_Image.m
+    rest_ExtractROITC.m
+    rest_RegressOutCovariates.m
+    rest_gca_residual.m
+    rest_gca_coefficient.m
+    rest_ExtractROITC_MultiValues.m
+    rest_bandpass.m
+    rest_corr_Image.m
+    rest_Cohe_ReHo_Brain.m
+    reho.m
+    rest_ttestpaired_Image.m
+    rest_ttest1_Image.m
+    rest_powerspectrum.m
+    rest_Nii2NiftiPairs.m
+    rest_Statistic_gui.m
+    rest_loadmask.m
+    rest_ReadNiftiImage.m
+  
+  ZANG Zhen-Xiang Added:
+    rest_NormalityTest_gui.m
+    rest_NormalityTest_gui.fig
+    rest_NormalityTest.m
+
+
+%%%%%%%%%
+Please see further track changes on http://github.com/Chaogan-Yan/REST
