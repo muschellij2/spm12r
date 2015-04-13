@@ -6,4 +6,5 @@ inputs = cell(0, nrun);
 for crun = 1:nrun
 end
 spm('defaults', 'FMRI');
+spm_jobman('initcfg');
 spm_jobman('run', jobs, inputs{:});

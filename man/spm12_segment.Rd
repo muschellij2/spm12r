@@ -4,12 +4,18 @@
 \alias{spm12_segment}
 \title{SPM12 Segment}
 \usage{
-spm12_segment(filename, add_spm_dir = TRUE)
+spm12_segment(filename, reorient = TRUE, add_spm_dir = TRUE,
+  verbose = TRUE)
 }
 \arguments{
 \item{filename}{File to be segmented}
 
+\item{reorient}{Run \code{\link{acpc_reorient}} on image first.
+Warning, this will set the orientation differently}
+
 \item{add_spm_dir}{Add SPM12 directory from this package}
+
+\item{verbose}{Print diagnostic messages}
 }
 \value{
 Result from run_matlab_script
