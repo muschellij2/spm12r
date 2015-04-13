@@ -5,12 +5,14 @@
 #' @param reorient Run \code{\link{acpc_reorient}} on image first.
 #' Warning, this will set the orientation differently
 #' @param add_spm_dir Add SPM12 directory from this package
+#' @param clean Remove scripts from temporary directory after running
 #' @param verbose Print diagnostic messages
 #' @export
 #' @import matlabr
 #' @return Result from run_matlab_script
 spm12_segment <- function(filename, 
                           reorient = TRUE,add_spm_dir = TRUE,
+                          clean = TRUE,
                           verbose = TRUE
 ){
   scripts = spm12_script("Segment")
@@ -57,6 +59,9 @@ spm12_segment <- function(filename,
   writeLines(m, con=scripts['script'])
   writeLines(job, con=scripts['job'])
   res = run_matlab_script(scripts['script'])
+  if (clean) {
+    file.remove(scripts)
+  }
   return(res)
 }
 

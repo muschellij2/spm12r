@@ -4,7 +4,7 @@
 \alias{spm12_segment}
 \title{SPM12 Segment}
 \usage{
-spm12_segment(filename, reorient = TRUE, add_spm_dir = TRUE,
+spm12_segment(filename, reorient = TRUE, add_spm_dir = TRUE, clean = TRUE,
   verbose = TRUE)
 }
 \arguments{
@@ -14,6 +14,8 @@ spm12_segment(filename, reorient = TRUE, add_spm_dir = TRUE,
 Warning, this will set the orientation differently}
 
 \item{add_spm_dir}{Add SPM12 directory from this package}
+
+\item{clean}{Remove scripts from temporary directory after running}
 
 \item{verbose}{Print diagnostic messages}
 }
