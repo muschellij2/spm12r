@@ -8,5 +8,6 @@ Maintainer: John Muschelli <muschellij2@gmail.com>
 Description: Just installs SPM12 to the R library directory
 License: GPL-2
 Imports:
-	matlabr
+	matlabr,
+	stringr
 SystemRequirements: MATLAB

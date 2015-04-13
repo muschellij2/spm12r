@@ -11,6 +11,7 @@
 #' \code{system.file("", package="cttools")} from
 #' http://www.mccauslandcenter.sc.edu/CRNL/sw/spm8/spm.zip
 #' @param verbose (logical) Print diagnostic output
+#' @import stringr
 #' @return Exit code from MATLAB.  If not zero, there was an error
 #' @export
 acpc_reorient <- function(
