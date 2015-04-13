@@ -15,6 +15,7 @@ spm12_segment <- function(filename,
                           clean = TRUE,
                           verbose = TRUE
 ){
+  spmdir = spm_dir()  
   scripts = spm12_script("Segment")
   m = readLines(scripts['script'])
   
@@ -48,11 +49,11 @@ spm12_segment <- function(filename,
   #   
   job = readLines(scripts['job'])
   job = gsub("%filename%", filename, job)
+  job = gsub("%spmdir%", spmdir, job)
   
   m = gsub("%jobfile%", scripts['job'], m)
   
   if (add_spm_dir){
-    spmdir = spm_dir()
     m = c(paste0("addpath(genpath('", spmdir, "'));"),
           m)
   }
