@@ -9,7 +9,7 @@ spm12_segment(filename, add_spm_dir = TRUE)
 \arguments{
 \item{filename}{File to be segmented}
 
-\item{outdir}{Output directory}
+\item{add_spm_dir}{Add SPM12 directory from this package}
 }
 \value{
 Result from run_matlab_script

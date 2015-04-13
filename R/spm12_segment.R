@@ -2,7 +2,7 @@
 #'
 #' @description Performs SPM12 Segmentation on an Image
 #' @param filename File to be segmented
-#' @param outdir Output directory
+#' @param add_spm_dir Add SPM12 directory from this package
 #' @export
 #' @import matlabr
 #' @return Result from run_matlab_script
