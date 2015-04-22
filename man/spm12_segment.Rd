@@ -5,8 +5,8 @@
 \title{SPM12 Segment}
 \usage{
 spm12_segment(filename, retimg = TRUE, set_origin = TRUE,
-  add_spm_dir = TRUE, clean = TRUE, verbose = TRUE, reorient = FALSE,
-  ...)
+  add_spm_dir = TRUE, spmdir = spm_dir(), clean = TRUE, verbose = TRUE,
+  reorient = FALSE, ...)
 }
 \arguments{
 \item{filename}{File to be segmented}
@@ -15,6 +15,8 @@ spm12_segment(filename, retimg = TRUE, set_origin = TRUE,
 Warning, this will set the orientation differently}
 
 \item{add_spm_dir}{Add SPM12 directory from this package}
+
+\item{spmdir}{SPM dir to add, will use package default directory}
 
 \item{clean}{Remove scripts from temporary directory after running}
 

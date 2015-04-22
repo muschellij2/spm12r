@@ -5,6 +5,7 @@
 #' @param set_origin Run \code{\link{acpc_reorient}} on image first.
 #' Warning, this will set the orientation differently
 #' @param add_spm_dir Add SPM12 directory from this package
+#' @param spmdir SPM dir to add, will use package default directory 
 #' @param clean Remove scripts from temporary directory after running
 #' @param verbose Print diagnostic messages
 #' @param reorient if \code{retimg=TRUE} pass to \code{\link{readNIfTI}}
@@ -18,12 +19,12 @@ spm12_segment <- function(filename,
                           retimg = TRUE,
                           set_origin = TRUE,
                           add_spm_dir = TRUE,
+                          spmdir = spm_dir(),                          
                           clean = TRUE,
                           verbose = TRUE,
                           reorient = FALSE,
                           ...
 ){
-  spmdir = spm_dir()  
   scripts = spm12_script("Segment")
   m = readLines(scripts['script'])
   
