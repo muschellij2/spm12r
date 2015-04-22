@@ -76,7 +76,7 @@ spm12_segment <- function(filename,
     file.remove(scripts)
   }
   if (retimg){
-    outfiles = file.path(dirname(fileame), 
+    outfiles = file.path(dirname(filename), 
                          paste0("c", 1:6, basename(filename)))  
     res = lapply(outfiles, readNIfTI, reorient = reorient, ...)
     return(res)
