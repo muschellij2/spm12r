@@ -4,8 +4,9 @@
 \alias{spm12_segment}
 \title{SPM12 Segment}
 \usage{
-spm12_segment(filename, set_origin = TRUE, add_spm_dir = TRUE,
-  clean = TRUE, verbose = TRUE)
+spm12_segment(filename, retimg = TRUE, set_origin = TRUE,
+  add_spm_dir = TRUE, clean = TRUE, verbose = TRUE, reorient = FALSE,
+  ...)
 }
 \arguments{
 \item{filename}{File to be segmented}
@@ -18,6 +19,11 @@ Warning, this will set the orientation differently}
 \item{clean}{Remove scripts from temporary directory after running}
 
 \item{verbose}{Print diagnostic messages}
+
+\item{reorient}{if \code{retimg=TRUE} pass to \code{\link{readNIfTI}}}
+
+\item{...}{if \code{retimg=TRUE} arguments to pass to
+\code{\link{readNIfTI}}}
 }
 \value{
 Result from run_matlab_script

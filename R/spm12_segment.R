@@ -7,14 +7,21 @@
 #' @param add_spm_dir Add SPM12 directory from this package
 #' @param clean Remove scripts from temporary directory after running
 #' @param verbose Print diagnostic messages
+#' @param reorient if \code{retimg=TRUE} pass to \code{\link{readNIfTI}}
+#' @param ... if \code{retimg=TRUE} arguments to pass to 
+#' \code{\link{readNIfTI}}
 #' @export
+#' @import oro.nifti
 #' @import matlabr
 #' @return Result from run_matlab_script
 spm12_segment <- function(filename, 
+                          retimg = TRUE,
                           set_origin = TRUE,
                           add_spm_dir = TRUE,
                           clean = TRUE,
-                          verbose = TRUE
+                          verbose = TRUE,
+                          reorient = FALSE,
+                          ...
 ){
   spmdir = spm_dir()  
   scripts = spm12_script("Segment")
@@ -66,6 +73,12 @@ spm12_segment <- function(filename,
   res = run_matlab_script(scripts['script'])
   if (clean) {
     file.remove(scripts)
+  }
+  if (retimg){
+    outfiles = file.path(dirname(fileame), 
+                         paste0("c", 1:6, basename(filename)))  
+    res = lapply(outfiles, readNIfTI, reorient = reorient, ...)
+    return(res)
   }
   return(res)
 }
