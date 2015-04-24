@@ -4,11 +4,15 @@
 \alias{acpc_reorient}
 \title{AC/PC Reorientation}
 \usage{
-acpc_reorient(infiles, spmdir = spm_dir(), verbose = TRUE)
+acpc_reorient(infiles, modality = c("T1", "T2", "CT", "fMRI"),
+  spmdir = spm_dir(), verbose = TRUE, ...)
 }
 \arguments{
-\item{infiles}{(character) Files to reorient.  First file will be used to
+\item{infiles}{(character) Files to reorient.
+First file will be used to
 estimate AC/PC, then rest will be transformed}
+
+\item{modality}{T1, T2, CT, fMRI (T2*)}
 
 \item{spmdir}{(character) path for SPM8.  If NULL, assumes
 SPM8 is in matlabpath and so is spm8/toolbox
@@ -17,6 +21,8 @@ Must have nii_setorigin installed.  In
 http://www.mccauslandcenter.sc.edu/CRNL/sw/spm8/spm.zip}
 
 \item{verbose}{(logical) Print diagnostic output}
+
+\item{...}{Arguments to pass to \code{\link{run_matlab_code}}}
 }
 \value{
 Exit code from MATLAB.  If not zero, there was an error
