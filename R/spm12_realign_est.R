@@ -30,7 +30,7 @@ spm12_realign_est <- function(filename,
   register_to = switch(register_to,
                        first = 0, 
                        mean = 1)
-    
+  
   jobvec = c(filename, register_to, spmdir)
   names(jobvec) = c("%filename%", "%registerto%", "%spmdir%")
   
