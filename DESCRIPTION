@@ -9,5 +9,7 @@ Description: Just installs SPM12 to the R library directory
 License: GPL-2
 Imports:
 	matlabr,
-	stringr
+	stringr,
+	oro.nifti,
+	fslr
 SystemRequirements: MATLAB

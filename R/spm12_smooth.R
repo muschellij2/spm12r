@@ -1,11 +1,11 @@
-#' @title SPM12 Segment
+#' @title SPM12 Smooth
 #'
-#' @description Performs SPM12 Segmentation on an Image
+#' @description Performs SPM12 Smoothing on an Image
 #' @param filename File to be segmented
 #' @param retimg Logical indicating if image should be returned or
 #' result from \code{\link{run_matlab_script}}
-#' @param set_origin Run \code{\link{acpc_reorient}} on image first.
-#' Warning, this will set the orientation differently
+#' @param fwhm Full-Width Half Max to smooth
+#' @param prefix Prefix to append to front of image filename
 #' @param add_spm_dir Add SPM12 directory from this package
 #' @param spmdir SPM dir to add, will use package default directory 
 #' @param clean Remove scripts from temporary directory after running
@@ -14,13 +14,14 @@
 #' @param ... if \code{retimg=TRUE} arguments to pass to 
 #' \code{\link{readNIfTI}}
 #' @export
-#' @import oro.nifti
+#' @import fslr
 #' @import matlabr
 #' @return Result from run_matlab_script or nifti file, depending on 
 #' \code{retimg}
-spm12_segment <- function(filename, 
+spm12_smooth <- function(filename, 
                           retimg = TRUE,
-                          set_origin = TRUE,
+                          fwhm = 8,
+                          prefix = "s",
                           add_spm_dir = TRUE,
                           spmdir = spm_dir(),                          
                           clean = TRUE,
@@ -28,14 +29,13 @@ spm12_segment <- function(filename,
                           reorient = FALSE,
                           ...
 ){
-  scripts = spm12_script("Segment")
+  scripts = spm12_script("Smooth")
   m = readLines(scripts['script'])
-  
   
   ###########################
   # Passing to see if image or filename passed in
-  ###########################    
-  filename = checknii(filename)  
+  ###########################  
+  filename = checknii(filename, ...)
   filename = path.expand(filename)
   ##################################
   # Making an absolute path
@@ -47,12 +47,7 @@ spm12_segment <- function(filename,
     filename = gsub("^[.]", "", filename)
     filename = file.path(gd, filename)
   }
-  if (set_origin){
-    res = acpc_reorient(infiles = filename, verbose = verbose)
-    if (verbose) {
-      cat(paste0("# Result of acpc_reorient:", res, "\n"))
-    }
-  }
+
   stopifnot(inherits(filename, "character"))
   stopifnot(file.exists(filename))
   #   infile = checkimg(infile, gzipped=FALSE)
@@ -66,7 +61,8 @@ spm12_segment <- function(filename,
   #   
   job = readLines(scripts['job'])
   job = gsub("%filename%", filename, job)
-  job = gsub("%spmdir%", spmdir, job)
+  job = gsub("%prefix%", prefix, job)
+  job = gsub("%fwhm%", fwhm, job)
   
   m = gsub("%jobfile%", scripts['job'], m)
   
@@ -81,9 +77,9 @@ spm12_segment <- function(filename,
     file.remove(scripts)
   }
   if (retimg){
-    outfiles = file.path(dirname(filename), 
-                         paste0("c", 1:6, basename(filename)))  
-    res = lapply(outfiles, readNIfTI, reorient = reorient, ...)
+    outfile = file.path(dirname(filename), 
+                         paste0(prefix, basename(filename)))
+    res = readNIfTI(outfile, reorient = reorient, ...)
     return(res)
   }
   return(res)

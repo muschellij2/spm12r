@@ -15,6 +15,7 @@
 #' @param ... Arguments to pass to \code{\link{run_matlab_code}}
 #' @return Exit code from MATLAB.  If not zero, there was an error
 #' @import fslr
+#' @import stringr
 #' @export
 acpc_reorient <- function(
   infiles, 
