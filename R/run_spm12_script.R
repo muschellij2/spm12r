@@ -26,6 +26,10 @@ run_spm12_script <- function(script_name,
   # put in the correct filenames
   job = readLines(scripts['job'])
   njvec = names(jobvec)
+  if (any(is.na(jobvec))){
+    print(jobvec)
+    stop("There is an NA in jobvec")
+  }
   for (ijob in seq_along(jobvec)){
     job = gsub(njvec[ijob], jobvec[ijob], job)
   }
