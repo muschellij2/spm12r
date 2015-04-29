@@ -39,7 +39,7 @@ spm12_slice_timing <- function(filename,
   jobvec = c(filename, prefix, nslices, 
              tr, ta, slice_order,
              ref_slice)
-  names(jobvec) = c("%filename%", "%prefix%", 
+  names(jobvec) = c("%filename%", "%prefix%", "%nslices%",
                     "%tr%", "%ta%", "%sliceorder%", 
                     "%refslice%")
   
