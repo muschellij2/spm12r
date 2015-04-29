@@ -4,13 +4,17 @@
 \alias{spm12_slice_timing}
 \title{SPM12 Slice Timing Correction}
 \usage{
-spm12_slice_timing(filename, nslices, tr, ta = tr - tr/nslices,
-  slice_order = 1:nslices, ref_slice = slice_order[median(seq(nslices))],
-  prefix = "a", add_spm_dir = TRUE, spmdir = spm_dir(), clean = TRUE,
-  verbose = TRUE, ...)
+spm12_slice_timing(filename, time_points = NULL, nslices, tr, ta = tr -
+  tr/nslices, slice_order = 1:nslices, ref_slice, prefix = "a",
+  add_spm_dir = TRUE, spmdir = spm_dir(), clean = TRUE, verbose = TRUE,
+  outdir = tempdir(), ...)
 }
 \arguments{
 \item{filename}{Files to be slice-time corrected}
+
+\item{time_points}{Time points to run slice-time correction.  If \code{filename} is a
+4D file, then will do all the time points.  Otherwise, \code{filename} must be a character
+vector of 3D files or a list of 3D nifti objects.}
 
 \item{nslices}{Number of slices in the images}
 
@@ -33,10 +37,12 @@ bottom slice = 1}
 
 \item{verbose}{Print diagnostic messages}
 
+\item{outdir}{Directory to copy results}
+
 \item{...}{Arguments passed to \code{\link{run_spm12_script}}}
 }
 \value{
-Result from run_matlab_script
+Output filenames
 }
 \description{
 Performs SPM12 slice timing correction on images
