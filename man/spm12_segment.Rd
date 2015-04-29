@@ -27,8 +27,7 @@ Warning, this will set the orientation differently}
 
 \item{reorient}{if \code{retimg=TRUE} pass to \code{\link{readNIfTI}}}
 
-\item{...}{if \code{retimg=TRUE} arguments to pass to
-\code{\link{readNIfTI}}}
+\item{...}{Arguments passed to \code{\link{run_spm12_script}}}
 }
 \value{
 Result from run_matlab_script or nifti file, depending on

@@ -1,4 +1,3 @@
-
 #' @title Get SPM12 Directory
 #'
 #' @description Returns the SPM12 directory 

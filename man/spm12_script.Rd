@@ -4,10 +4,12 @@
 \alias{spm12_script}
 \title{Find SPM12 Script}
 \usage{
-spm12_script(script_name)
+spm12_script(script_name, outdir = tempdir())
 }
 \arguments{
 \item{script_name}{Name of the script filename without ".m" ext}
+
+\item{outdir}{Path to copy scripts and run}
 }
 \value{
 Chracter vector of script paths

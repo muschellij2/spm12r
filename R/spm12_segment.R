@@ -11,8 +11,7 @@
 #' @param clean Remove scripts from temporary directory after running
 #' @param verbose Print diagnostic messages
 #' @param reorient if \code{retimg=TRUE} pass to \code{\link{readNIfTI}}
-#' @param ... if \code{retimg=TRUE} arguments to pass to 
-#' \code{\link{readNIfTI}}
+#' @param ... Arguments passed to \code{\link{run_spm12_script}}
 #' @export
 #' @import oro.nifti
 #' @import matlabr
@@ -28,62 +27,33 @@ spm12_segment <- function(filename,
                           reorient = FALSE,
                           ...
 ){
-  scripts = spm12_script("Segment")
-  m = readLines(scripts['script'])
+  # check filenames
+  filename = filename_check(filename)  
   
-  
-  ###########################
-  # Passing to see if image or filename passed in
-  ###########################    
-  filename = checknii(filename)  
-  filename = path.expand(filename)
-  ##################################
-  # Making an absolute path
-  ##################################  
-  dn = dirname(filename)
-  filename = file.path(dn, basename(filename))
-  if (grepl("^[.]", filename)){
-    gd = getwd()
-    filename = gsub("^[.]", "", filename)
-    filename = file.path(gd, filename)
-  }
   if (set_origin){
     res = acpc_reorient(infiles = filename, verbose = verbose)
     if (verbose) {
       cat(paste0("# Result of acpc_reorient:", res, "\n"))
     }
   }
-  stopifnot(inherits(filename, "character"))
-  stopifnot(file.exists(filename))
-  #   infile = checkimg(infile, gzipped=FALSE)
-  #   infile = path.expand(infile)
-  #   if (grepl("\\.gz$", infile)){
-  #     infile = gunzip(infile, remove=FALSE, temporary=TRUE,
-  #                     overwrite=TRUE)
-  #   } else { 
-  #     infile = paste0(nii.stub(infile), ".nii")
-  #   }
-  #   
-  job = readLines(scripts['job'])
-  job = gsub("%filename%", filename, job)
-  job = gsub("%spmdir%", spmdir, job)
   
-  m = gsub("%jobfile%", scripts['job'], m)
+  # put in the correct filenames
+  jobvec = c(filename, spmdir)
+  names(jobvec) = c("%filename%", "%spmdir%")
   
-  if (add_spm_dir){
-    m = c(paste0("addpath(genpath('", spmdir, "'));"),
-          m)
-  }
-  writeLines(m, con=scripts['script'])
-  writeLines(job, con=scripts['job'])
-  res = run_matlab_script(scripts['script'])
-  if (clean) {
-    file.remove(scripts)
-  }
+  res = run_spm12_script( script_name = "Segment",
+                          jobvec = jobvec,
+                          mvec = NULL,
+                          add_spm_dir = add_spm_dir,
+                          spmdir = spmdir,
+                          clean = clean,
+                          verbose = verbose,
+                          ...)  
+  
   if (retimg){
     outfiles = file.path(dirname(filename), 
                          paste0("c", 1:6, basename(filename)))  
-    res = lapply(outfiles, readNIfTI, reorient = reorient, ...)
+    res = lapply(outfiles, readNIfTI, reorient = reorient)
     return(res)
   }
   return(res)

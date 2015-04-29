@@ -9,7 +9,7 @@ spm12_smooth(filename, retimg = TRUE, fwhm = 8, prefix = "s",
   reorient = FALSE, ...)
 }
 \arguments{
-\item{filename}{File to be segmented}
+\item{filename}{File to be smoothed}
 
 \item{retimg}{Logical indicating if image should be returned or
 result from \code{\link{run_matlab_script}}}
@@ -28,7 +28,7 @@ result from \code{\link{run_matlab_script}}}
 
 \item{reorient}{if \code{retimg=TRUE} pass to \code{\link{readNIfTI}}}
 
-\item{...}{if \code{retimg=TRUE} arguments to pass to
+\item{...}{Arguments passed to \code{\link{run_spm12_script}}
 \code{\link{readNIfTI}}}
 }
 \value{
