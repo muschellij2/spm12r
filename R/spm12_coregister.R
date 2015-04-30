@@ -38,6 +38,7 @@ spm12_coregister <- function(fixed,
   
   if (is.null(other.files)){
     other.files = "''"
+    other.ofiles = NULL
     other = FALSE
   } else {
     other.files = filename_check(other.files)
