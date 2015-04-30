@@ -44,13 +44,13 @@ spm12_smooth <- function(filename,
                           clean = clean,
                           verbose = verbose,
                           ...)
+  outfile = file.path(dirname(filename), 
+                      paste0(prefix, basename(filename)))  
   if (retimg){
-    outfile = file.path(dirname(filename), 
-                        paste0(prefix, basename(filename)))
     res = readNIfTI(outfile, reorient = reorient)
     return(res)
   }
-  return(res)
+  return(outfile)
 }
 
 

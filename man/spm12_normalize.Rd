@@ -4,7 +4,8 @@
 \alias{spm12_normalize}
 \title{SPM12 Normalize (Estimate and Write)}
 \usage{
-spm12_normalize(filename, other.files = NULL, add_spm_dir = TRUE,
+spm12_normalize(filename, other.files = NULL, bounding_box = matrix(c(-90,
+  -126, -72, 90, 90, 108), nrow = 2, byrow = TRUE), add_spm_dir = TRUE,
   spmdir = spm_dir(), clean = TRUE, verbose = TRUE, ...)
 }
 \arguments{
@@ -12,6 +13,9 @@ spm12_normalize(filename, other.files = NULL, add_spm_dir = TRUE,
 
 \item{other.files}{Files to be written using the estimated
 normalization}
+
+\item{bounding_box}{matrix (2x3) of the bounding box to use.  Default is for MNI 2mm template
+size}
 
 \item{add_spm_dir}{Add SPM12 directory from this package}
 
