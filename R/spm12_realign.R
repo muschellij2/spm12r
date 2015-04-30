@@ -45,6 +45,13 @@ spm12_realign <- function(filename,
   filename = filename_check(filename)
   outfile = file.path(dirname(filename),
                       paste0(prefix, basename(filename)))
+  stub = nii.stub(filename, bn=TRUE)[1]
+  rpfile = file.path(dirname(filename),
+                     paste0("rp_", stub, ".txt"))
+  meanfile = file.path(dirname(filename),
+                     paste0("mean", stub, ".nii"))
+  matfile = file.path(dirname(filename),
+                       paste0(stub, ".mat"))
   
   ##########################################################
   # Pasting together for a 4D file
@@ -71,8 +78,14 @@ spm12_realign <- function(filename,
                           verbose = verbose, 
                           ...)
   stopifnot(res == 0)
+  ####################
+  # Copy outfiles
+  ####################  
   if (!is.null(outdir)){
     file.copy(outfile, to = outdir, overwrite = TRUE)
+    file.copy(rpfile, to = outdir, overwrite = TRUE)
+    file.copy(meanfile, to = outdir, overwrite = TRUE)
+    file.copy(matfile, to = outdir, overwrite = TRUE)    
   }
   
   #############################
