@@ -2,14 +2,14 @@
 % Please edit documentation in R/spm12_realign.R
 \name{spm12_realign}
 \alias{spm12_realign}
-\title{SPM12 Realign (Estimate)}
+\title{SPM12 Realign (Estimate and Reslice)}
 \usage{
 spm12_realign(filename, fwhm = 5, register_to = c("first", "mean"),
   prefix = "r", add_spm_dir = TRUE, spmdir = spm_dir(), clean = TRUE,
   verbose = TRUE, outdir = NULL, retimg = TRUE, reorient = FALSE, ...)
 }
 \arguments{
-\item{filename}{Files to be realigned}
+\item{filename}{Files to be realigned and resliced}
 
 \item{fwhm}{Full-Width Half Max to smooth}
 
@@ -39,6 +39,6 @@ Passed to \code{\link{readNIfTI}}.}
 Result from run_matlab_script
 }
 \description{
-Performs SPM12 Realignment estimation on an Image
+Performs SPM12 realignment estimation and reslicing on an Image
 }
 

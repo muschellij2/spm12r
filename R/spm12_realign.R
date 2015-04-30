@@ -1,7 +1,7 @@
-#' @title SPM12 Realign (Estimate)
+#' @title SPM12 Realign (Estimate and Reslice)
 #'
-#' @description Performs SPM12 Realignment estimation on an Image
-#' @param filename Files to be realigned 
+#' @description Performs SPM12 realignment estimation and reslicing on an Image
+#' @param filename Files to be realigned and resliced
 #' @param fwhm Full-Width Half Max to smooth 
 #' @param register_to Should the files be registered to the first or the mean
 #' @param prefix Prefix to append to front of image filename 

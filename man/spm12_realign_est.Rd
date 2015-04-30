@@ -6,7 +6,7 @@
 \usage{
 spm12_realign_est(filename, fwhm = 5, register_to = c("first", "mean"),
   add_spm_dir = TRUE, spmdir = spm_dir(), clean = TRUE, verbose = TRUE,
-  ...)
+  outdir = NULL, ...)
 }
 \arguments{
 \item{filename}{Files to be realigned}
@@ -23,10 +23,13 @@ spm12_realign_est(filename, fwhm = 5, register_to = c("first", "mean"),
 
 \item{verbose}{Print diagnostic messages}
 
+\item{outdir}{Directory to copy results.  If full filename given, then results will
+be in \code{dirname(filename)}}
+
 \item{...}{Arguments passed to \code{\link{run_spm12_script}}}
 }
 \value{
-Result from run_matlab_script
+Character list of filenames from output
 }
 \description{
 Performs SPM12 Realignment estimation on an Image
