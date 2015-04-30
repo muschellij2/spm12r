@@ -6,8 +6,7 @@
 \usage{
 spm12_realign(filename, fwhm = 5, register_to = c("first", "mean"),
   prefix = "r", add_spm_dir = TRUE, spmdir = spm_dir(), clean = TRUE,
-  verbose = TRUE, outdir = tempdir(), retimg = TRUE, reorient = FALSE,
-  ...)
+  verbose = TRUE, outdir = NULL, retimg = TRUE, reorient = FALSE, ...)
 }
 \arguments{
 \item{filename}{Files to be realigned}
@@ -26,7 +25,8 @@ spm12_realign(filename, fwhm = 5, register_to = c("first", "mean"),
 
 \item{verbose}{Print diagnostic messages}
 
-\item{outdir}{Directory to copy results}
+\item{outdir}{Directory to copy results.  If full filename given, then results will
+be in \code{dirname(filename)}}
 
 \item{retimg}{(logical) return image of class nifti}
 

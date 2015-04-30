@@ -9,7 +9,8 @@
 #' @param spmdir SPM dir to add, will use package default directory 
 #' @param clean Remove scripts from temporary directory after running
 #' @param verbose Print diagnostic messages
-#' @param outdir Directory to copy results
+#' @param outdir Directory to copy results.  If full filename given, then results will
+#' be in \code{dirname(filename)}
 #' @param retimg (logical) return image of class nifti
 #' @param reorient (logical) If retimg, should file be reoriented when read in?
 #' Passed to \code{\link{readNIfTI}}. 
@@ -26,7 +27,7 @@ spm12_realign <- function(filename,
                           spmdir = spm_dir(),                          
                           clean = TRUE,
                           verbose = TRUE,
-                          outdir = tempdir(),
+                          outdir = NULL,
                           retimg = TRUE,
                           reorient = FALSE,                          
                           ...
@@ -70,7 +71,9 @@ spm12_realign <- function(filename,
                           verbose = verbose, 
                           ...)
   stopifnot(res == 0)
-  file.copy(outfile, to = outdir, overwrite = TRUE)
+  if (!is.null(outdir)){
+    file.copy(outfile, to = outdir, overwrite = TRUE)
+  }
   
   #############################
   # Returning Image
