@@ -7,7 +7,7 @@
 spm12_realign(filename, fwhm = 5, register_to = c("first", "mean"),
   reslice = c("all", "2:n", "all+mean", "mean"), prefix = "r",
   add_spm_dir = TRUE, spmdir = spm_dir(), clean = TRUE, verbose = TRUE,
-  outdir = NULL, retimg = TRUE, reorient = FALSE, ...)
+  outdir = NULL, ...)
 }
 \arguments{
 \item{filename}{Files to be realigned and resliced}
@@ -32,11 +32,6 @@ all+mean - all images and the mean, mean - mean only}
 
 \item{outdir}{Directory to copy results.  If full filename given, then results will
 be in \code{dirname(filename)}}
-
-\item{retimg}{(logical) return image of class nifti}
-
-\item{reorient}{(logical) If retimg, should file be reoriented when read in?
-Passed to \code{\link{readNIfTI}}.}
 
 \item{...}{Arguments passed to \code{\link{run_spm12_script}}}
 }

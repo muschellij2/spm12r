@@ -14,9 +14,6 @@
 #' @param verbose Print diagnostic messages
 #' @param outdir Directory to copy results.  If full filename given, then results will
 #' be in \code{dirname(filename)}
-#' @param retimg (logical) return image of class nifti
-#' @param reorient (logical) If retimg, should file be reoriented when read in?
-#' Passed to \code{\link{readNIfTI}}. 
 #' @param ... Arguments passed to \code{\link{run_spm12_script}}
 #' @export
 #' @import fslr
@@ -31,9 +28,7 @@ spm12_realign <- function(filename,
                           spmdir = spm_dir(),                          
                           clean = TRUE,
                           verbose = TRUE,
-                          outdir = NULL,
-                          retimg = TRUE,
-                          reorient = FALSE,                          
+                          outdir = NULL,                       
                           ...
 ){
   
@@ -45,10 +40,25 @@ spm12_realign <- function(filename,
   }
   time_points = ntime_points(filename)
   
+  reslice = match.arg(reslice, c("all","2:n", "all+mean", "mean"))
+  reslice = switch(reslice,
+                   "all" = "[2 0]", 
+                   "2:n" = "[1 0]", 
+                   "all+mean" = "[2 1]", 
+                   "mean" = "[0 1]")
+  
   # check filenames
   filename = filename_check(filename)
-  outfile = file.path(dirname(filename),
+  ###################
+  # If reslice is just mean, then the file is simply returned
+  ###################  
+  if (!reslice %in% "mean"){
+    outfile = file.path(dirname(filename),
                       paste0(prefix, basename(filename)))
+  } else {
+    outfile = filename
+  }
+  
   stub = nii.stub(filename, bn=TRUE)[1]
   rpfile = file.path(dirname(filename),
                      paste0("rp_", stub, ".txt"))
@@ -67,13 +77,7 @@ spm12_realign <- function(filename,
   register_to = switch(register_to,
                        first = 0, 
                        mean = 1)
-  reslice = match.arg(reslice, c("all","2:n", "all+mean", "mean"))
-  reslice = switch(reslice,
-                   "all" = "[2 0]", 
-                   "2:n" = "[1 0]", 
-                   "all+mean" = "[2 1]", 
-                   "mean" = "[0 1]")
-  
+
   jobvec = c(filename, prefix, fwhm, reslice,
              register_to, spmdir)
   names(jobvec) = c("%filename%", "%prefix%", "%fwhm%", "%reslice%",
@@ -94,21 +98,17 @@ spm12_realign <- function(filename,
   if (!is.null(outdir)){
     file.copy(outfile, to = outdir, overwrite = TRUE)
     file.copy(rpfile, to = outdir, overwrite = TRUE)
-    file.copy(meanfile, to = outdir, overwrite = TRUE)
+    if (!is.null(meanfile)){
+      file.copy(meanfile, to = outdir, overwrite = TRUE)
+    }
     file.copy(matfile, to = outdir, overwrite = TRUE)    
   }
   
-  #############################
-  # Returning Image
-  #############################  
-  if (retimg){
-    if (length(outfile) > 1){
-      outfile = lapply(outfile, readNIfTI, reorient=reorient)
-    } else {
-      outfile = readNIfTI(outfile, reorient=reorient)
-    }
-  }
-  return(outfile)
+  l = list(outfiles = outfile, 
+           rp = rpfile, 
+           mean = meanfile, 
+           mat = matfile)
+  return(l)
 }
 
 
