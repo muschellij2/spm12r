@@ -52,11 +52,11 @@ spm12_realign <- function(filename,
   ###################
   # If reslice is just mean, then the file is simply returned
   ###################  
-  if (!reslice %in% "mean"){
-    outfile = file.path(dirname(filename),
-                      paste0(prefix, basename(filename)))
-  } else {
+  if ( (reslice %in% "mean") ){
     outfile = filename
+  } else {
+    outfile = file.path(dirname(filename),
+                        paste0(prefix, basename(filename)))    
   }
   
   stub = nii.stub(filename, bn=TRUE)[1]
