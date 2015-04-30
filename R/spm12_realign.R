@@ -32,18 +32,30 @@ spm12_realign <- function(filename,
                           ...
 ){
   
+  ########################
+  # Getting Number of Time points
+  ########################  
+  if (verbose){
+    cat("# Getting Number of Time Points\n")
+  }
+  time_points = ntime_points(filename)
+  
   # check filenames
   filename = filename_check(filename)
   outfile = file.path(dirname(filename),
                       paste0(prefix, basename(filename)))
   
+  ##########################################################
+  # Pasting together for a 4D file
+  ##########################################################
+  filename = paste0(filename, ",", time_points)
   filename = rvec_to_matlabcell(filename)
   
   register_to = match.arg(register_to, c("first", "mean"))
   register_to = switch(register_to,
                        first = 0, 
                        mean = 1)
-    
+  
   jobvec = c(filename, prefix, fwhm, 
              register_to, spmdir)
   names(jobvec) = c("%filename%", "%prefix%", "%fwhm%", 
@@ -59,7 +71,7 @@ spm12_realign <- function(filename,
                           ...)
   stopifnot(res == 0)
   file.copy(outfile, to = outdir, overwrite = TRUE)
-
+  
   #############################
   # Returning Image
   #############################  

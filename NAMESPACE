@@ -2,6 +2,7 @@
 
 export(acpc_reorient)
 export(filename_check)
+export(ntime_points)
 export(run_spm12_script)
 export(spm12_normalize)
 export(spm12_normalize_est)

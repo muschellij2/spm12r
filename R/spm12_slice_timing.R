@@ -48,14 +48,10 @@ spm12_slice_timing <- function(filename,
   # Getting Number of Time points
   ########################  
   if (is.null(time_points)){
-    img = check_nifti(filename)
-    if (is.list(img)){
-      time_points = rep(1, length(img))
-    } else if (is.nifti(img)){
-      time_points = seq(ntim(img))
-    } else {
-      stop("Unknown filename type - not nifti, character, or list")
+    if (verbose){
+      cat("# Getting Number of Time Points\n")
     }
+    time_points = ntime_points(filename)
   }
   
   # check filenames
