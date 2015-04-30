@@ -19,7 +19,7 @@
 spm12_coregister <- function(fixed,
                              moving, 
                              other.files = NULL,
-                             prefix = "w",
+                             prefix = "r",
                              add_spm_dir = TRUE,
                              spmdir = spm_dir(),                          
                              clean = TRUE,
@@ -38,18 +38,20 @@ spm12_coregister <- function(fixed,
   
   if (is.null(other.files)){
     other.files = "''"
+    other = FALSE
   } else {
     other.files = filename_check(other.files)
     other.ofiles = file.path(dirname(other.files),
-                                            paste0(prefix, basename(other.files)))    
-    other.files = rvec_to_matlabcell(other.cells)
+                             paste0(prefix, basename(other.files)))    
+    other.files = rvec_to_matlabcell(other.files)
+    other = TRUE
   }
   omoving = file.path(dirname(moving),
-                           paste0(prefix, basename(moving)))      
+                      paste0(prefix, basename(moving)))      
   ##########################################################
   # Pasting together for a 4D file
   ##########################################################
-
+  
   
   jobvec = c(fixed, moving, other.files, prefix)
   names(jobvec) = c("%reffile%", "%sourcefile%", "%otherfile%", "%prefix%")  
@@ -68,7 +70,9 @@ spm12_coregister <- function(fixed,
   ####################  
   if (!is.null(outdir)){
     file.copy(omoving, to = outdir, overwrite = TRUE)
-    file.copy(other.ofiles, to = outdir, overwrite = TRUE)
+    if (other) {
+      file.copy(other.ofiles, to = outdir, overwrite = TRUE)
+    }
   }
   
   l = list(outfile = moving, 

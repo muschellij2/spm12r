@@ -4,7 +4,7 @@
 \alias{spm12_coregister}
 \title{SPM12 Coregister (Estimate and Reslice)}
 \usage{
-spm12_coregister(fixed, moving, other.files = NULL, prefix = "w",
+spm12_coregister(fixed, moving, other.files = NULL, prefix = "r",
   add_spm_dir = TRUE, spmdir = spm_dir(), clean = TRUE, verbose = TRUE,
   outdir = NULL, ...)
 }

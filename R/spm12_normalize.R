@@ -30,7 +30,7 @@ spm12_normalize <- function(filename,
   } else {
     other.files = filename
   }
-  cell = rvec_to_matlabcell(other.files, transpose = TRUE)
+  other.files = rvec_to_matlabcell(other.files, transpose = TRUE)
   # Pasting them together
   
   jobvec = c(filename, other.files, spmdir)
