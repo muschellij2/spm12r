@@ -5,8 +5,9 @@
 \title{SPM12 Realign (Estimate and Reslice)}
 \usage{
 spm12_realign(filename, fwhm = 5, register_to = c("first", "mean"),
-  prefix = "r", add_spm_dir = TRUE, spmdir = spm_dir(), clean = TRUE,
-  verbose = TRUE, outdir = NULL, retimg = TRUE, reorient = FALSE, ...)
+  reslice = c("all", "2:n", "all+mean", "mean"), prefix = "r",
+  add_spm_dir = TRUE, spmdir = spm_dir(), clean = TRUE, verbose = TRUE,
+  outdir = NULL, retimg = TRUE, reorient = FALSE, ...)
 }
 \arguments{
 \item{filename}{Files to be realigned and resliced}
@@ -14,6 +15,10 @@ spm12_realign(filename, fwhm = 5, register_to = c("first", "mean"),
 \item{fwhm}{Full-Width Half Max to smooth}
 
 \item{register_to}{Should the files be registered to the first or the mean}
+
+\item{reslice}{Options for reslicing all - all images in filename,
+2:n - all images in filename 2:length(filename),
+all+mean - all images and the mean, mean - mean only}
 
 \item{prefix}{Prefix to append to front of image filename}
 
