@@ -1,6 +1,6 @@
 #' @title AC/PC Reorientation
 #' @description Function that AC/PC re-orients the images for SPM 
-#' spatial normalization routine.  Uses nii_setorigin from 
+#' spatial normalization routine.  Uses nii_setOrigin from 
 #' http://www.mccauslandcenter.sc.edu/CRNL/sw/spm8/spm.zip
 #' @param infiles (character) Files to reorient.  
 #' First file will be used to 
@@ -8,7 +8,7 @@
 #' @param modality T1, T2, CT, fMRI (T2*)
 #' @param spmdir (character) path for SPM8.  If NULL, assumes 
 #' SPM8 is in matlabpath and so is spm8/toolbox
-#' Must have nii_setorigin installed.  In 
+#' Must have nii_setOrigin installed.  In 
 #' \code{system.file("", package="cttools")} from
 #' http://www.mccauslandcenter.sc.edu/CRNL/sw/spm8/spm.zip
 #' @param verbose (logical) Print diagnostic output
@@ -65,7 +65,7 @@ acpc_reorient <- function(
   imgs = str_trim(imgs)
   imgs = gsub(",$", "", imgs)
   cmd <- paste(cmd, sprintf("runimgs = strvcat(%s);", imgs))
-  cmd <- paste(cmd, paste0("nii_setorigin(runimgs, ", 
+  cmd <- paste(cmd, paste0("nii_setOrigin(runimgs, ", 
                            modality_num,
                            ");"))
   x = run_matlab_code(cmd, ...)

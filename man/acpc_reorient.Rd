@@ -16,7 +16,7 @@ estimate AC/PC, then rest will be transformed}
 
 \item{spmdir}{(character) path for SPM8.  If NULL, assumes
 SPM8 is in matlabpath and so is spm8/toolbox
-Must have nii_setorigin installed.  In
+Must have nii_setOrigin installed.  In
 \code{system.file("", package="cttools")} from
 http://www.mccauslandcenter.sc.edu/CRNL/sw/spm8/spm.zip}
 
@@ -29,7 +29,7 @@ Exit code from MATLAB.  If not zero, there was an error
 }
 \description{
 Function that AC/PC re-orients the images for SPM
-spatial normalization routine.  Uses nii_setorigin from
+spatial normalization routine.  Uses nii_setOrigin from
 http://www.mccauslandcenter.sc.edu/CRNL/sw/spm8/spm.zip
 }
 

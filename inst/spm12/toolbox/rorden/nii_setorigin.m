@@ -84,14 +84,26 @@ end%for each volume
 
 function coregSub(vols, modality)
 %subroutine coregisters vols to template of specified modality
+try
+    [v,r] = spm('Ver','',1); r = str2double(r);
+catch
+    error('SPM cannot be found in MATLAB path.');
+end
+if strcmp(v,'SPM8')
+    spm_path = fullfile(spm('Dir'), 'templates')
+end
+if strcmp(v,'SPM12')
+    spm_path = fullfile(spm('Dir'), 'toolbox', 'OldNorm')
+end
+%subroutine coregisters vols to template of specified modality
 if modality == 2
-    template = fullfile(spm('Dir'),'templates','T2.nii');
+    template = fullfile(spm_path,'T2.nii');
 elseif modality == 3
     template  = fullfile(spm('Dir'),'toolbox','Clinical','scct.nii');
 elseif modality == 4
-    template = fullfile(spm('Dir'),'templates','EPI.nii');
+    template = fullfile(spm_path,'EPI.nii');
 else
-    template = fullfile(spm('Dir'),'templates','T1.nii');
+    template = fullfile(spm_path,'T1.nii');
 end
 if ~exist(template,'file')
     error('Unable to find template named %s\n', template);
