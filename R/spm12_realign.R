@@ -41,23 +41,27 @@ spm12_realign <- function(filename,
   time_points = ntime_points(filename)
   
   reslice = match.arg(reslice, c("all","2:n", "all+mean", "mean"))
-  reslice = switch(reslice,
-                   "all" = "[2 0]", 
-                   "2:n" = "[1 0]", 
-                   "all+mean" = "[2 1]", 
-                   "mean" = "[0 1]")
   
   # check filenames
   filename = filename_check(filename)
   ###################
   # If reslice is just mean, then the file is simply returned
   ###################  
+  if (verbose){
+    cat(paste0("# Reslice is ", reslice, "\n"))
+  }
   if ( (reslice %in% "mean") ){
     outfile = filename
   } else {
     outfile = file.path(dirname(filename),
                         paste0(prefix, basename(filename)))    
   }
+  
+  reslice = switch(reslice,
+                   "all" = "[2 0]", 
+                   "2:n" = "[1 0]", 
+                   "all+mean" = "[2 1]", 
+                   "mean" = "[0 1]")
   
   stub = nii.stub(filename, bn=TRUE)[1]
   rpfile = file.path(dirname(filename),
