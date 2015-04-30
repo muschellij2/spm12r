@@ -6,7 +6,8 @@
 \usage{
 spm12_realign(filename, fwhm = 5, register_to = c("first", "mean"),
   prefix = "r", add_spm_dir = TRUE, spmdir = spm_dir(), clean = TRUE,
-  verbose = TRUE, ...)
+  verbose = TRUE, outdir = tempdir(), retimg = TRUE, reorient = FALSE,
+  ...)
 }
 \arguments{
 \item{filename}{Files to be realigned}
@@ -24,6 +25,13 @@ spm12_realign(filename, fwhm = 5, register_to = c("first", "mean"),
 \item{clean}{Remove scripts from temporary directory after running}
 
 \item{verbose}{Print diagnostic messages}
+
+\item{outdir}{Directory to copy results}
+
+\item{retimg}{(logical) return image of class nifti}
+
+\item{reorient}{(logical) If retimg, should file be reoriented when read in?
+Passed to \code{\link{readNIfTI}}.}
 
 \item{...}{Arguments passed to \code{\link{run_spm12_script}}}
 }

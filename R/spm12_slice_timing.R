@@ -17,6 +17,9 @@
 #' @param clean Remove scripts from temporary directory after running
 #' @param verbose Print diagnostic messages
 #' @param outdir Directory to copy results
+#' @param retimg (logical) return image of class nifti
+#' @param reorient (logical) If retimg, should file be reoriented when read in?
+#' Passed to \code{\link{readNIfTI}}.
 #' @param ... Arguments passed to \code{\link{run_spm12_script}}
 #' @export
 #' @import fslr
@@ -36,6 +39,8 @@ spm12_slice_timing <- function(filename,
                                clean = TRUE,
                                verbose = TRUE,
                                outdir = tempdir(),
+                               retimg = TRUE,
+                               reorient = FALSE,
                                ...
 ){
   
@@ -79,8 +84,19 @@ spm12_slice_timing <- function(filename,
                           clean = clean, 
                           verbose = verbose, 
                           ...)
-  
+  stopifnot(res == 0)  
   file.copy(outfile, to = outdir, overwrite = TRUE)
+
+  #############################
+  # Returning Image
+  #############################  
+  if (retimg){
+    if (length(outfile) > 1){
+      outfile = lapply(outfile, readNIfTI, reorient=reorient)
+    } else {
+      outfile = readNIfTI(outfile, reorient=reorient)
+    }
+  }
   return(outfile)
 }
 

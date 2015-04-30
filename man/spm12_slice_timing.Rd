@@ -7,7 +7,7 @@
 spm12_slice_timing(filename, time_points = NULL, nslices, tr, ta = tr -
   tr/nslices, slice_order = 1:nslices, ref_slice, prefix = "a",
   add_spm_dir = TRUE, spmdir = spm_dir(), clean = TRUE, verbose = TRUE,
-  outdir = tempdir(), ...)
+  outdir = tempdir(), retimg = TRUE, reorient = FALSE, ...)
 }
 \arguments{
 \item{filename}{Files to be slice-time corrected}
@@ -38,6 +38,11 @@ bottom slice = 1}
 \item{verbose}{Print diagnostic messages}
 
 \item{outdir}{Directory to copy results}
+
+\item{retimg}{(logical) return image of class nifti}
+
+\item{reorient}{(logical) If retimg, should file be reoriented when read in?
+Passed to \code{\link{readNIfTI}}.}
 
 \item{...}{Arguments passed to \code{\link{run_spm12_script}}}
 }

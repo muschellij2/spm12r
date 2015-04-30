@@ -9,6 +9,10 @@
 #' @param spmdir SPM dir to add, will use package default directory 
 #' @param clean Remove scripts from temporary directory after running
 #' @param verbose Print diagnostic messages
+#' @param outdir Directory to copy results
+#' @param retimg (logical) return image of class nifti
+#' @param reorient (logical) If retimg, should file be reoriented when read in?
+#' Passed to \code{\link{readNIfTI}}. 
 #' @param ... Arguments passed to \code{\link{run_spm12_script}}
 #' @export
 #' @import fslr
@@ -22,11 +26,18 @@ spm12_realign <- function(filename,
                           spmdir = spm_dir(),                          
                           clean = TRUE,
                           verbose = TRUE,
+                          outdir = tempdir(),
+                          retimg = TRUE,
+                          reorient = FALSE,                          
                           ...
 ){
   
   # check filenames
   filename = filename_check(filename)
+  outfile = file.path(dirname(filename),
+                      paste0(prefix, basename(filename)))
+  
+  filename = rvec_to_matlabcell(filename)
   
   register_to = match.arg(register_to, c("first", "mean"))
   register_to = switch(register_to,
@@ -46,8 +57,20 @@ spm12_realign <- function(filename,
                           clean = clean, 
                           verbose = verbose, 
                           ...)
-  
-  return(res)
+  stopifnot(res == 0)
+  file.copy(outfile, to = outdir, overwrite = TRUE)
+
+  #############################
+  # Returning Image
+  #############################  
+  if (retimg){
+    if (length(outfile) > 1){
+      outfile = lapply(outfile, readNIfTI, reorient=reorient)
+    } else {
+      outfile = readNIfTI(outfile, reorient=reorient)
+    }
+  }
+  return(outfile)
 }
 
 
