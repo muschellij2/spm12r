@@ -16,14 +16,14 @@
 #' @import matlabr
 #' @return Character list of filenames from output 
 spm12_realign_est <- function(filename, 
-                          fwhm = 5,                              
-                          register_to = c("first", "mean"),
-                          add_spm_dir = TRUE,
-                          spmdir = spm_dir(),                          
-                          clean = TRUE,
-                          verbose = TRUE,
-                          outdir = NULL,                       
-                          ...
+                              fwhm = 5,                              
+                              register_to = c("first", "mean"),
+                              add_spm_dir = TRUE,
+                              spmdir = spm_dir(),                          
+                              clean = TRUE,
+                              verbose = TRUE,
+                              outdir = NULL,                       
+                              ...
 ){
   
   ########################
@@ -39,8 +39,8 @@ spm12_realign_est <- function(filename,
   stub = nii.stub(filename, bn=TRUE)[1]
   rpfile = file.path(dirname(filename),
                      paste0("rp_", stub, ".txt"))
-  meanfile = file.path(dirname(filename),
-                       paste0("mean", stub, ".nii"))
+  #   meanfile = file.path(dirname(filename),
+  #                        paste0("mean", stub, ".nii"))
   matfile = file.path(dirname(filename),
                       paste0(stub, ".mat"))
   
@@ -74,10 +74,12 @@ spm12_realign_est <- function(filename,
   ####################  
   if (!is.null(outdir)){
     file.copy(rpfile, to = outdir, overwrite = TRUE)
-    file.copy(meanfile, to = outdir, overwrite = TRUE)
+    #     file.copy(meanfile, to = outdir, overwrite = TRUE)
     file.copy(matfile, to = outdir, overwrite = TRUE)    
   }
-  outfiles = c(rp = rpfile, mean = meanfile, mat = matfile)
+  outfiles = c(rp = rpfile, 
+               #                mean = meanfile, 
+               mat = matfile)
   return(outfiles)
 }
 
