@@ -4,10 +4,12 @@
 \alias{group_xyz}
 \title{Center of Gravity for Multiple Areas}
 \usage{
-group_xyz(img)
+group_xyz(img, ...)
 }
 \arguments{
 \item{img}{Object of class nifti}
+
+\item{...}{Arguments passed to \code{\link{spm_bwlabel}}}
 }
 \value{
 Matrix of 3 columns

@@ -1,10 +1,11 @@
 #' @title Center of Gravity for Multiple Areas
 #' @description Find Center of Gravity of Each Area of Image, after thresholding
 #' @param img Object of class nifti
+#' @param ... Arguments passed to \code{\link{spm_bwlabel}}
 #' @return Matrix of 3 columns
 #' @import fslr
 #' @export
-group_xyz = function(img){
+group_xyz = function(img, ...){
   #   stopifnot(inherits(img, "nifti"))
   les_xyz = spm_bwlabel(img, 
                         binary = FALSE, 
