@@ -5,6 +5,7 @@
 #' @param filename filename of an image or nifti object
 #' @param ... arguments passed to \code{\link{checknii}}
 #' @export
+#' @import fslr
 #' @seealso \code{\link{checknii}}
 #' @return Character of filename
 filename_check <- function(filename, # filename of an image

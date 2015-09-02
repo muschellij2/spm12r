@@ -90,10 +90,10 @@ catch
     error('SPM cannot be found in MATLAB path.');
 end
 if strcmp(v,'SPM8')
-    spm_path = fullfile(spm('Dir'), 'templates')
+    spm_path = fullfile(spm('Dir'), 'templates');
 end
 if strcmp(v,'SPM12')
-    spm_path = fullfile(spm('Dir'), 'toolbox', 'OldNorm')
+    spm_path = fullfile(spm('Dir'), 'toolbox', 'OldNorm');
 end
 %subroutine coregisters vols to template of specified modality
 if modality == 2
