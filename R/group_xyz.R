@@ -13,7 +13,7 @@ group_xyz = function(img, ...){
                         k = 1, 
                         ...) 
   les_levs = sort(unique(les_xyz[les_xyz!=0]))
-  if (length(les_levs) == 1){
+  if (length(les_levs) <= 1){
     return(t(xyz(les_xyz)))
   } else {
     les_xyz = t(sapply(les_levs, function(x){
