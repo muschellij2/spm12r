@@ -11,5 +11,6 @@ Imports:
 	matlabr,
 	stringr,
 	oro.nifti,
-	fslr
+	fslr,
+	R.utils
 SystemRequirements: MATLAB
