@@ -4,13 +4,14 @@
 \alias{spm_probs_to_seg}
 \title{SPM Probability to Hard Segmenation}
 \usage{
-spm_probs_to_seg(img, ties.method = c("random", "first", "last"))
+spm_probs_to_seg(img, ties.method = c("first", "last", "random"))
 }
 \arguments{
 \item{img}{list of images for probabilities for each class}
 
 \item{ties.method}{a character string specifying how ties are handled.
-See \code{\link{max.col}}.}
+See \code{\link{max.col}}.  Note, order of ties is different than
+\code{\link{max.col}}.}
 }
 \value{
 Object of class nifti

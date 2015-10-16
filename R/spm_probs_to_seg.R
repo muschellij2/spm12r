@@ -4,7 +4,8 @@
 #' segmentation to a hard, choose-one segmentation
 #' @param img list of images for probabilities for each class
 #' @param ties.method a character string specifying how ties are handled.  
-#' See \code{\link{max.col}}.
+#' See \code{\link{max.col}}.  Note, order of ties is different than 
+#' \code{\link{max.col}}.
 #' @export
 #' @return Object of class nifti
 #' @examples \dontrun{
@@ -12,11 +13,11 @@
 #' seg = spm_probs_to_seg(spm_seg)
 #'}
 spm_probs_to_seg <- function(img,
-    ties.method = c("random", "first", "last") 
+    ties.method = c("first", "last", "random") 
     ){
     stopifnot(inherits(img, "list"))
     xmax = sapply(img, c)
-    ties.method = match.arg(correct, options)
+    ties.method = match.arg(ties.method, c("first", "last", "random") )
 
     maxs = max.col(xmax, 
         ties.method = "first")
