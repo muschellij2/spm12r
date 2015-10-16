@@ -20,7 +20,7 @@ spm_probs_to_seg <- function(img,
     ties.method = match.arg(ties.method, c("first", "last", "random") )
 
     maxs = max.col(xmax, 
-        ties.method = "first")
+        ties.method = ties.method)
     res = niftiarr(img[[1]], maxs)   
     res
 }
