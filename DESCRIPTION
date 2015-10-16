@@ -1,11 +1,11 @@
 Package: spm12r
 Type: Package
-Title: Installs SPM12
-Version: 1.0
-Date: 2015-04-13
+Title: SPM12 Neuroimaging Suite Functionality
+Version: 1.1
+Date: 2015-10-16
 Author: John Muschelli
 Maintainer: John Muschelli <muschellij2@gmail.com>
-Description: Installs SPM12 to the R library directory and has associated functions for fMRI.
+Description: Installs SPM12 to the R library directory and has associated functions for fMRI and general imaging utility.
 License: GPL-2
 Imports:
 	matlabr,
