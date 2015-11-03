@@ -23,7 +23,6 @@ acpc_reorient <- function(
   spmdir = spm_dir(), 
   #   add_cttools = TRUE,
   verbose=TRUE,
-  install = TRUE,
   ...
 ){
   
