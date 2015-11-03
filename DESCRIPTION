@@ -8,9 +8,10 @@ Maintainer: John Muschelli <muschellij2@gmail.com>
 Description: Installs SPM12 to the R library directory and has associated functions for fMRI and general imaging utility.
 License: GPL-2
 Imports:
+	R.utils,
+	utils,
 	matlabr,
 	stringr,
 	oro.nifti,
-	fslr,
-	R.utils
+	fslr
 SystemRequirements: MATLAB

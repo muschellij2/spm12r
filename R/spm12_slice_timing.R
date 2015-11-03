@@ -43,6 +43,7 @@ spm12_slice_timing <- function(filename,
                                reorient = FALSE,
                                ...
 ){
+  install_spm12()
   
   ########################
   # Getting Number of Time points

@@ -25,6 +25,7 @@ spm12_normalize <- function(filename,
                             verbose = TRUE,
                             ...
 ){
+  install_spm12()
   
   # check filenames
   filename = filename_check(filename)

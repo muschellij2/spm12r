@@ -23,8 +23,12 @@ acpc_reorient <- function(
   spmdir = spm_dir(), 
   #   add_cttools = TRUE,
   verbose=TRUE,
+  install = TRUE,
   ...
 ){
+  
+  install_spm12()
+
   
   infiles = checknii(infiles)
   if (verbose) cat(paste0("\n #Reorientation ", infiles[1], "\n"))

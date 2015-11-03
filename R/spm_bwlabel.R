@@ -14,7 +14,7 @@
 #' @param verbose Print Diagnostics
 #' @return Output from \code{run_matlab_script} or \code{nifti} object,
 #' depending on \code{retimg}
-#' @import R.utils
+#' @importFrom R.utils gzip gunzip
 #' @export
 #' @note Taken from 
 #' http://en.wikibooks.org/wiki/SPM/How-to#How_to_remove_clusters_under_a_certain_size_in_a_binary_mask.3F
@@ -30,6 +30,8 @@ spm_bwlabel = function(infile, # input filename
                        reorient = FALSE,
                        verbose = TRUE
 ){
+  install_spm12()
+  
   infile = checkimg(infile, gzipped=FALSE)
   infile = path.expand(infile)
   ##################
@@ -46,7 +48,7 @@ spm_bwlabel = function(infile, # input filename
   outfile = path.expand(outfile)
   
   if (grepl("\\.gz$", infile)){
-    infile = gunzip(infile, remove=FALSE, temporary=TRUE,
+    infile = R.utils::gunzip(infile, remove=FALSE, temporary=TRUE,
                     overwrite=TRUE)
   } else { 
     infile = paste0(nii.stub(infile), ".nii")
@@ -172,15 +174,15 @@ spm_bwlabel = function(infile, # input filename
   res = run_matlab_script(sname)
   
   
-  if (gzip.outfile){
-    gzip(outfile, overwrite=TRUE, remove=TRUE)
+  if (gzip.outfile) {
+    R.utils::gzip(outfile, overwrite = TRUE, remove=TRUE)
     outfile = paste0(nii.stub(outfile), ".nii.gz")
   }
   if (retimg){
     if (verbose){
       cat(paste0("# Reading output file ", outfile, "\n"))
     }    
-    res = readNIfTI(outfile, reorient=reorient)
+    res = readNIfTI(outfile, reorient = reorient)
   }
   cat('\n')
   return(res)

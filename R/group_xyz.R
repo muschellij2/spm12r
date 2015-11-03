@@ -7,6 +7,7 @@
 #' @import fslr
 #' @export
 group_xyz = function(img, k = 1, ...){
+  
   #   stopifnot(inherits(img, "nifti"))
   les_xyz = spm_bwlabel(img, 
                         binary = FALSE, 

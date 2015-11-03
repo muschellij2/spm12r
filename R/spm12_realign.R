@@ -31,6 +31,7 @@ spm12_realign <- function(filename,
                           outdir = NULL,                       
                           ...
 ){
+  install_spm12()
   
   ########################
   # Getting Number of Time points

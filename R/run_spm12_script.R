@@ -22,6 +22,8 @@ run_spm12_script <- function(script_name,
                             verbose = TRUE,
                             ...
                             ){
+  install_spm12()
+  
   scripts = spm12_script(script_name, ...)
   # put in the correct filenames
   job = readLines(scripts['job'])

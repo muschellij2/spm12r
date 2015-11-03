@@ -19,6 +19,7 @@ spm12_normalize_est <- function(filename,
                                 ...
 ){
   
+  install_spm12()
   # check filenames
   filename = filename_check(filename)
   

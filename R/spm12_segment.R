@@ -27,6 +27,7 @@ spm12_segment <- function(filename,
                           reorient = FALSE,
                           ...
 ){
+  install_spm12()
   # check filenames
   filename = filename_check(filename)  
   

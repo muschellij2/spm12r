@@ -8,9 +8,12 @@
 #' @return Chracter vector of script paths
 #' @examples spm12_script(script_name = "Segment")
 spm12_script <- function(script_name, outdir = tempdir()){
-  m_scripts = system.file("scripts", 
+  install_spm12()
+  
+    m_scripts = system.file("scripts", 
                            paste0(script_name, c(".m")), 
                            package="spm12r")
+  
   ####################
   # Use General Executable
   ####################  

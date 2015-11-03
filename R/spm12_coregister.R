@@ -28,6 +28,8 @@ spm12_coregister <- function(fixed,
                              ...
 ){
   
+  install_spm12()
+  
   ########################
   # Getting Number of Time points
   ########################  
