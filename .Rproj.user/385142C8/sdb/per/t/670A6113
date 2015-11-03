@@ -1,0 +1,17 @@
+{
+    "contents" : "#' @title SPM Probability to Hard Segmenation\n#'\n#' @description Converts probability images from SPM \n#' segmentation to a hard, choose-one segmentation\n#' @param img list of images for probabilities for each class\n#' @param ties.method a character string specifying how ties are handled.  \n#' See \\code{\\link{max.col}}.  Note, order of ties is different than \n#' \\code{\\link{max.col}}.\n#' @export\n#' @return Object of class nifti\n#' @examples \\dontrun{\n#' spm_seg = spm12_segment(image)\n#' seg = spm_probs_to_seg(spm_seg)\n#'}\nspm_probs_to_seg <- function(img,\n    ties.method = c(\"first\", \"last\", \"random\") \n    ){\n    stopifnot(inherits(img, \"list\"))\n    xmax = sapply(img, c)\n    ties.method = match.arg(ties.method, c(\"first\", \"last\", \"random\") )\n\n    maxs = max.col(xmax, \n        ties.method = ties.method)\n    res = niftiarr(img[[1]], maxs)   \n    res\n}",
+    "created" : 1445022788430.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "888610625",
+    "id" : "670A6113",
+    "lastKnownWriteTime" : 1445023433,
+    "path" : "~/Dropbox/Packages/spm12r/R/spm_probs_to_seg.R",
+    "project_path" : "R/spm_probs_to_seg.R",
+    "properties" : {
+    },
+    "relative_order" : 8,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

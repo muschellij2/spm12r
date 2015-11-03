@@ -1,0 +1,18 @@
+{
+    "contents" : "#' @title Center of Gravity for Multiple Areas\n#' @description Find Center of Gravity of Each Area of Image, after thresholding\n#' @param img Object of class nifti\n#' @param k Minimum number of voxels for a cluster.  See \\code{\\link{spm_bwlabel}} \n#' @param ... Arguments passed to \\code{\\link{spm_bwlabel}}\n#' @return Matrix of 3 columns\n#' @import fslr\n#' @export\ngroup_xyz = function(img, k = 1, ...){\n  #   stopifnot(inherits(img, \"nifti\"))\n  les_xyz = spm_bwlabel(img, \n                        binary = FALSE, \n                        retimg = TRUE, \n                        k = k,\n                        ...) \n  les_levs = sort(unique(les_xyz[les_xyz!=0]))\n  if (length(les_levs) <= 1){\n    return(t(xyz(les_xyz)))\n  } else {\n    les_xyz = t(sapply(les_levs, function(x){\n      xyz(les_xyz == x)\n    })) \n    return(les_xyz)\n  }\n  return(les_xyz)\n}\n\n  \n",
+    "created" : 1441166409956.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "272555526",
+    "id" : "2109BB30",
+    "lastKnownWriteTime" : 1443551423,
+    "path" : "~/Dropbox/Packages/spm12r/R/group_xyz.R",
+    "project_path" : "R/group_xyz.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 9,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
