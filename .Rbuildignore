@@ -3,4 +3,9 @@
 ^\.travis\.yml$
 README.md
 
+^.gitignore
+^.gitattributes
+^.Rhistory
+^.travis.yaml
+
 inst/spm12.zip
