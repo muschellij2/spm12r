@@ -6,7 +6,7 @@ Date: 2015-11-02
 Author: John Muschelli
 Maintainer: John Muschelli <muschellij2@gmail.com>
 Description: Installs SPM12 to the R library directory and has associated functions for fMRI and general imaging utility.
-License: GPL-2
+License: GPL-2 | LICENCE.txt
 Imports:
 	R.utils,
 	utils,
