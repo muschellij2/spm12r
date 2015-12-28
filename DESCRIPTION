@@ -2,18 +2,20 @@ Package: spm12r
 Type: Package
 Title: Wrapper Functions for SPM (Statistical Parametric Mapping) Version 12
     from the Wellcome Trust Centre for Neuroimaging
-Version: 1.1.1
-Date: 2015-11-02
+Version: 1.1.2
+Date: 2015-12-28
 Author: John Muschelli
 Maintainer: John Muschelli <muschellij2@gmail.com>
-Description: Installs SPM12 to the R library directory and has associated functions for fMRI and general imaging utilities, called through MATLAB.
+Description: Installs SPM12 to the R library directory and has associated
+    functions for fMRI and general imaging utilities, called through MATLAB.
 License: GPL-2 | file LICENCE
 Imports:
-	R.utils,
-	utils,
-	matlabr,
-	stringr,
-	oro.nifti,
-	fslr,
-	git2r
+    R.utils,
+    utils,
+    matlabr,
+    stringr,
+    oro.nifti,
+    fslr,
+    git2r
 SystemRequirements: MATLAB
+RoxygenNote: 5.0.1

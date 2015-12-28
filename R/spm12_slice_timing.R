@@ -26,30 +26,31 @@
 #' @import matlabr
 #' @import oro.nifti
 #' @return Output filenames
-spm12_slice_timing <- function(filename, 
-                               time_points = NULL,
-                               nslices,
-                               tr, 
-                               ta = tr - tr/nslices,
-                               slice_order = 1:nslices,
-                               ref_slice,
-                               prefix = "a",
-                               add_spm_dir = TRUE,
-                               spmdir = spm_dir(),                          
-                               clean = TRUE,
-                               verbose = TRUE,
-                               outdir = tempdir(),
-                               retimg = TRUE,
-                               reorient = FALSE,
-                               ...
+spm12_slice_timing <- function(
+  filename, 
+  time_points = NULL,
+  nslices,
+  tr, 
+  ta = tr - tr/nslices,
+  slice_order = 1:nslices,
+  ref_slice,
+  prefix = "a",
+  add_spm_dir = TRUE,
+  spmdir = spm_dir(),                          
+  clean = TRUE,
+  verbose = TRUE,
+  outdir = tempdir(),
+  retimg = TRUE,
+  reorient = FALSE,
+  ...
 ){
   install_spm12()
   
   ########################
   # Getting Number of Time points
   ########################  
-  if (is.null(time_points)){
-    if (verbose){
+  if (is.null(time_points)) {
+    if (verbose) {
       cat("# Getting Number of Time Points\n")
     }
     time_points = ntime_points(filename)
@@ -57,13 +58,28 @@ spm12_slice_timing <- function(filename,
   
   # check filenames
   filename = filename_check(filename) 
-  outfile = file.path(dirname(filename),
-                      paste0(prefix, basename(filename)))  
-  if (length(time_points) < 2){
+  
+  # need to make anotehr directory, not in tempdir() to get around issue
+  # of double copy
+  orig_filename = filename
+  base_name = basename(filename)
+  
+  #########################
+  # Nested tempfile
+  #########################  
+  tdir = tempfile()
+  dir.create(tdir, showWarnings =  FALSE)
+  file.copy(from = orig_filename, to = tdir, overwrite = TRUE)
+  filename = file.path(tdir, base_name)
+  outfile = file.path(tdir,
+                      paste0(prefix, base_name)
+  )  
+  
+  if (length(time_points) < 2) {
     stop("SPM Slice Timing Correction requires >= 2 images")
   }  
   
-  slice_order = rvec_to_matlab(slice_order, row=TRUE)
+  slice_order = rvec_to_matlab(slice_order, row = TRUE)
   filename = paste0(filename, ",", time_points)
   filename = rvec_to_matlabcell(filename)
   jobvec = c(filename, prefix, nslices, 
@@ -81,17 +97,17 @@ spm12_slice_timing <- function(filename,
                           clean = clean, 
                           verbose = verbose, 
                           ...)
-  stopifnot(res == 0)  
+  stopifnot(res == 0)
   file.copy(outfile, to = outdir, overwrite = TRUE)
-
+  
   #############################
   # Returning Image
   #############################  
-  if (retimg){
-    if (length(outfile) > 1){
-      outfile = lapply(outfile, readNIfTI, reorient=reorient)
+  if (retimg) {
+    if (length(outfile) > 1) {
+      outfile = lapply(outfile, readNIfTI, reorient = reorient)
     } else {
-      outfile = readNIfTI(outfile, reorient=reorient)
+      outfile = readNIfTI(outfile, reorient = reorient)
     }
   }
   return(outfile)
