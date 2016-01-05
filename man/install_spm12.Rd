@@ -4,7 +4,11 @@
 \alias{install_spm12}
 \title{Install SPM12 file into directory}
 \usage{
-install_spm12()
+install_spm12(lib.loc = NULL)
+}
+\arguments{
+\item{lib.loc}{a character vector with path names of R libraries. 
+Passed to \code{\link{system.file}}}
 }
 \description{
 Install spm12 scripts to spm12r for script capabilities
