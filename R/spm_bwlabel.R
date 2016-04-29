@@ -65,7 +65,7 @@ spm_bwlabel = function(infile, # input filename
     stop("Need only K or topN")
   }  
   if (is.null(k) & is.null(topN)){
-    cat("Using k with no defaults, using 1")
+    message("Using k with no defaults, using 1")
     #     pdim = sapply(1:3, function(x) {
     #       as.numeric(fslval(file=infile, keyword = paste0("pixdim", x)))
     #     })
@@ -78,13 +78,13 @@ spm_bwlabel = function(infile, # input filename
     meas.use = "topN"
     topN = ceiling(topN)
     if (verbose) {
-      cat("# topN = ", topN, "\n")
+      message("# topN = ", topN, "\n")
     }
   } else {
     meas.use = "k"
     k = round(k)  
     if (verbose){
-      cat("# K = ", k, "\n")
+      message("# K = ", k, "\n")
     }
   }
   
@@ -169,7 +169,7 @@ spm_bwlabel = function(infile, # input filename
   sname = paste0(tempfile(), ".m")
   writeLines(cmds, con=sname)
   if (verbose){
-    cat(paste0("# Script is located at ", sname, "\n"))
+    message(paste0("# Script is located at ", sname, "\n"))
   }
   res = run_matlab_script(sname)
   
@@ -180,10 +180,10 @@ spm_bwlabel = function(infile, # input filename
   }
   if (retimg){
     if (verbose){
-      cat(paste0("# Reading output file ", outfile, "\n"))
+      message(paste0("# Reading output file ", outfile, "\n"))
     }    
     res = readNIfTI(outfile, reorient = reorient)
   }
-  cat('\n')
+  message('\n')
   return(res)
 }

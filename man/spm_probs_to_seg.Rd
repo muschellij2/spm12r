@@ -2,7 +2,7 @@
 % Please edit documentation in R/spm_probs_to_seg.R
 \name{spm_probs_to_seg}
 \alias{spm_probs_to_seg}
-\title{SPM Probability to Hard Segmenation}
+\title{SPM Probability to Hard Segmentation}
 \usage{
 spm_probs_to_seg(img, ties.method = c("first", "last", "random"))
 }

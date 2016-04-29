@@ -1,4 +1,4 @@
-#' @title SPM Probability to Hard Segmenation
+#' @title SPM Probability to Hard Segmentation
 #'
 #' @description Converts probability images from SPM 
 #' segmentation to a hard, choose-one segmentation

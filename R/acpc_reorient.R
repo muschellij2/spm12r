@@ -6,10 +6,10 @@
 #' First file will be used to 
 #' estimate AC/PC, then rest will be transformed
 #' @param modality T1, T2, CT, fMRI (T2*)
-#' @param spmdir (character) path for SPM8.  If NULL, assumes 
-#' SPM8 is in matlabpath and so is spm8/toolbox
+#' @param spmdir (character) path for SPM12.  If NULL, assumes 
+#' SPM12 is in matlabpath and so is spm8/toolbox
 #' Must have nii_setOrigin installed.  In 
-#' \code{system.file("", package="cttools")} from
+#' \code{system.file("", package="spm12r")} from
 #' http://www.mccauslandcenter.sc.edu/CRNL/sw/spm8/spm.zip
 #' @param verbose (logical) Print diagnostic output
 #' @param ... Arguments to pass to \code{\link{run_matlab_code}}
