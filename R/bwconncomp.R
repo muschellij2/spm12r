@@ -13,6 +13,15 @@
 #' @return Name of output file or \code{nifti} object,
 #' depending on \code{retimg}
 #' @importFrom R.utils gzip gunzip
+#' @examples 
+#' library(fslr)
+#' set.seed(1234)
+#' dims = c(30, 30, 10)
+#' arr = array(rnorm(prod(dims)), dim = dims)
+#' nim = nifti(arr)
+#' mask = datatyper(nim > 1)
+#' cc = bwconncomp(mask)
+#' tab = table(c(cc))
 #' @export
 bwconncomp = function(infile, # input filename
                       outfile = NULL, # output filename
