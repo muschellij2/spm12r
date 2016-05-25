@@ -20,8 +20,10 @@
 #' arr = array(rnorm(prod(dims)), dim = dims)
 #' nim = nifti(arr)
 #' mask = datatyper(nim > 1)
+#' \dontrun{
 #' cc = bwconncomp(mask)
 #' tab = table(c(cc))
+#' }
 #' @export
 bwconncomp = function(infile, # input filename
                       outfile = NULL, # output filename

@@ -38,7 +38,9 @@ dims = c(30, 30, 10)
 arr = array(rnorm(prod(dims)), dim = dims)
 nim = nifti(arr)
 mask = datatyper(nim > 1)
+\dontrun{
 cc = bwconncomp(mask)
 tab = table(c(cc))
+}
 }
 
