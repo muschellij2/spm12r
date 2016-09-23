@@ -4,6 +4,8 @@
 #' @param filename List of nifti objects, a vector of character filenames, or a single 4D nifti 
 #' @export
 #' @return Vector of time points
+#' @importFrom oro.nifti is.nifti ntim
+#' @importFrom neurobase check_nifti
 ntime_points <- function(filename){
   ########################
   # Getting Number of Time points

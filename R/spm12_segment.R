@@ -13,8 +13,6 @@
 #' @param reorient if \code{retimg=TRUE} pass to \code{\link{readNIfTI}}
 #' @param ... Arguments passed to \code{\link{run_spm12_script}}
 #' @export
-#' @import oro.nifti
-#' @import matlabr
 #' @return Result from run_matlab_script or nifti file, depending on 
 #' \code{retimg}
 spm12_segment <- function(filename, 

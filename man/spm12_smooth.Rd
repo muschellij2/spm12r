@@ -32,7 +32,7 @@ result from \code{\link{run_matlab_script}}}
 \code{\link{readNIfTI}}}
 }
 \value{
-Result from run_matlab_script or nifti file, depending on 
+Result from run_matlab_script or nifti file, depending on
 \code{retimg}
 }
 \description{

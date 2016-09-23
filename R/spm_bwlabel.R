@@ -19,6 +19,7 @@
 #' @note Taken from 
 #' http://en.wikibooks.org/wiki/SPM/How-to#How_to_remove_clusters_under_a_certain_size_in_a_binary_mask.3F
 #' @return Result from \code{\link{run_matlab_script}}
+#' @importFrom neurobase checkimg nii.stub niftiarr
 spm_bwlabel = function(infile, # input filename
                        outfile = NULL, # output filename
                        retimg = TRUE,

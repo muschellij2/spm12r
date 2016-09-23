@@ -11,7 +11,7 @@ spm12_normalize_write(filename, other.files = NULL, retimg = TRUE,
 \arguments{
 \item{filename}{Filename of deformation (nifti)}
 
-\item{other.files}{Files to be written using the estimated 
+\item{other.files}{Files to be written using the estimated
 normalization}
 
 \item{retimg}{Logical indicating if image should be returned or

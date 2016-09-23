@@ -3,7 +3,6 @@
 #' @param lib.loc a character vector with path names of R libraries. 
 #' Passed to \code{\link{system.file}}
 #' @return NULL
-#' @import utils
 #' @importFrom git2r clone
 #' @export
 install_spm12 = function(lib.loc = NULL){

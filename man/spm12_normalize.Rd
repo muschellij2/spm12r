@@ -11,7 +11,7 @@ spm12_normalize(filename, other.files = NULL, bounding_box = matrix(c(-90,
 \arguments{
 \item{filename}{File to be normalized to the template}
 
-\item{other.files}{Files to be written using the estimated 
+\item{other.files}{Files to be written using the estimated
 normalization}
 
 \item{bounding_box}{matrix (2x3) of the bounding box to use.  Default is for MNI 2mm template

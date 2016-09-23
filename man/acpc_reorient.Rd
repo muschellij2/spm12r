@@ -9,14 +9,14 @@ acpc_reorient(infiles, modality = c("T1", "T2", "CT", "fMRI"),
 }
 \arguments{
 \item{infiles}{(character) Files to reorient.
-First file will be used to 
+First file will be used to
 estimate AC/PC, then rest will be transformed}
 
 \item{modality}{T1, T2, CT, fMRI (T2*)}
 
-\item{spmdir}{(character) path for SPM12.  If NULL, assumes 
+\item{spmdir}{(character) path for SPM12.  If NULL, assumes
 SPM12 is in matlabpath and so is spm8/toolbox
-Must have nii_setOrigin installed.  In 
+Must have nii_setOrigin installed.  In
 \code{system.file("", package="spm12r")} from
 http://www.mccauslandcenter.sc.edu/CRNL/sw/spm8/spm.zip}
 
@@ -28,8 +28,8 @@ http://www.mccauslandcenter.sc.edu/CRNL/sw/spm8/spm.zip}
 Exit code from MATLAB.  If not zero, there was an error
 }
 \description{
-Function that AC/PC re-orients the images for SPM 
-spatial normalization routine.  Uses nii_setOrigin from 
+Function that AC/PC re-orients the images for SPM
+spatial normalization routine.  Uses nii_setOrigin from
 http://www.mccauslandcenter.sc.edu/CRNL/sw/spm8/spm.zip
 }
 

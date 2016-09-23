@@ -12,8 +12,8 @@ spm12_slice_timing(filename, time_points = NULL, nslices, tr, ta = tr -
 \arguments{
 \item{filename}{Files to be slice-time corrected}
 
-\item{time_points}{Time points to run slice-time correction.  If \code{filename} is a 
-4D file, then will do all the time points.  Otherwise, \code{filename} must be a character 
+\item{time_points}{Time points to run slice-time correction.  If \code{filename} is a
+4D file, then will do all the time points.  Otherwise, \code{filename} must be a character
 vector of 3D files or a list of 3D nifti objects.}
 
 \item{nslices}{Number of slices in the images}
@@ -22,7 +22,7 @@ vector of 3D files or a list of 3D nifti objects.}
 
 \item{ta}{Time between the first and the last slice within one scan}
 
-\item{slice_order}{Order slices were taken (if not specified, assumed ascending), 
+\item{slice_order}{Order slices were taken (if not specified, assumed ascending),
 bottom slice = 1}
 
 \item{ref_slice}{Reference slice}

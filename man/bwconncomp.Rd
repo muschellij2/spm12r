@@ -16,10 +16,10 @@ bwconncomp(infile, outfile = NULL, retimg = TRUE, conn = 26,
 
 \item{conn}{Connections to be passed to MATLAB's \code{bwconncomp}}
 
-\item{reorient}{If \code{retimg}, then this argument is passed to 
+\item{reorient}{If \code{retimg}, then this argument is passed to
 \code{readNIfTI}}
 
-\item{spmdir}{(character) path for SPM12.  If NULL, assumes 
+\item{spmdir}{(character) path for SPM12.  If NULL, assumes
 SPM12 is in matlabpath.}
 
 \item{verbose}{Print Diagnostics}
@@ -32,7 +32,7 @@ depending on \code{retimg}
 Get Cluster of certain size from spm_bwlabel
 }
 \examples{
-library(fslr)
+library(neurobase)
 set.seed(1234)
 dims = c(30, 30, 10)
 arr = array(rnorm(prod(dims)), dim = dims)

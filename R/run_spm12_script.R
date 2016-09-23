@@ -12,6 +12,7 @@
 #' @param verbose Print diagnostic messages
 #' @param ... Arguments to pass to \code{\link{spm12_script}}
 #' @export
+#' @importFrom matlabr run_matlab_script get_matlab run_matlab_code
 #' @return Result of \code{\link{run_matlab_script}}
 run_spm12_script <- function(script_name, 
                             jobvec = NULL, 
@@ -48,7 +49,7 @@ run_spm12_script <- function(script_name,
   #####################################  
   if (add_spm_dir){
     if (verbose){
-      cat(paste0("# Adding SPMDIR: ", spmdir, "\n"))
+      message(paste0("# Adding SPMDIR: ", spmdir, "\n"))
     }
     m = c(paste0("addpath(genpath('", spmdir, "'));"),
           m)
@@ -60,12 +61,12 @@ run_spm12_script <- function(script_name,
   writeLines(m, con=scripts['script'])
   writeLines(job, con=scripts['job'])
   if (verbose){
-    cat(paste0("# Running script", scripts['script'], "\nwhich calls ",
+    message(paste0("# Running script", scripts['script'], "\nwhich calls ",
                scripts['job'], "\n"))
   }
   res = run_matlab_script(scripts['script'])
   if (verbose){
-    cat(paste0("# Result is ", res, "\n"))
+    message(paste0("# Result is ", res, "\n"))
   }  
   #####################################
   # Cleaning up files
@@ -73,7 +74,7 @@ run_spm12_script <- function(script_name,
   if (clean) {
     file.remove(scripts)
     if (verbose){
-      cat(paste0("# Removing scripts\n"))
+      message(paste0("# Removing scripts\n"))
     }      
   }
   return(res)
