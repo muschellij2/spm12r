@@ -13,7 +13,7 @@
 #' @param ... Arguments passed to \code{\link{run_spm12_script}}
 #' @export
 #' @return Result from run_matlab_script
-#' @importFrom matlabr rvec_to_matlabcell rvec_to_matlabcell
+#' @importFrom matlabr rvec_to_matlabcell rvec_to_matlabcell rmat_to_matlab_mat
 spm12_normalize <- function(filename,
                             other.files = NULL,
                             bounding_box = matrix(c(-90, -126, -72, 90, 90, 108),

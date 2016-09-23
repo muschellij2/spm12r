@@ -18,3 +18,4 @@ Imports:
     git2r
 SystemRequirements: MATLAB
 RoxygenNote: 5.0.1.9000
+Remotes: muschellij2/neurobase
