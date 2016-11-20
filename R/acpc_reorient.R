@@ -70,5 +70,5 @@ acpc_reorient <- function(
                            modality_num,
                            ");"))
   x = run_matlab_code(cmd, ...)
-  return(x)
+  return(infiles)
 }
