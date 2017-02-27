@@ -1,10 +1,10 @@
 ---
-title: "Vignette Title"
-author: "Vignette Author"
+title: "fMRI Preprocessing using SPM 12"
+author: "John Muschelli"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{fMRI Preprocessing using SPM 12}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -46,6 +46,10 @@ fmri = readnii(files["functional"])
 
 times = (DROP + 1):ntim(fmri)
 run_fmri = copyNIfTIHeader(fmri, fmri[,,,times], drop = TRUE)
+```
+
+```{r, echo = FALSE}
+rm(list = "fmri")
 ```
 
 
@@ -148,6 +152,30 @@ if (have_matlab()) {
 }
 ```
 
+## Direct Normalization
+
+```{r direct_norm}
+if (have_matlab()) {
+  bbox = matrix(
+  		c(-90, -126, -72, 
+  		90, 90, 108), 
+  		nrow = 2, byrow = TRUE)
+  print(bbox)
+  direct_norm = spm12_normalize(
+  	filename = mean_img,
+  	other.files = c(mean_img, aimg),
+  	bounding_box = bbox,
+  	clean = FALSE
+  	)
+  dnorm_files = direct_norm$outfiles
+  dnorm_mean_img = readnii(dnorm_files[1])
+}
+```
+
+
+# Indirect Normalization
+
+## Anatomical MRI Coregistration to Mean fMRI
 ```{r coreg}
 if (have_matlab()) {
   anatomical = files["anatomical"]
@@ -157,13 +185,16 @@ if (have_matlab()) {
     infiles = anat_img,
     modality = "T1")
 
-  spm12_coregister(
+  coreg = spm12_coregister(
   	fixed = mean_img,
   	moving = anat_img,
   	prefix = "r")
+  
   coreg_anat = remap_filename(anat_img, prefix = "r")
 }
 ```
+
+## Anatomical MRI Segmentation (and Spatial Normalize Estimation)
 
 ```{r seg}
 if (have_matlab()) {
@@ -174,76 +205,61 @@ if (have_matlab()) {
 }
 ```
 
+## Applying Spatial Normalize Transformation
+
 ```{r norm_write}
 bbox = matrix(
   c(-90, -126, -72, 
     90, 90, 108), 
   nrow = 2, byrow = TRUE)
 if (have_matlab()) {
-  normed = spm12_normalize_write(
+  norm = spm12_normalize_write(
   	deformation = seg_res$deformation,
   	other.files = c(coreg_anat, mean_img, aimg),
   	bounding_box = bbox,
   	retimg = FALSE, 
   	clean = FALSE)
-  print(normed)
+  print(norm)
+  norm_data = norm$outfiles
+  names(norm_data) = c("anat", "mean", "fmri")
+  norm_mean_img = readnii(norm_data["mean"])
 }
 ```
 
-
-```{r norm}
-if (have_matlab()) {
-  bbox = matrix(
-  		c(-90, -126, -72, 
-  		90, 90, 108), 
-  		nrow = 2, byrow = TRUE)
-  print(bbox)
-  spm12_normalize(
-  	filename = coreg_anat,
-  	other.files = c(aimg, mean_img),
-  	bounding_box = bbox,
-  	clean = FALSE
-  	)
-  warped_img = remap_filename(aimg, prefix = "w")
-  warped_mean_img = remap_filename(mean_img, prefix = "w")
-}
-```
 
 
 ```{r check_norm}
 if (have_matlab()) {
-  template_path = file.path(spm_dir(), "canonical", "avg152T1.nii")
+  template_path = file.path(spm_dir(), 
+                            "canonical", "avg152T1.nii")
   
   template = readnii(template_path)
-  mean_nifti = readnii(warped_mean_img)
-  double_ortho(template, mean_nifti)  
+  double_ortho(template, norm_mean_img)
+  double_ortho(template, dnorm_mean_img)
+  double_ortho(norm_mean_img, dnorm_mean_img)
 }
-
-est = spm12_normalize_est(
-  	filename = coreg_anat,
-  	clean = FALSE	)  
 ```
 
 ```{r smooth}
 if (have_matlab()) {
-  spm12_smooth(
-  	filename = warped_img,
+  smoothed = spm12_smooth(
+  	filename = norm_data["fmri"],
   	prefix = "s",
   	retimg = FALSE
   	)
-  smoothed_data = remap_filename(warped_img, prefix = "s")
+  smoothed_data = smoothed$outfiles
 }
 
 ```
 
 ```{r smooth_mean}
 if (have_matlab()) {
-  spm12_smooth(
-  	filename = warped_mean_img,
+  smoothed_mean = spm12_smooth(
+  	filename = norm_data["mean"],
   	prefix = "s",
   	retimg = FALSE
   	)  
-  smoothed_mean_data = remap_filename(warped_mean_img, prefix = "s")
+  smoothed_mean_data = smoothed_mean$outfiles
 }
 ```
 

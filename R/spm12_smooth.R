@@ -42,13 +42,16 @@ spm12_smooth <- function(filename,
                           clean = clean,
                           verbose = verbose,
                           ...)
+  if (res != 0) {
+    warning("Result was not zero!")
+  }  
   outfile = file.path(dirname(filename),
                       paste0(prefix, basename(filename)))
+  L = list(outfiles = outfile)  
   if (retimg){
-    res = readNIfTI(outfile, reorient = reorient)
-    return(res)
+    L$outfiles = lapply(L$outfiles, readNIfTI, reorient = reorient)
   }
-  return(outfile)
+  return(L)
 }
 
 

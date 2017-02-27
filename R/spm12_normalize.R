@@ -34,6 +34,7 @@ spm12_normalize <- function(filename,
   } else {
     other.files = filename
   }
+  other.fnames = other.files
   other.files = rvec_to_matlabcell(other.files, transpose = TRUE)
   # Pasting them together
 
@@ -50,9 +51,12 @@ spm12_normalize <- function(filename,
                           clean = clean,
                           verbose = verbose,
                           ...)
+  if (res != 0) {
+    warning("Result was not zero!")
+  }  
   L = list(
-    output = file.path(dirname(other.files),
-                        paste0("w", basename(other.files))))
+    outfiles = file.path(dirname(other.fnames),
+                        paste0("w", basename(other.fnames))))
   return(L)
 }
 
