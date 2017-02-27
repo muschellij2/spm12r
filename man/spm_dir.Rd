@@ -12,4 +12,3 @@ Chracter vector of spm12 paths
 \description{
 Returns the SPM12 directory
 }
-

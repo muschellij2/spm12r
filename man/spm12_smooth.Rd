@@ -38,4 +38,3 @@ Result from run_matlab_script or nifti file, depending on
 \description{
 Performs SPM12 Smoothing on an Image
 }
-

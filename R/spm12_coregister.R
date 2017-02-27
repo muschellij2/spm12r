@@ -76,7 +76,7 @@ spm12_coregister <- function(fixed,
     }
   }
 
-  l = list(outfile = moving,
+  l = list(outfile = omoving,
            other.outfiles = other.ofiles)
   return(l)
 }

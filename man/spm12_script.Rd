@@ -21,4 +21,3 @@ to a temporary file
 \examples{
 spm12_script(script_name = "Segment")
 }
-

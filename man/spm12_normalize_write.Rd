@@ -4,15 +4,19 @@
 \alias{spm12_normalize_write}
 \title{SPM12 Normalize (Write)}
 \usage{
-spm12_normalize_write(filename, other.files = NULL, retimg = TRUE,
-  reorient = FALSE, add_spm_dir = TRUE, spmdir = spm_dir(),
-  clean = TRUE, verbose = TRUE, ...)
+spm12_normalize_write(deformation, other.files = NULL,
+  bounding_box = matrix(c(-90, -126, -72, 90, 90, 108), nrow = 2, byrow =
+  TRUE), retimg = TRUE, reorient = FALSE, add_spm_dir = TRUE,
+  spmdir = spm_dir(), clean = TRUE, verbose = TRUE, ...)
 }
 \arguments{
-\item{filename}{Filename of deformation (nifti)}
+\item{deformation}{Filename of deformation (nifti)}
 
 \item{other.files}{Files to be written using the estimated
 normalization}
+
+\item{bounding_box}{matrix (2x3) of the bounding box to use.  Default is for MNI 2mm template
+size}
 
 \item{retimg}{Logical indicating if image should be returned or
 result from \code{\link{run_matlab_script}}}
@@ -35,4 +39,3 @@ Result from run_matlab_script
 \description{
 Applies SPM12 (Spatial) Normalization to images
 }
-

@@ -13,4 +13,3 @@ Passed to \code{\link{system.file}}}
 \description{
 Install spm12 scripts to spm12r for script capabilities
 }
-

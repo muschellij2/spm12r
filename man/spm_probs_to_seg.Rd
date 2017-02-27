@@ -22,8 +22,7 @@ segmentation to a hard, choose-one segmentation
 }
 \examples{
 \dontrun{
-spm_seg = spm12_segment(image)
+spm_seg = spm12_segment(image)$outfiles
 seg = spm_probs_to_seg(spm_seg)
 }
 }
-

@@ -1,0 +1,256 @@
+---
+title: "Vignette Title"
+author: "Vignette Author"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r knit-setup, echo=FALSE, results='hide', eval=TRUE, cache = FALSE, warning = FALSE, message = FALSE}
+library(spm12r)
+```
+
+
+## Overview of `spm12r` functions
+
+Requires MATLAB (installs SPM to R library)
+
+- `spm12_slice_timing` - slices are not taken instantaneously
+- `spm12_realign` - people move
+- `spm12_coregister` - structural imaging is higher resolution
+- `spm12_segment` - where's the gray matter?
+- `spm12_normalize` - brains look better in MNI
+- `spm12_smooth` - turn that noise down
+
+
+```{r makefiles}
+library(kirby21.t1)
+library(kirby21.fmri)
+functional = get_fmri_filenames(ids = 113, visit = 1)
+anatomical = get_t1_filenames(ids = 113, visit = 1)
+files = c(anatomical = anatomical,
+          functional = functional)
+files
+```
+
+```{r}
+library(neurobase)
+tr = 2 # seconds
+DROP = 10 # 20 seconds for stabilization
+
+fmri = readnii(files["functional"])
+
+times = (DROP + 1):ntim(fmri)
+run_fmri = copyNIfTIHeader(fmri, fmri[,,,times], drop = TRUE)
+```
+
+
+```{r nb_version, echo = FALSE, results="hide"}
+library(neurobase)
+ip = installed.packages()
+ver = ip["neurobase", "Version"]
+ver = compareVersion(ver, "1.13")
+if (ver < 0) {
+  remap_filename = function(
+    x, 
+    prefix = "", 
+    suffix = "") {
+    
+    ext = parse_img_ext(x)
+    ext = paste0(".", ext)
+    tx = tolower(x)
+    if (grepl("gz$", tx)) {
+      ext = paste0(ext, ".gz")
+    }
+    dn = dirname(x)
+    stub = nii.stub(x, bn = TRUE)
+    
+    file.path(
+      dn,
+      paste0(
+        prefix, 
+        stub,
+        suffix,
+        ext)
+    )
+  }
+}
+```
+
+```{r have_matlab}
+library(matlabr)
+have_matlab()
+```
+
+```{r realign}
+library(spm12r)
+####################################
+# Realignment
+####################################
+if (have_matlab()) {
+  realigned = spm12_realign( 
+	filename = run_fmri, 
+	register_to = "mean",
+	reslice = "mean",
+	clean = FALSE
+	)
+  print(realigned)
+}
+```
+
+```{r rp_file}
+####################################
+# Read in Motion data
+####################################
+if (have_matlab()) {
+  rpfile = realigned[['rp']]
+  rp = read.table(file = rpfile, header = FALSE)
+  colnames(rp) = c("x", "y", "z", 
+  	"roll", "pitch", "yaw")
+  rp = as.matrix(rp)
+  print(head(rp))
+}
+```
+
+```{r slice_time}
+####################################
+# Slice Timing Correction
+####################################
+nslices = oro.nifti::nsli(run_fmri)
+slice_order = 1:nslices
+ref_slice = slice_order[median(seq(nslices))]
+ta = tr - tr/nslices
+n_time_points = ntim(run_fmri)
+if (have_matlab()) {
+  aimg = spm12_slice_timing(
+  	filename = realigned[['outfiles']],
+  	nslices = nslices,
+  	tr = tr, 
+  	slice_order = slice_order,
+  	ta = ta, 
+  	ref_slice = ref_slice,
+  	prefix = "a", 
+  	clean = FALSE, 
+  	retimg = FALSE)
+  mean_img = realigned[["mean"]]
+}
+```  
+
+```{r acpc}
+if (have_matlab()) {
+  acpc_reorient(
+    infiles = c(mean_img, aimg),
+    modality = "T1")
+}
+```
+
+```{r coreg}
+if (have_matlab()) {
+  anatomical = files["anatomical"]
+  anat_img = checknii(anatomical)
+  print(anat_img)
+  acpc_reorient(
+    infiles = anat_img,
+    modality = "T1")
+
+  spm12_coregister(
+  	fixed = mean_img,
+  	moving = anat_img,
+  	prefix = "r")
+  coreg_anat = remap_filename(anat_img, prefix = "r")
+}
+```
+
+```{r seg}
+if (have_matlab()) {
+  seg_res = spm12_segment(
+  	filename = coreg_anat,
+  	retimg = FALSE)
+  print(seg_res)
+}
+```
+
+```{r norm_write}
+bbox = matrix(
+  c(-90, -126, -72, 
+    90, 90, 108), 
+  nrow = 2, byrow = TRUE)
+if (have_matlab()) {
+  normed = spm12_normalize_write(
+  	deformation = seg_res$deformation,
+  	other.files = c(coreg_anat, mean_img, aimg),
+  	bounding_box = bbox,
+  	retimg = FALSE, 
+  	clean = FALSE)
+  print(normed)
+}
+```
+
+
+```{r norm}
+if (have_matlab()) {
+  bbox = matrix(
+  		c(-90, -126, -72, 
+  		90, 90, 108), 
+  		nrow = 2, byrow = TRUE)
+  print(bbox)
+  spm12_normalize(
+  	filename = coreg_anat,
+  	other.files = c(aimg, mean_img),
+  	bounding_box = bbox,
+  	clean = FALSE
+  	)
+  warped_img = remap_filename(aimg, prefix = "w")
+  warped_mean_img = remap_filename(mean_img, prefix = "w")
+}
+```
+
+
+```{r check_norm}
+if (have_matlab()) {
+  template_path = file.path(spm_dir(), "canonical", "avg152T1.nii")
+  
+  template = readnii(template_path)
+  mean_nifti = readnii(warped_mean_img)
+  double_ortho(template, mean_nifti)  
+}
+
+est = spm12_normalize_est(
+  	filename = coreg_anat,
+  	clean = FALSE	)  
+```
+
+```{r smooth}
+if (have_matlab()) {
+  spm12_smooth(
+  	filename = warped_img,
+  	prefix = "s",
+  	retimg = FALSE
+  	)
+  smoothed_data = remap_filename(warped_img, prefix = "s")
+}
+
+```
+
+```{r smooth_mean}
+if (have_matlab()) {
+  spm12_smooth(
+  	filename = warped_mean_img,
+  	prefix = "s",
+  	retimg = FALSE
+  	)  
+  smoothed_mean_data = remap_filename(warped_mean_img, prefix = "s")
+}
+```
+
+```{r plot_smoothed}
+smooth_img = readnii(smoothed_data, drop_dim = FALSE)
+```
+
+## Bibliography
+
+

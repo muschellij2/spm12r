@@ -32,4 +32,3 @@ Function that AC/PC re-orients the images for SPM
 spatial normalization routine.  Uses nii_setOrigin from
 http://www.mccauslandcenter.sc.edu/CRNL/sw/spm8/spm.zip
 }
-

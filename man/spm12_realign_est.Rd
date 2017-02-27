@@ -34,4 +34,3 @@ Character list of filenames from output
 \description{
 Performs SPM12 Realignment estimation on an Image
 }
-

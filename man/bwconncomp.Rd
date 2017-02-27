@@ -43,4 +43,3 @@ cc = bwconncomp(mask)
 tab = table(c(cc))
 }
 }
-

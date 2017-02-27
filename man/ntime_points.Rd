@@ -15,4 +15,3 @@ Vector of time points
 \description{
 Extracts the number of time points from a nifti object, list or character
 }
-

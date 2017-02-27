@@ -30,10 +30,9 @@ Warning, this will set the orientation differently}
 \item{...}{Arguments passed to \code{\link{run_spm12_script}}}
 }
 \value{
-Result from run_matlab_script or nifti file, depending on 
-\code{retimg}
+List of output files (or niftis depending on \code{retimg}),
+output matrix, and output deformations.
 }
 \description{
 Performs SPM12 Segmentation on an Image
 }
-

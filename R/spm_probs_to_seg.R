@@ -9,7 +9,7 @@
 #' @export
 #' @return Object of class nifti
 #' @examples \dontrun{
-#' spm_seg = spm12_segment(image)
+#' spm_seg = spm12_segment(image)$outfiles
 #' seg = spm_probs_to_seg(spm_seg)
 #'}
 spm_probs_to_seg <- function(img,

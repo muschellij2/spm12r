@@ -12,7 +12,7 @@
 #' @param verbose Print diagnostic messages
 #' @param ... Arguments passed to \code{\link{run_spm12_script}}
 #' @export
-#' @return Result from run_matlab_script
+#' @return List of outptu filenames
 #' @importFrom matlabr rvec_to_matlabcell rvec_to_matlabcell rmat_to_matlab_mat
 spm12_normalize <- function(filename,
                             other.files = NULL,
@@ -50,8 +50,10 @@ spm12_normalize <- function(filename,
                           clean = clean,
                           verbose = verbose,
                           ...)
-
-  return(res)
+  L = list(
+    output = file.path(dirname(other.files),
+                        paste0("w", basename(other.files))))
+  return(L)
 }
 
 

@@ -26,4 +26,3 @@ Result from run_matlab_script
 \description{
 Estimate SPM12 (Spatial) Normalization from image
 }
-

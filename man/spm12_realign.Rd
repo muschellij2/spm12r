@@ -41,4 +41,3 @@ Result from run_matlab_script
 \description{
 Performs SPM12 realignment estimation and reslicing on an Image
 }
-

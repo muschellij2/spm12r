@@ -52,4 +52,3 @@ Output filenames
 \description{
 Performs SPM12 slice timing correction on images
 }
-

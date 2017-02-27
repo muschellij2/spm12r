@@ -19,4 +19,3 @@ Matrix of 3 columns
 \description{
 Find Center of Gravity of Each Area of Image, after thresholding
 }
-

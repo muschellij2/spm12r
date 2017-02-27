@@ -28,9 +28,8 @@ size}
 \item{...}{Arguments passed to \code{\link{run_spm12_script}}}
 }
 \value{
-Result from run_matlab_script
+List of outptu filenames
 }
 \description{
 Performs SPM12 (Spatial) Normalization on an Image
 }
-

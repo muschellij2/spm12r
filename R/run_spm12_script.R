@@ -61,7 +61,7 @@ run_spm12_script <- function(script_name,
   writeLines(m, con=scripts['script'])
   writeLines(job, con=scripts['job'])
   if (verbose){
-    message(paste0("# Running script", scripts['script'], "\nwhich calls ",
+    message(paste0("# Running script ", scripts['script'], "\nwhich calls ",
                scripts['job'], "\n"))
   }
   res = run_matlab_script(scripts['script'])

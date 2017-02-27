@@ -4,8 +4,7 @@
 % cfg_basicio BasicIO - Unknown
 %-----------------------------------------------------------------------
 matlabbatch{1}.spm.spatial.normalise.write.subj.def = {'%deformation%'};
-matlabbatch{1}.spm.spatial.normalise.write.subj.resample = {'%filename%'};
-matlabbatch{1}.spm.spatial.normalise.write.woptions.bb = [-78 -112 -70
-                                                          78 76 85];
+matlabbatch{1}.spm.spatial.normalise.write.subj.resample = %resample%;
+matlabbatch{1}.spm.spatial.normalise.write.woptions.bb = %bbox%
 matlabbatch{1}.spm.spatial.normalise.write.woptions.vox = [2 2 2];
 matlabbatch{1}.spm.spatial.normalise.write.woptions.interp = 4;

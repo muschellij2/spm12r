@@ -1,9 +1,11 @@
 #' @title SPM12 Normalize (Write)
 #'
 #' @description Applies SPM12 (Spatial) Normalization to images
-#' @param filename Filename of deformation (nifti)
+#' @param deformation Filename of deformation (nifti)
 #' @param other.files Files to be written using the estimated
 #' normalization
+#' @param bounding_box matrix (2x3) of the bounding box to use.  Default is for MNI 2mm template
+#' size 
 #' @param retimg Logical indicating if image should be returned or
 #' result from \code{\link{run_matlab_script}}
 #' @param reorient if \code{retimg=TRUE} pass to \code{\link{readNIfTI}}
@@ -14,8 +16,10 @@
 #' @param ... Arguments passed to \code{\link{run_spm12_script}}
 #' @export
 #' @return Result from run_matlab_script
-spm12_normalize_write <- function(filename,
+spm12_normalize_write <- function(deformation,
                             other.files = NULL,
+                            bounding_box = matrix(c(-90, -126, -72, 90, 90, 108),
+                                                  nrow=2, byrow=TRUE),                            
                             retimg = TRUE,
                             reorient = FALSE,
                             add_spm_dir = TRUE,
@@ -26,23 +30,30 @@ spm12_normalize_write <- function(filename,
 ){
   install_spm12()
 
-  # check filenames
-  filename = filename_check(filename)
+  # check deformations
+  deformation = filename_check(deformation)
 
-  if (!is.null(other.files)){
+  if (!is.null(other.files)) {
     other.files = filename_check(other.files)
   } else {
     stop("No files specified, no files written")
   }
   other.fnames = other.files
-  # Pasting them together
-  other.files = sapply(other.files, function(o){
-    paste0("'", o, "'\n")
-  })
-  other.files = paste(other.files,  collapse = " ")
+  other.files = rvec_to_matlabcell(other.fnames, transpose = TRUE)
+  # 
+  # other.fnames = other.files
+  # # Pasting them together
+  # other.files = sapply(other.files, function(o){
+  #   paste0("'", o, "'\n")
+  # })
+  # other.files = paste(other.files,  collapse = " ")
 
-  jobvec = c(filename, other.files)
-  names(jobvec) = c("%filename%", "%resample%")
+  if (is.matrix(bounding_box)) {
+    bounding_box = rmat_to_matlab_mat(bounding_box)
+  }
+  
+  jobvec = c(deformation, other.files, bounding_box)
+  names(jobvec) = c("%deformation%", "%resample%", "%bbox%")
 
   res = run_spm12_script( script_name = "Normalize_Write",
                           jobvec = jobvec,
@@ -52,14 +63,16 @@ spm12_normalize_write <- function(filename,
                           clean = clean,
                           verbose = verbose,
                           ...)
-
-  if (retimg){
-    outfiles = file.path(dirname(other.fnames),
-                         paste0("w", basename(other.fnames)))
-    res = lapply(outfiles, readNIfTI, reorient = reorient)
-    return(res)
+  if (res != 0) {
+    warning("Result was not zero!")
   }
-  return(res)
+  outfiles = file.path(dirname(other.fnames),
+                       paste0("w", basename(other.fnames)))
+  if (retimg) {
+    outfiles = lapply(outfiles, readNIfTI, reorient = reorient)
+  }
+  L = list(outfiles = outfiles)
+  return(L)
 }
 
 

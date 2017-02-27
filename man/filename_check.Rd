@@ -21,4 +21,3 @@ to absolute paths
 \seealso{
 \code{\link{checknii}}
 }
-
