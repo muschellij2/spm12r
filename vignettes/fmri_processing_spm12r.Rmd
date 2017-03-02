@@ -386,8 +386,11 @@ if (have_matlab()) {
 
 Here we can smooth the mean image in MNI space.  We could have also calculated a new mean image and smoothed that.  Or we could have calculated a mean of the smoothed 4D data.  They all may be slightly different.
 
-```{r plot_smoothed}
-# smooth_img = readnii(smoothed_data, drop_dim = FALSE)
+```{r plot_smoothed_mean}
+if (have_matlab()) {
+  smooth_mean_img = readnii(smoothed_mean_data)
+  ortho2(smooth_mean_img)
+}
 ```
 
 ## Bibliography
