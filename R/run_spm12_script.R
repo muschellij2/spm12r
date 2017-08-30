@@ -14,15 +14,16 @@
 #' @export
 #' @importFrom matlabr run_matlab_script get_matlab run_matlab_code
 #' @return Result of \code{\link{run_matlab_script}}
-run_spm12_script <- function(script_name, 
-                            jobvec = NULL, 
-                            mvec = NULL,
-                            add_spm_dir = TRUE,
-                            spmdir = spm_dir(),
-                            clean = TRUE,
-                            verbose = TRUE,
-                            ...
-                            ){
+run_spm12_script <- function(
+  script_name, 
+  jobvec = NULL, 
+  mvec = NULL,
+  add_spm_dir = TRUE,
+  spmdir = spm_dir(),
+  clean = TRUE,
+  verbose = TRUE,
+  ...
+){
   install_spm12()
   
   scripts = spm12_script(script_name, ...)
@@ -62,7 +63,7 @@ run_spm12_script <- function(script_name,
   writeLines(job, con=scripts['job'])
   if (verbose){
     message(paste0("# Running script ", scripts['script'], "\nwhich calls ",
-               scripts['job'], "\n"))
+                   scripts['job'], "\n"))
   }
   res = run_matlab_script(scripts['script'])
   if (verbose){

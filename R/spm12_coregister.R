@@ -14,28 +14,29 @@
 #' @param ... Arguments passed to \code{\link{run_spm12_script}}
 #' @export
 #' @return Result from run_matlab_script
-spm12_coregister <- function(fixed,
-                             moving,
-                             other.files = NULL,
-                             prefix = "r",
-                             add_spm_dir = TRUE,
-                             spmdir = spm_dir(),
-                             clean = TRUE,
-                             verbose = TRUE,
-                             outdir = NULL,
-                             ...
+spm12_coregister <- function(
+  fixed,
+  moving,
+  other.files = NULL,
+  prefix = "r",
+  add_spm_dir = TRUE,
+  spmdir = spm_dir(),
+  clean = TRUE,
+  verbose = TRUE,
+  outdir = NULL,
+  ...
 ){
-
+  
   install_spm12()
-
+  
   ########################
   # Getting Number of Time points
   ########################
-
+  
   # check filenames
   fixed = filename_check(fixed)
   moving = filename_check(moving)
-
+  
   if (is.null(other.files)){
     other.files = "''"
     other.ofiles = NULL
@@ -52,11 +53,11 @@ spm12_coregister <- function(fixed,
   ##########################################################
   # Pasting together for a 4D file
   ##########################################################
-
-
+  
+  
   jobvec = c(fixed, moving, other.files, prefix)
   names(jobvec) = c("%reffile%", "%sourcefile%", "%otherfile%", "%prefix%")
-
+  
   res = run_spm12_script( script_name = "Coregister",
                           jobvec = jobvec,
                           mvec = NULL,
@@ -77,7 +78,7 @@ spm12_coregister <- function(fixed,
       file.copy(other.ofiles, to = outdir, overwrite = TRUE)
     }
   }
-
+  
   l = list(outfile = omoving,
            other.outfiles = other.ofiles)
   return(l)

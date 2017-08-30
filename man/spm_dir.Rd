@@ -4,7 +4,7 @@
 \alias{spm_dir}
 \title{Get SPM12 Directory}
 \usage{
-spm_dir()
+spm_dir(verbose = FALSE)
 }
 \value{
 Chracter vector of spm12 paths

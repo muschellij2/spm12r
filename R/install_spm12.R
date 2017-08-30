@@ -2,10 +2,12 @@
 #' @description Install spm12 scripts to spm12r for script capabilities
 #' @param lib.loc a character vector with path names of R libraries. 
 #' Passed to \code{\link{system.file}}
+#' @param verbose print diagnostic messages
 #' @return NULL
 #' @importFrom git2r clone
 #' @export
-install_spm12 = function(lib.loc = NULL){
+install_spm12 = function(lib.loc = NULL,
+                         verbose = TRUE){
   spm12_files = system.file("spm12", 
                             package = "spm12r",
                             lib.loc = lib.loc)
@@ -22,7 +24,7 @@ install_spm12 = function(lib.loc = NULL){
       branch = "gh-pages", 
           local_path = file.path(system.file(package = "spm12r",
                                              lib.loc = lib.loc), "spm12"),
-          progress = FALSE
+          progress = verbose
           )
     git_folder = file.path(
       system.file(package = "spm12r",

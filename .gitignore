@@ -3,3 +3,4 @@
 \.RData
 .Rproj.user
 inst/doc
+R/zzz_batch_spm12_coregister.R
