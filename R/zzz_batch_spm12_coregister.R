@@ -149,38 +149,38 @@ batch_spm12_coregister <- function(
   )  
   spm = list(spm = spm)
   class(spm) = "matlabbatch"
-
+  
   script = matlabbatch_to_script(spm, ...)  
   
   L = list(
     spm = spm,
     script = script)
-  if (execute) {
-  res = run_matlabbatch(
-    spm, 
-    add_spm_dir = add_spm_dir, 
-    clean = clean,
-    verbose = verbose,
-    spmdir = spmdir,
-    ...) 
-  
-  if (res != 0) {
-    warning("Result was not zero!")
-  }
-  ####################
-  # Copy outfiles
-  ####################
-  if (!is.null(outdir)) {
-    file.copy(omoving, to = outdir, overwrite = TRUE)
-    if (other) {
-      file.copy(other.ofiles, to = outdir, overwrite = TRUE)
-    }
-  }
-  }
-  
   L$outfile = omoving
-  L$other.outfiles = other.ofiles
-  L$result = res
+  
+  if (execute) {
+    res = run_matlabbatch(
+      spm, 
+      add_spm_dir = add_spm_dir, 
+      clean = clean,
+      verbose = verbose,
+      spmdir = spmdir,
+      ...) 
+    
+    if (res != 0) {
+      warning("Result was not zero!")
+    }
+    ####################
+    # Copy outfiles
+    ####################
+    if (!is.null(outdir)) {
+      file.copy(omoving, to = outdir, overwrite = TRUE)
+      if (other) {
+        file.copy(other.ofiles, to = outdir, overwrite = TRUE)
+      }
+    }
+    L$other.outfiles = other.ofiles
+    L$result = res    
+  }
   
   return(L)
 }
