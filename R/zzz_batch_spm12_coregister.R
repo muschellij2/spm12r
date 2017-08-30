@@ -1,0 +1,189 @@
+#' @title Batch SPM12 Coregister (Estimate and Reslice)
+#'
+#' @description Performs SPM12 coregistration estimation and 
+#' reslicing on an Image
+#' 
+#' @param fixed File that is assumed fixed
+#' @param moving moving file to be registered to fixed space
+#' @param other.files Other files to register to fixed, in same space as moving file
+#' @param prefix Prefix to append to front of image filename
+#' @param add_spm_dir Add SPM12 directory from this package
+#' @param spmdir SPM dir to add, will use package default directory
+#' @param clean Remove scripts from temporary directory after running
+#' @param verbose Print diagnostic messages
+#' @param outdir Directory to copy results.  If full filename given, then results will
+#' be in \code{dirname(filename)}
+#' 
+#' @param cost_fun Cost function
+#' @param separation The  average  distance  between  sampled points (in mm).  
+#' Can be a vector to allow a coarse registration followed by increasingly fine
+#' @param tol The  accuracy  for  each  parameter.    Iterations  stop  when 
+#'  differences  between  successive  estimates  are  less  than  the required
+#' @param fwhm Gaussian  smoothing  to  apply  to  the 256x256 joint histogram. 
+#' Other information theoretic coregistration methods use fewer bins,
+#' @param interp Interpolator for sampling in fixed space
+#' @param wrap_x wrap in x-direction
+#' @param wrap_y wrap in y-direction
+#' @param wrap_z wrap in z-direction
+#' @param mask Mask the data.  With masking enabled, the program searches 
+#' through the whole time series looking for voxels which need to be sampled 
+#' from outside  the  original  images.  Where  this  occurs, 
+#'  that  voxel is set to zero for the whole set of images 
+#' @param execute Should the script be executed or just return
+#' the  \code{matlabbatch}  object
+#' @param ... Additional arguments to pass to \code{\link{run_matlabbatch}}
+#'
+#' @return List of output files, the \code{matlabbatch} object, and the script
+#' @export
+#'
+#' @examples \dontrun{
+#' fname = "~/Desktop/D2/scratch/100-318_20070723_0957_CT_3_CT_Head-_SS_0.01_SyN_ROI.nii.gz"
+#' spm = batch_spm12_coregister(
+#' fixed = fname,
+#' moving = fname, execute = FALSE)
+#' }
+batch_spm12_coregister <- function(
+  fixed,
+  moving,
+  other.files = NULL,
+  cost_fun = c("nmi", "ecc", "ncc"), # 
+  separation = c(4, 2),
+  tol = c(0.02, 0.02, 0.02, 0.001, 0.001, 0.001, 0.01, 0.01, 0.01, 0.001, 0.001, 0.001),
+  fwhm = c(7, 7),
+  # The  method  by  which  the  images  are  sampled  when  being  written  in  a  different  space.  Nearest Neighbour is fastest, but not
+  interp = c("bspline4", "nearestneighbor", "trilinear", 
+             paste0("bspline", 2:3),
+             paste0("bspline", 5:7)),  
+  # c("nearestneighbor", "trilinear", paste0("bspline", 2:7)
+  wrap_x = FALSE, #  c(0, 0, 0),
+  wrap_y = FALSE, #  c(0, 0, 0),
+  wrap_z = FALSE, #  c(0, 0, 0),
+  mask = FALSE, # c(FALSE, TRUE) as.numeric
+  prefix = "r",
+  add_spm_dir = TRUE,
+  spmdir = spm_dir(),
+  clean = TRUE,
+  verbose = TRUE,
+  outdir = NULL,
+  execute = TRUE,
+  ...
+){  
+  
+  cost_fun = match.arg(cost_fun)
+  cost_fun = convert_to_matlab(cost_fun)
+  
+  class(separation) = "rowvec"
+  class(tol) = "rowvec"
+  class(fwhm) = "rowvec"
+  wrap = c(wrap_x, wrap_y, wrap_z)
+  wrap = as.integer(wrap)
+  class(wrap) = "rowvec"
+  
+  levs = c("nearestneighbor", "trilinear", paste0("bspline", 2:7))
+  interp = interp[1]
+  interp = match.arg(interp, choices = levs)
+  interp = factor(interp, levels = levs)
+  interp = convert_to_matlab(interp)
+  
+  separation = convert_to_matlab(separation)
+  tol = convert_to_matlab(tol)
+  fwhm = convert_to_matlab(fwhm)
+  wrap = convert_to_matlab(wrap)
+  
+  
+  # mask = !mask
+  mask = as.numeric(mask)
+  
+  if (verbose) {
+    message("Checking Filenames")
+  }
+  # check filenames
+  fixed = filename_check(fixed)
+  moving = filename_check(moving)
+  omoving = file.path(
+    dirname(moving),
+    paste0(prefix, basename(moving)))
+  
+  class(fixed) = "cell"
+  class(moving) = "cell"
+  fixed = convert_to_matlab(fixed)
+  moving = convert_to_matlab(moving)
+  
+  prefix = convert_to_matlab(prefix)
+  
+  if (is.null(other.files)) {
+    other.files = "{''};"
+    other.ofiles = NULL
+    other = FALSE
+  } else {
+    other.files = filename_check(other.files)
+    other.ofiles = file.path(dirname(other.files),
+                             paste0(prefix, basename(other.files)))
+    other.files = rvec_to_matlabcell(other.files)
+    other = TRUE
+  }
+  
+  spm = list(
+    spatial = list(
+      coreg = list(
+        estwrite = 
+          list(
+            ref = fixed,
+            source = moving,
+            other = other.files,
+            eoptions = list(
+              cost_fun = cost_fun,
+              sep = separation,
+              tol = tol,
+              fwhm = fwhm
+            ),
+            roptions = list(
+              interp = interp,
+              wrap = wrap,
+              mask = mask,
+              prefix = prefix
+            )
+          )
+      )
+    )
+  )  
+  spm = list(spm = spm)
+  class(spm) = "matlabbatch"
+
+  script = matlabbatch_to_script(spm, ...)  
+  
+  L = list(
+    spm = spm,
+    script = script)
+  if (execute) {
+  res = run_matlabbatch(
+    spm, 
+    add_spm_dir = add_spm_dir, 
+    clean = clean,
+    verbose = verbose,
+    spmdir = spmdir,
+    ...) 
+  
+  if (res != 0) {
+    warning("Result was not zero!")
+  }
+  ####################
+  # Copy outfiles
+  ####################
+  if (!is.null(outdir)) {
+    file.copy(omoving, to = outdir, overwrite = TRUE)
+    if (other) {
+      file.copy(other.ofiles, to = outdir, overwrite = TRUE)
+    }
+  }
+  }
+  
+  L$outfile = omoving
+  L$other.outfiles = other.ofiles
+  L$result = res
+  
+  return(L)
+}
+
+
+

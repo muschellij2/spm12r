@@ -2,11 +2,14 @@
 % Please edit documentation in R/run_matlabbatch.R
 \name{run_matlabbatch}
 \alias{run_matlabbatch}
+\alias{matlabbatch_job}
 \alias{matlabbatch_to_script}
 \title{Run Matlab Batch from List}
 \usage{
 run_matlabbatch(spm, add_spm_dir = TRUE, clean = TRUE, verbose = TRUE,
   ...)
+
+matlabbatch_job(spm, add_spm_dir = TRUE, ...)
 
 matlabbatch_to_script(spm, prefix = "matlabbatch{1}.", ...)
 }

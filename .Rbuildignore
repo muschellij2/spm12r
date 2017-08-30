@@ -9,4 +9,3 @@ README.md
 ^.travis.yaml
 
 inst/spm12.zip
-R/mb_spm12_coregister\.R
