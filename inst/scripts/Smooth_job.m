@@ -7,6 +7,6 @@ matlabbatch{1}.spm.spatial.smooth.data = {
                                           '%filename%'
                                           };
 matlabbatch{1}.spm.spatial.smooth.fwhm = [%fwhm% %fwhm% %fwhm%];
-matlabbatch{1}.spm.spatial.smooth.dtype = 0;
-matlabbatch{1}.spm.spatial.smooth.im = 0;
+matlabbatch{1}.spm.spatial.smooth.dtype = %dtype%;
+matlabbatch{1}.spm.spatial.smooth.im = %implicit_mask%;
 matlabbatch{1}.spm.spatial.smooth.prefix = '%prefix%';

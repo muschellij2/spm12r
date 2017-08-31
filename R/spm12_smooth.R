@@ -5,6 +5,11 @@
 #' @param retimg Logical indicating if image should be returned or
 #' result from \code{\link{run_matlab_script}}
 #' @param fwhm Full-Width Half Max to smooth
+#' @param dtype data type for the output format 
+#' @param implicit_mask Should an implicit mask be used.
+#' An "implicit mask" is a mask implied by a 
+#' particular voxel value (0 for images with integer type, 
+#' NaN for float images).
 #' @param prefix Prefix to append to front of image filename
 #' @param add_spm_dir Add SPM12 directory from this package
 #' @param spmdir SPM dir to add, will use package default directory
@@ -16,39 +21,58 @@
 #' @export
 #' @return Result from run_matlab_script or nifti file, depending on
 #' \code{retimg}
-spm12_smooth <- function(filename,
-                         retimg = TRUE,
-                         fwhm = 8,
-                         prefix = "s",
-                         add_spm_dir = TRUE,
-                         spmdir = spm_dir(),
-                         clean = TRUE,
-                         verbose = TRUE,
-                         reorient = FALSE,
-                         ...
+spm12_smooth <- function(
+  filename,
+  retimg = TRUE,
+  fwhm = 8,
+  dtype = c("SAME", "UINT8", "INT16", 
+            "INT32", "FLOAT32", "FLOAT64"),
+  implicit_mask = FALSE,
+  prefix = "s",
+  add_spm_dir = TRUE,
+  spmdir = spm_dir(),
+  clean = TRUE,
+  verbose = TRUE,
+  reorient = FALSE,
+  ...
 ){
-  install_spm12()
+  install_spm12(verbose = verbose)
   # check filenames
   filename = filename_check(filename)
-
-  jobvec = c(filename, prefix, fwhm)
-  names(jobvec) = c("%filename%", "%prefix%", "%fwhm%")
-
-  res = run_spm12_script( script_name = "Smooth",
-                          jobvec = jobvec,
-                          mvec = NULL,
-                          add_spm_dir = add_spm_dir,
-                          spmdir = spmdir,
-                          clean = clean,
-                          verbose = verbose,
-                          ...)
+  
+  dtype = toupper(dtype)
+  dtype = match.arg(dtype)
+  dtype = switch(
+    dtype,
+    SAME = 0,
+    UINT8 = 2,
+    INT16 = 4,
+    INT32 = 8,
+    FLOAT32 = 16,
+    FLOAT64 = 64)
+  
+  implicit_mask = as.integer(implicit_mask)
+  jobvec = c(filename, prefix, fwhm, 
+             dtype, implicit_mask)
+  names(jobvec) = c("%filename%", "%prefix%", "%fwhm%", 
+                    "%dtype%", "%implicit_mask%")
+  
+  res = run_spm12_script(
+    script_name = "Smooth",
+    jobvec = jobvec,
+    mvec = NULL,
+    add_spm_dir = add_spm_dir,
+    spmdir = spmdir,
+    clean = clean,
+    verbose = verbose,
+    ...)
   if (res != 0) {
     warning("Result was not zero!")
   }  
   outfile = file.path(dirname(filename),
                       paste0(prefix, basename(filename)))
   L = list(outfiles = outfile)  
-  if (retimg){
+  if (retimg) {
     L$outfiles = lapply(L$outfiles, readNIfTI, reorient = reorient)
   }
   return(L)

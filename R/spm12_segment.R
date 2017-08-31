@@ -1,6 +1,7 @@
 #' @title SPM12 Segment
 #'
 #' @description Performs SPM12 Segmentation on an Image
+#'
 #' @param filename File to be segmented
 #' @param retimg Logical indicating if image should be returned or
 #' result from \code{\link{run_matlab_script}}
@@ -11,24 +12,89 @@
 #' @param clean Remove scripts from temporary directory after running
 #' @param verbose Print diagnostic messages
 #' @param reorient if \code{retimg=TRUE} pass to \code{\link{readNIfTI}}
+#' @param biasreg Amount of bias regularization
+#' @param biasfwhm FWHM  of  Gaussian  smoothness  of  bias. 
+#' @param native Keep tissue class image (c*) in alignment with the original. 
+#' @param dartel  Keep tissue class image (rc*) that can be used with the 
+#' Dartel toolbox .
+#' @param modulated Keep modulated images.  Modulation  is  to  compensate  
+#' for  the  effect of spatial normalisation.  
+#' @param unmodulated Keep unmodulated data
+#' @param bias_field save a bias corrected version of your images
+#' @param bias_corrected save an estimated bias field from  your images
+#' @param n_gaus The number of Gaussians used to represent the 
+#' intensity distribution for each tissue class.  Can be 1:8 or infinity
+#' @param smoothness 
+#' @param sampling_distance smoothingess of the warping field. 
+#' This is used to derive a fudge factor to account for 
+#' correlations between neighbouring voxels.  Smoother data have more
+#' @param regularization parameters fro warping regularization
+#' @param affine Space to register the image to, using an affine registration
+#' @param def_inverse keep the inverse deformation field
+#' @param def_forward keep the forward deformation field
+#' @param warp_cleanup Level of cleanup with the warping.
+#' If you find pieces of brain being chopped out in your data, 
+#' then you may wish to disable or tone down the cleanup procedure. 
 #' @param ... Arguments passed to \code{\link{run_spm12_script}}
+#'
 #' @export
 #' @return List of output files (or niftis depending on \code{retimg}),
 #' output matrix, and output deformations.
 #' @importFrom neurobase nii.stub
-spm12_segment <- function(filename, 
-                          retimg = TRUE,
-                          set_origin = TRUE,
-                          add_spm_dir = TRUE,
-                          spmdir = spm_dir(),                          
-                          clean = TRUE,
-                          verbose = TRUE,
-                          reorient = FALSE,
-                          ...
+spm12_segment <- function(
+  filename, 
+  set_origin = TRUE,
+  biasreg = 0.001,
+  biasfwhm = 60,
+  native = TRUE,
+  dartel = FALSE,
+  modulated = FALSE,
+  unmodulated = FALSE,
+  bias_field = FALSE,
+  bias_corrected = FALSE,
+  n_gaus = c(1, 1, 2, 3, 4, 2),
+  smoothness = 0,
+  sampling_distance = 3,
+  regularization = c(0, 0.001, 0.5, 0.05, 0.2),
+  affine = c("mni", "eastern", "subj", "none"),
+  def_inverse = FALSE,
+  def_forward = FALSE,
+  warp_cleanup = c("light", "none", "thorough"),
+  retimg = TRUE,
+  add_spm_dir = TRUE,
+  spmdir = spm_dir(verbose = verbose), 
+  clean = TRUE,
+  verbose = TRUE,
+  reorient = FALSE,
+  ...
 ){
   install_spm12()
   # check filenames
   filename = filename_check(filename)  
+  
+  bias_field = as.integer(bias_field)
+  bias_corrected = as.integer(bias_corrected)
+  
+  native = as.integer(native)
+  dartel = as.integer(dartel)
+  
+  modulated = as.integer(modulated)
+  unmodulated = as.integer(unmodulated)
+  
+  warp_cleanup = match.arg(warp_cleanup)
+  warp_cleanup = factor(warp_cleanup, 
+                        levels = c("none", "light", "thorough")
+                        )
+  warp_cleanup = convert_to_matlab(warp_cleanup)
+  
+  affine = match.arg(affine)
+  affine = convert_to_matlab(affine)
+  
+  def_inverse = as.integer(def_inverse)
+  def_forward = as.integer(def_forward)
+  
+  class(regularization) = "rowvec"
+  regularization = convert_to_matlab(regularization)
   
   if (set_origin) {
     res = acpc_reorient(infiles = filename, verbose = verbose)
@@ -37,10 +103,33 @@ spm12_segment <- function(filename,
     }
   }
   
-  # put in the correct filenames
-  jobvec = c(filename, spmdir)
-  names(jobvec) = c("%filename%", "%spmdir%")
+  stopifnot(length(n_gaus) == 6)
+  n_gaus = as.character(n_gaus)
   
+  # put in the correct filenames
+  jobvec = c(
+    filename, spmdir, 
+    biasreg, biasfwhm, 
+    n_gaus,
+    bias_field, bias_corrected,
+    native, dartel, 
+    unmodulated, modulated,
+    smoothness, sampling_distance,
+    affine, def_inverse, def_forward,
+    regularization, warp_cleanup)
+  
+  names(jobvec) = c(
+    "%filename%", "%spmdir%", 
+    "%biasreg%", "%biasfwhm%",
+    paste0("%ngaus", 1:6, "%"),
+    "%save_bf%", "%save_bc%",
+    "%native%", "%dartel%",
+    "%unmodulated%", "%modulated%", 
+    "%fwhm%", "%samp%", 
+    "%affreg%", "%def_inverse%", "%def_forward%", 
+    "%reg%", "%warp_cleanup%")
+  
+
   res = run_spm12_script( script_name = "Segment",
                           jobvec = jobvec,
                           mvec = NULL,

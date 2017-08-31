@@ -14,7 +14,7 @@
 #' @param ... Arguments passed to \code{\link{run_spm12_script}}
 #' @export
 #' @return Result from run_matlab_script
-spm12_coregister <- function(
+spm12_coregister.deprecated <- function(
   fixed,
   moving,
   other.files = NULL,

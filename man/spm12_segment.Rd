@@ -4,18 +4,63 @@
 \alias{spm12_segment}
 \title{SPM12 Segment}
 \usage{
-spm12_segment(filename, retimg = TRUE, set_origin = TRUE,
-  add_spm_dir = TRUE, spmdir = spm_dir(), clean = TRUE, verbose = TRUE,
+spm12_segment(filename, set_origin = TRUE, biasreg = 0.001, biasfwhm = 60,
+  native = TRUE, dartel = FALSE, modulated = FALSE, unmodulated = FALSE,
+  bias_field = FALSE, bias_corrected = FALSE, n_gaus = c(1, 1, 2, 3, 4,
+  2), smoothness = 0, sampling_distance = 3, regularization = c(0, 0.001,
+  0.5, 0.05, 0.2), affine = c("mni", "eastern", "subj", "none"),
+  def_inverse = FALSE, def_forward = FALSE, warp_cleanup = c("light",
+  "none", "thorough"), retimg = TRUE, add_spm_dir = TRUE,
+  spmdir = spm_dir(verbose = verbose), clean = TRUE, verbose = TRUE,
   reorient = FALSE, ...)
 }
 \arguments{
 \item{filename}{File to be segmented}
 
-\item{retimg}{Logical indicating if image should be returned or
-result from \code{\link{run_matlab_script}}}
-
 \item{set_origin}{Run \code{\link{acpc_reorient}} on image first.
 Warning, this will set the orientation differently}
+
+\item{biasreg}{Amount of bias regularization}
+
+\item{biasfwhm}{FWHM  of  Gaussian  smoothness  of  bias.}
+
+\item{native}{Keep tissue class image (c*) in alignment with the original.}
+
+\item{dartel}{Keep tissue class image (rc*) that can be used with the 
+Dartel toolbox .}
+
+\item{modulated}{Keep modulated images.  Modulation  is  to  compensate
+for  the  effect of spatial normalisation.}
+
+\item{unmodulated}{Keep unmodulated data}
+
+\item{bias_field}{save a bias corrected version of your images}
+
+\item{bias_corrected}{save an estimated bias field from  your images}
+
+\item{n_gaus}{The number of Gaussians used to represent the 
+intensity distribution for each tissue class.  Can be 1:8 or infinity}
+
+\item{smoothness}{}
+
+\item{sampling_distance}{smoothingess of the warping field. 
+This is used to derive a fudge factor to account for 
+correlations between neighbouring voxels.  Smoother data have more}
+
+\item{regularization}{parameters fro warping regularization}
+
+\item{affine}{Space to register the image to, using an affine registration}
+
+\item{def_inverse}{keep the inverse deformation field}
+
+\item{def_forward}{keep the forward deformation field}
+
+\item{warp_cleanup}{Level of cleanup with the warping.
+If you find pieces of brain being chopped out in your data, 
+then you may wish to disable or tone down the cleanup procedure.}
+
+\item{retimg}{Logical indicating if image should be returned or
+result from \code{\link{run_matlab_script}}}
 
 \item{add_spm_dir}{Add SPM12 directory from this package}
 

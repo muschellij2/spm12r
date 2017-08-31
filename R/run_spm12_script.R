@@ -59,8 +59,8 @@ run_spm12_script <- function(
   #####################################
   # Write Out files
   ##################################### 
-  writeLines(m, con=scripts['script'])
-  writeLines(job, con=scripts['job'])
+  writeLines(m, con = scripts['script'])
+  writeLines(job, con = scripts['job'])
   if (verbose){
     message(paste0("# Running script ", scripts['script'], "\nwhich calls ",
                    scripts['job'], "\n"))

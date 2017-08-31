@@ -1,0 +1,251 @@
+#' @title SPM12 Realign (Estimate and Reslice)
+#'
+#' @description Performs SPM12 realignment estimation and reslicing on an Image
+#'
+#' @param filename Files to be realigned and resliced
+#' @param fwhm Full-Width Half Max to smooth
+#' @param register_to Should the files be registered to the first or the mean
+#' @param reslice Options for reslicing all - all images in filename,
+#' 2:n - all images in filename 2:length(filename),
+#' all+mean - all images and the mean, mean - mean only
+#' @param prefix Prefix to append to front of image filename
+#' @param add_spm_dir Add SPM12 directory from this package
+#' @param spmdir SPM dir to add, will use package default directory
+#' @param clean Remove scripts from temporary directory after running
+#' @param verbose Print diagnostic messages
+#' @param outdir Directory to copy results.  If full filename given, then results will
+#' be in \code{dirname(filename)}
+#' @param quality Quality versus speed trade-off.  
+#' Highest quality (1) gives most precise results, 
+#' whereas lower qualities gives faster realignment.
+#' @param separation The  average  distance  between  sampled points (in mm).  
+#' Can be a vector to allow a coarse registration followed by increasingly fine
+#' @param fwhm Gaussian  smoothing  to  apply  to  the 256x256 joint histogram. 
+#' Other information theoretic coregistration methods use fewer bins,
+#' @param wrap_x wrap in x-direction
+#' @param wrap_y wrap in y-direction
+#' @param wrap_z wrap in z-direction
+#' @param mask Mask the data.  With masking enabled, the program searches 
+#' through the whole time series looking for voxels which need to be sampled 
+#' from outside  the  original  images.  Where  this  occurs, 
+#'  that  voxel is set to zero for the whole set of images  
+#' @param est_interp Interpolator for estimation
+#' @param weight_image weighting image to weight each voxel of the reference 
+#' image during estimation. The weights are proportional to the 
+#' inverses of the standard deviations. May be used when there is
+#' a lot of motion.
+#' @param reslice_interp Interpolator for reslicing
+#' @param execute Should the script be executed or just return
+#' the  \code{matlabbatch}  object
+#' @param ... Arguments passed to \code{\link{run_spm12_script}}
+#'
+#' @export
+#' @return List of output files, the \code{matlabbatch} object, and the script
+spm12_realign <- function(
+  filename,
+  fwhm = 5,
+  quality = 0.9,
+  separation = 4,
+  register_to = c("first", "mean"),
+  est_interp = c(
+    "bspline2", "trilinear", 
+    paste0("bspline", 3:7)
+  ),
+  wrap_x = FALSE, 
+  wrap_y = FALSE, 
+  wrap_z = FALSE, 
+  weight_image = NULL,
+  reslice = c("all+mean", 
+              "all","2:n",  
+              "mean"),  
+  reslice_interp = c(
+    "bspline4", "nearestneighbor", "trilinear", 
+    paste0("bspline", 2:3),
+    paste0("bspline", 5:7),
+    "fourier"),
+  mask = FALSE, 
+  prefix = "r",
+  add_spm_dir = TRUE,
+  spmdir = spm_dir(verbose = verbose),
+  clean = TRUE,
+  verbose = TRUE,
+  outdir = NULL,
+  execute = TRUE,
+  ...
+){
+  install_spm12(verbose = verbose)
+  
+  
+  ########################
+  # Getting Number of Time points
+  ########################
+  if (verbose) {
+    message("# Getting Number of Time Points\n")
+  }
+  
+  wrap = c(wrap_x, wrap_y, wrap_z)
+  wrap = as.integer(wrap)
+  class(wrap) = "rowvec"
+  wrap = convert_to_matlab(wrap)  
+  
+  time_points = ntime_points(filename)
+  
+  # check filenames
+  filename = filename_check(filename)
+  stub = nii.stub(filename, bn = TRUE)[1]
+  dn = dirname(filename)
+  bn = basename(filename)
+  xfn = filename
+  
+  rpfile = file.path(
+    dn,
+    paste0("rp_", stub, ".txt"))
+  meanfile = file.path(
+    dn,
+    paste0("mean", stub, ".nii"))
+  matfile = file.path(
+    dn,
+    paste0(stub, ".mat"))
+  
+  ##########################################################
+  # Pasting together for a 4D file
+  ##########################################################
+  filename = paste0(filename, ",", time_points)
+  filename = rvec_to_matlabcell(filename)
+  
+  ###################
+  # If reslice is just mean, then the file is simply returned
+  ###################
+  reslice = match.arg(reslice)
+  if (verbose) {
+    message(paste0("# Reslice is ", reslice, "\n"))
+  }
+  if ( reslice %in% "mean" ) {
+    outfile = xfn
+  } else {
+    outfile = file.path(
+      dn,
+      paste0(prefix, bn))
+  }
+  reslice = switch(
+    reslice,
+    "all" = "[2 0]",
+    "2:n" = "[1 0]",
+    "all+mean" = "[2 1]",
+    "mean" = "[0 1]")  
+  
+  ###########################
+  # weight image
+  ###########################  
+  if (!is.null(weight_image)) {
+    weight_image = filename_check(weight_image)
+  } else {
+    weight_image = ""  
+  }
+  weight_image = convert_to_matlab(weight_image)
+
+  ###########################
+  # interpolations
+  ###########################  
+  est_interp = match.arg(est_interp)
+  est_interp = factor(
+    est_interp,
+    levels = c(
+      "trilinear", 
+      paste0("bspline", 2:7)
+    ))
+  est_interp = convert_to_matlab(est_interp)
+  
+  reslice_interp = match.arg(reslice_interp)
+  reslice_interp = factor(
+    reslice_interp,
+    levels = c(
+      "nearestneighbor", "trilinear", 
+      paste0("bspline", 2:7), 
+      "fourier")
+  )
+  reslice_interp = convert_to_matlab(reslice_interp)
+  
+  ###########################
+  # register to which scan
+  ###########################  
+  register_to = match.arg(register_to)
+  register_to = switch(
+    register_to,
+    first = 0,
+    mean = 1)
+  
+  spm = list(
+    spatial = list(
+      realign = list(
+        estwrite = 
+          list(
+            data = filename,
+            eoptions = list(
+              quality = quality,
+              sep = separation,
+              fwhm = fwhm,
+              rtm = register_to,
+              interp = est_interp,
+              wrap = wrap,
+              weight = weight_image
+            ),
+            roptions = list(
+              which = reslice,
+              interp = reslice_interp,
+              wrap = wrap,
+              mask = mask,
+              prefix = prefix
+            )
+          )
+      )
+    )
+  ) 
+  
+  spm = list(spm = spm)
+  class(spm) = "matlabbatch"
+  
+  script = matlabbatch_to_script(spm, ...)  
+  
+  L = list(
+    spm = spm,
+    script = script)
+  
+  
+  if (execute) {
+    res = run_matlabbatch(
+      spm, 
+      add_spm_dir = add_spm_dir, 
+      clean = clean,
+      verbose = verbose,
+      spmdir = spmdir,
+      ...) 
+    
+    if (res != 0) {
+      warning("Result was not zero!")
+    }
+
+    ####################
+    # Copy outfiles
+    ####################
+    if (!is.null(outdir)) {
+      file.copy(outfile, to = outdir, overwrite = TRUE)
+      file.copy(rpfile, to = outdir, overwrite = TRUE)
+      if (!is.null(meanfile)) {
+        file.copy(meanfile, to = outdir, overwrite = TRUE)
+      }
+      file.copy(matfile, to = outdir, overwrite = TRUE)
+    }
+    
+    L$outfiles = outfile
+    L$rp = rpfile
+    L$mean = meanfile
+    L$mat = matfile
+    L$result = res    
+  }
+  
+ 
+  return(L)
+}
+
+

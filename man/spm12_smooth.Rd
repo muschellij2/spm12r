@@ -4,9 +4,10 @@
 \alias{spm12_smooth}
 \title{SPM12 Smooth}
 \usage{
-spm12_smooth(filename, retimg = TRUE, fwhm = 8, prefix = "s",
-  add_spm_dir = TRUE, spmdir = spm_dir(), clean = TRUE, verbose = TRUE,
-  reorient = FALSE, ...)
+spm12_smooth(filename, retimg = TRUE, fwhm = 8, dtype = c("SAME", "UINT8",
+  "INT16", "INT32", "FLOAT32", "FLOAT64"), implicit_mask = FALSE,
+  prefix = "s", add_spm_dir = TRUE, spmdir = spm_dir(), clean = TRUE,
+  verbose = TRUE, reorient = FALSE, ...)
 }
 \arguments{
 \item{filename}{File to be smoothed}
@@ -15,6 +16,13 @@ spm12_smooth(filename, retimg = TRUE, fwhm = 8, prefix = "s",
 result from \code{\link{run_matlab_script}}}
 
 \item{fwhm}{Full-Width Half Max to smooth}
+
+\item{dtype}{data type for the output format}
+
+\item{implicit_mask}{Should an implicit mask be used.
+An "implicit mask" is a mask implied by a 
+particular voxel value (0 for images with integer type, 
+NaN for float images).}
 
 \item{prefix}{Prefix to append to front of image filename}
 
