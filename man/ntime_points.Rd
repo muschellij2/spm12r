@@ -7,11 +7,13 @@
 ntime_points(filename)
 }
 \arguments{
-\item{filename}{List of nifti objects, a vector of character filenames, or a single 4D nifti}
+\item{filename}{List of nifti objects, a vector of character 
+filenames, or a single 4D nifti}
 }
 \value{
 Vector of time points
 }
 \description{
-Extracts the number of time points from a nifti object, list or character
+Extracts the number of time points from a nifti 
+object, list or character
 }

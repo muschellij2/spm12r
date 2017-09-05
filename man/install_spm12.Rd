@@ -7,7 +7,7 @@
 install_spm12(lib.loc = NULL, verbose = TRUE)
 }
 \arguments{
-\item{lib.loc}{a character vector with path names of R libraries. 
+\item{lib.loc}{a character vector with path names of R libraries.
 Passed to \code{\link{system.file}}}
 
 \item{verbose}{print diagnostic messages}

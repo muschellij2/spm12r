@@ -81,7 +81,7 @@ spm12_normalize_est <- function(
   #########################################
   tpm = file.path(spmdir, "tpm", "TPM.nii")
   tpm = convert_to_matlab(tpm)
-  tpm = paste0("{", tpm , "}")
+  tpm = paste0("{", tpm, "}")
   vol = paste0("{'", filename, "'}")
   
   spm = list(

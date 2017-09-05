@@ -1,15 +1,18 @@
 #' @title SPM12 Coregister (Estimate and Reslice)
 #'
-#' @description Performs SPM12 coregistration estimation and reslicing on an Image
+#' @description Performs SPM12 coregistration estimation and 
+#' reslicing on an Image
 #' @param fixed File that is assumed fixed
 #' @param moving moving file to be registered to fixed space
-#' @param other.files Other files to register to fixed, in same space as moving file
+#' @param other.files Other files to register to fixed, in same 
+#' space as moving file
 #' @param prefix Prefix to append to front of image filename
 #' @param add_spm_dir Add SPM12 directory from this package
 #' @param spmdir SPM dir to add, will use package default directory
 #' @param clean Remove scripts from temporary directory after running
 #' @param verbose Print diagnostic messages
-#' @param outdir Directory to copy results.  If full filename given, then results will
+#' @param outdir Directory to copy results.  If full filename given, 
+#' then results will
 #' be in \code{dirname(filename)}
 #' @param ... Arguments passed to \code{\link{run_spm12_script}}
 #' @export
@@ -27,7 +30,7 @@ spm12_coregister.deprecated <- function(
   ...
 ){
   
-  install_spm12()
+  install_spm12(verbose = verbose)
   
   ########################
   # Getting Number of Time points
@@ -37,7 +40,7 @@ spm12_coregister.deprecated <- function(
   fixed = filename_check(fixed)
   moving = filename_check(moving)
   
-  if (is.null(other.files)){
+  if (is.null(other.files)) {
     other.files = "''"
     other.ofiles = NULL
     other = FALSE
@@ -56,23 +59,25 @@ spm12_coregister.deprecated <- function(
   
   
   jobvec = c(fixed, moving, other.files, prefix)
-  names(jobvec) = c("%reffile%", "%sourcefile%", "%otherfile%", "%prefix%")
+  names(jobvec) = c("%reffile%", "%sourcefile%", 
+                    "%otherfile%", "%prefix%")
   
-  res = run_spm12_script( script_name = "Coregister",
-                          jobvec = jobvec,
-                          mvec = NULL,
-                          add_spm_dir = add_spm_dir,
-                          spmdir = spmdir,
-                          clean = clean,
-                          verbose = verbose,
-                          ...)
+  res = run_spm12_script(
+    script_name = "Coregister",
+    jobvec = jobvec,
+    mvec = NULL,
+    add_spm_dir = add_spm_dir,
+    spmdir = spmdir,
+    clean = clean,
+    verbose = verbose,
+    ...)
   if (res != 0) {
     warning("Result was not zero!")
   }
   ####################
   # Copy outfiles
   ####################
-  if (!is.null(outdir)){
+  if (!is.null(outdir)) {
     file.copy(omoving, to = outdir, overwrite = TRUE)
     if (other) {
       file.copy(other.ofiles, to = outdir, overwrite = TRUE)

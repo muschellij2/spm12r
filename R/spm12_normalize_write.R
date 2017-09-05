@@ -4,14 +4,16 @@
 #' @param deformation Filename of deformation (nifti)
 #' @param other.files Files to be written using the estimated
 #' normalization
-#' @param bounding_box matrix (2x3) of the bounding box to use.  Default is for MNI 2mm template
+#' @param bounding_box matrix (2x3) of the bounding box to use.  
+#' Default is for MNI 2mm template
 #' size 
 #' @param voxel_size The voxel sizes (x, y & z, in mm) 
 #' of the written normalised images.
 #' @param interp Interpolator for sampling in fixed space 
 #' @param retimg Logical indicating if image should be returned or
 #' result from \code{\link{run_matlab_script}}
-#' @param reorient if \code{retimg=TRUE} pass to \code{\link{readNIfTI}}
+#' @param reorient if \code{retimg=TRUE} pass to 
+#' \code{\link{readNIfTI}}
 #' @param add_spm_dir Add SPM12 directory from this package
 #' @param spmdir SPM dir to add, will use package default directory
 #' @param clean Remove scripts from temporary directory after running

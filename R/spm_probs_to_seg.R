@@ -17,7 +17,9 @@ spm_probs_to_seg <- function(img,
     ){
     stopifnot(inherits(img, "list"))
     xmax = sapply(img, c)
-    ties.method = match.arg(ties.method, c("first", "last", "random") )
+    ties.method = match.arg(ties.method, 
+                            c("first", "last", "random")
+                            )
 
     maxs = max.col(xmax, 
         ties.method = ties.method)

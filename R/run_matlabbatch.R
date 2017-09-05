@@ -96,7 +96,7 @@ matlabbatch_to_script = function(
   mbatch = sub(";;$", ";", mbatch)
   
   # remove empty lines
-  mbatch = mbatch[ !mbatch %in% "" ]
+  mbatch = mbatch[!mbatch %in% ""]
   
   mbatch = paste0(prefix, mbatch)
   fname = tempfile(fileext = ".m")

@@ -6,37 +6,49 @@
 #' 
 #' @param fixed File that is assumed fixed
 #' @param moving moving file to be registered to fixed space
-#' @param other.files Other files to register to fixed, in same space as moving file
+#' @param other.files Other files to register to fixed, 
+#' in same space as moving file
 #' @param prefix Prefix to append to front of image filename
 #' @param add_spm_dir Add SPM12 directory from this package
 #' @param spmdir SPM dir to add, will use package default directory
 #' @param clean Remove scripts from temporary directory after running
 #' @param verbose Print diagnostic messages
-#' @param outdir Directory to copy results.  If full filename given, then results will
+#' @param outdir Directory to copy results.  If full filename 
+#' given, then results will
 #' be in \code{dirname(filename)}
 #' 
 #' @param cost_fun Cost function
-#' @param separation The  average  distance  between  sampled points (in mm).  
-#' Can be a vector to allow a coarse registration followed by increasingly fine
-#' @param tol The  accuracy  for  each  parameter.    Iterations  stop  when 
-#'  differences  between  successive  estimates  are  less  than  the required
-#' @param fwhm Gaussian  smoothing  to  apply  to  the 256x256 joint histogram. 
+#' @param separation The  average  distance  between  sampled 
+#' points (in mm).  
+#' Can be a vector to allow a coarse registration followed by 
+#' increasingly fine
+#' @param tol The  accuracy  for  each  parameter.    Iterations  
+#' stop  when 
+#'  differences  between  successive  estimates  are  less  than  
+#'  the required
+#' @param fwhm Gaussian  smoothing  to  apply  to  the 256x256 
+#' joint histogram. 
 #' Other information theoretic coregistration methods use fewer bins,
 #' @param interp Interpolator for sampling in fixed space
 #' @param wrap_x wrap in x-direction
 #' @param wrap_y wrap in y-direction
 #' @param wrap_z wrap in z-direction
-#' @param mask Mask the data.  With masking enabled, the program searches 
-#' through the whole time series looking for voxels which need to be sampled 
+#' @param mask Mask the data.  With masking enabled, 
+#' the program searches 
+#' through the whole time series looking for voxels which need to
+#'  be sampled 
 #' from outside  the  original  images.  Where  this  occurs, 
 #'  that  voxel is set to zero for the whole set of images 
-#' @param ... Additional arguments to pass to \code{\link{run_matlabbatch}}
+#' @param ... Additional arguments to pass to 
+#' \code{\link{run_matlabbatch}}
 #'
-#' @return List of output files, the \code{matlabbatch} object, and the script
+#' @return List of output files, the \code{matlabbatch} object, 
+#' and the script
 #' @export
 #'
 #' @examples \dontrun{
-#' fname = "~/Desktop/D2/scratch/100-318_20070723_0957_CT_3_CT_Head-_SS_0.01_SyN_ROI.nii.gz"
+#' fname = paste0("~/Desktop/D2/scratch/", 
+#' "100-318_20070723_0957_CT_3_CT_Head-_SS_0.01_SyN_ROI.nii.gz")
 #' spm = batch_spm12_coregister(
 #' fixed = fname,
 #' moving = fname, 
@@ -49,9 +61,12 @@ build_spm12_coregister <- function(
   other.files = NULL,
   cost_fun = c("nmi", "ecc", "ncc"), # 
   separation = c(4, 2),
-  tol = c(0.02, 0.02, 0.02, 0.001, 0.001, 0.001, 0.01, 0.01, 0.01, 0.001, 0.001, 0.001),
+  tol = c(0.02, 0.02, 0.02, 0.001, 0.001, 0.001, 
+          0.01, 0.01, 0.01, 0.001, 0.001, 0.001),
   fwhm = c(7, 7),
-  # The  method  by  which  the  images  are  sampled  when  being  written  in  a  different  space.  Nearest Neighbour is fastest, but not
+  # The  method  by  which  the  images  are  sampled  when  being  
+  # written  in  a  different  space.  Nearest Neighbour is fastest, 
+  # but not
   interp = c("bspline4", "nearestneighbor", "trilinear", 
              paste0("bspline", 2:3),
              paste0("bspline", 5:7)),  

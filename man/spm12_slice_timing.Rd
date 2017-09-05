@@ -12,17 +12,21 @@ spm12_slice_timing(filename, time_points = NULL, nslices, tr, ta = tr -
 \arguments{
 \item{filename}{Files to be slice-time corrected}
 
-\item{time_points}{Time points to run slice-time correction.  If \code{filename} is a
-4D file, then will do all the time points.  Otherwise, \code{filename} must be a character
+\item{time_points}{Time points to run slice-time correction.
+If \code{filename} is a
+4D file, then will do all the time points.  Otherwise, 
+\code{filename} must be a character
 vector of 3D files or a list of 3D nifti objects.}
 
 \item{nslices}{Number of slices in the images}
 
 \item{tr}{Repetition time (in seconds)}
 
-\item{ta}{Time between the first and the last slice within one scan}
+\item{ta}{Time between the first and the last slice 
+within one scan}
 
-\item{slice_order}{Order slices were taken (if not specified, assumed ascending),
+\item{slice_order}{Order slices were taken (if not specified, 
+assumed ascending),
 bottom slice = 1}
 
 \item{ref_slice}{Reference slice}
@@ -33,7 +37,8 @@ bottom slice = 1}
 
 \item{spmdir}{SPM dir to add, will use package default directory}
 
-\item{clean}{Remove scripts from temporary directory after running}
+\item{clean}{Remove scripts from temporary directory 
+after running}
 
 \item{verbose}{Print diagnostic messages}
 
@@ -41,7 +46,8 @@ bottom slice = 1}
 
 \item{retimg}{(logical) return image of class nifti}
 
-\item{reorient}{(logical) If retimg, should file be reoriented when read in?
+\item{reorient}{(logical) If retimg, should file be 
+reoriented when read in?
 Passed to \code{\link{readNIfTI}}.}
 
 \item{...}{Arguments passed to \code{\link{run_spm12_script}}}

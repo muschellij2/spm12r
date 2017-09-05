@@ -5,7 +5,8 @@
 #' @param filename File to be normalized to the template
 #' @param other.files Files to be written using the estimated
 #' normalization
-#' @param bounding_box matrix (2x3) of the bounding box to use.  Default is for MNI 2mm template
+#' @param bounding_box matrix (2x3) of the bounding box to use.  
+#' Default is for MNI 2mm template
 #' size
 #' @param add_spm_dir Add SPM12 directory from this package
 #' @param spmdir SPM dir to add, will use package default directory
@@ -14,11 +15,13 @@
 #' @param ... Arguments passed to \code{\link{run_spm12_script}}
 #' @param biasreg Amount of bias regularization
 #' @param regularization parameters for warping regularization
-#' @param affine Space to register the image to, using an affine registration
+#' @param affine Space to register the image to, using an affine 
+#' registration
 #' @param smoothness FWHM of smoothing done
 #' @param sampling_distance smoothingess of the warping field. 
 #' This is used to derive a fudge factor to account for 
-#' correlations between neighbouring voxels.  Smoother data have more
+#' correlations between neighbouring voxels.  Smoother data have 
+#' more
 #' @param voxel_size The voxel sizes (x, y & z, in mm) 
 #' of the written normalised images.
 #' @param interp Interpolator for sampling in fixed space
@@ -26,7 +29,8 @@
 #'
 #' @export
 #' @return List of outptu filenames
-#' @importFrom matlabr rvec_to_matlabcell rvec_to_matlabcell rmat_to_matlab_mat
+#' @importFrom matlabr rvec_to_matlabcell rvec_to_matlabcell 
+#' @importFrom matlabr rmat_to_matlab_mat
 spm12_normalize <- function(
   filename,
   other.files = NULL,
@@ -151,7 +155,7 @@ spm12_normalize <- function(
     "%interp%", 
     "%reg%")
   
-  res = run_spm12_script( 
+  res = run_spm12_script(
     script_name = "Normalize_Estimate_and_Write",
     jobvec = jobvec,
     mvec = NULL,

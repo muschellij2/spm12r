@@ -59,9 +59,9 @@ bwconncomp = function(infile, # input filename
     infile = paste0(nii.stub(infile), ".nii")
   }
   stopifnot(file.exists(infile))
-  gzip.outfile = FALSE
+  gzip_outfile = FALSE
   if (grepl("\\.gz$", outfile)) {
-    gzip.outfile = TRUE
+    gzip_outfile = TRUE
     outfile = nii.stub(outfile)
     outfile = paste0(outfile, ".nii")
   }
@@ -75,15 +75,15 @@ bwconncomp = function(infile, # input filename
   cmds = c(cmd,
            sprintf("ROI = '%s'", infile),
            sprintf("ROIf  = '%s'", outfile),
-           '%-Connected Component labelling',
-           'V = spm_vol(ROI);',
-           'dat = spm_read_vols(V);',
-           paste0('cc = bwconncomp(dat > 0, ', conn, ');'),
-           'dat = labelmatrix(cc);',
-           '%-Write new image',
-           'V.fname = ROIf;',
-           'V.private.cal = [0 1];',
-           'spm_write_vol(V,dat);')
+           "%-Connected Component labelling",
+           "V = spm_vol(ROI);",
+           "dat = spm_read_vols(V);",
+           paste0("cc = bwconncomp(dat > 0, ", conn, ");"),
+           "dat = labelmatrix(cc);",
+           "%-Write new image",
+           "V.fname = ROIf;",
+           "V.private.cal = [0 1];",
+           "spm_write_vol(V,dat);")
 
   sname = paste0(tempfile(), ".m")
   writeLines(cmds, con = sname)
@@ -93,7 +93,7 @@ bwconncomp = function(infile, # input filename
   res = run_matlab_script(sname)
 
 
-  if (gzip.outfile) {
+  if (gzip_outfile) {
     R.utils::gzip(outfile, overwrite = TRUE, remove = TRUE)
     outfile = paste0(nii.stub(outfile), ".nii.gz")
   }

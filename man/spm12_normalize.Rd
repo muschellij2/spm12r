@@ -19,7 +19,8 @@ spm12_normalize(filename, other.files = NULL, bounding_box = matrix(c(-90,
 \item{other.files}{Files to be written using the estimated
 normalization}
 
-\item{bounding_box}{matrix (2x3) of the bounding box to use.  Default is for MNI 2mm template
+\item{bounding_box}{matrix (2x3) of the bounding box to use.
+Default is for MNI 2mm template
 size}
 
 \item{biasreg}{Amount of bias regularization}
@@ -28,13 +29,15 @@ size}
 
 \item{regularization}{parameters for warping regularization}
 
-\item{affine}{Space to register the image to, using an affine registration}
+\item{affine}{Space to register the image to, using an affine 
+registration}
 
 \item{smoothness}{FWHM of smoothing done}
 
 \item{sampling_distance}{smoothingess of the warping field. 
 This is used to derive a fudge factor to account for 
-correlations between neighbouring voxels.  Smoother data have more}
+correlations between neighbouring voxels.  Smoother data have 
+more}
 
 \item{voxel_size}{The voxel sizes (x, y & z, in mm) 
 of the written normalised images.}

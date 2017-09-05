@@ -2,23 +2,29 @@
 #'
 #' @description Performs SPM12 slice timing correction on images
 #' @param filename Files to be slice-time corrected
-#' @param time_points Time points to run slice-time correction.  If \code{filename} is a
-#' 4D file, then will do all the time points.  Otherwise, \code{filename} must be a character
+#' @param time_points Time points to run slice-time correction.  
+#' If \code{filename} is a
+#' 4D file, then will do all the time points.  Otherwise, 
+#' \code{filename} must be a character
 #' vector of 3D files or a list of 3D nifti objects.
 #' @param nslices Number of slices in the images
 #' @param tr Repetition time (in seconds)
-#' @param ta Time between the first and the last slice within one scan
-#' @param slice_order Order slices were taken (if not specified, assumed ascending),
+#' @param ta Time between the first and the last slice 
+#' within one scan
+#' @param slice_order Order slices were taken (if not specified, 
+#' assumed ascending),
 #' bottom slice = 1
 #' @param ref_slice Reference slice
 #' @param prefix Prefix to append to front of image filename
 #' @param add_spm_dir Add SPM12 directory from this package
 #' @param spmdir SPM dir to add, will use package default directory
-#' @param clean Remove scripts from temporary directory after running
+#' @param clean Remove scripts from temporary directory 
+#' after running
 #' @param verbose Print diagnostic messages
 #' @param outdir Directory to copy results
 #' @param retimg (logical) return image of class nifti
-#' @param reorient (logical) If retimg, should file be reoriented when read in?
+#' @param reorient (logical) If retimg, should file be 
+#' reoriented when read in?
 #' Passed to \code{\link{readNIfTI}}.
 #' @param ... Arguments passed to \code{\link{run_spm12_script}}
 #' @export

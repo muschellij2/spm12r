@@ -17,7 +17,8 @@ spm12_normalize_write(deformation, other.files = NULL,
 \item{other.files}{Files to be written using the estimated
 normalization}
 
-\item{bounding_box}{matrix (2x3) of the bounding box to use.  Default is for MNI 2mm template
+\item{bounding_box}{matrix (2x3) of the bounding box to use.
+Default is for MNI 2mm template
 size}
 
 \item{voxel_size}{The voxel sizes (x, y & z, in mm) 
@@ -28,7 +29,8 @@ of the written normalised images.}
 \item{retimg}{Logical indicating if image should be returned or
 result from \code{\link{run_matlab_script}}}
 
-\item{reorient}{if \code{retimg=TRUE} pass to \code{\link{readNIfTI}}}
+\item{reorient}{if \code{retimg=TRUE} pass to 
+\code{\link{readNIfTI}}}
 
 \item{add_spm_dir}{Add SPM12 directory from this package}
 

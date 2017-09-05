@@ -3,12 +3,14 @@
 #' @description Performs SPM12 Realignment estimation on an Image
 #' @param filename Files to be realigned
 #' @param fwhm Full-Width Half Max to smooth
-#' @param register_to Should the files be registered to the first or the mean
+#' @param register_to Should the files be registered to the first 
+#' or the mean
 #' @param add_spm_dir Add SPM12 directory from this package
 #' @param spmdir SPM dir to add, will use package default directory
 #' @param clean Remove scripts from temporary directory after running
 #' @param verbose Print diagnostic messages
-#' @param outdir Directory to copy results.  If full filename given, then results will
+#' @param outdir Directory to copy results.  
+#' If full filename given, then results will
 #' be in \code{dirname(filename)}
 #' @param ... Arguments passed to \code{\link{run_spm12_script}}
 #' @export
@@ -60,14 +62,15 @@ spm12_realign_est <- function(filename,
   names(jobvec) = c("%filename%", "%fwhm%",
                     "%registerto%", "%spmdir%")
 
-  res = run_spm12_script( script_name = "Realign_Estimate",
-                          jobvec = jobvec,
-                          mvec = NULL,
-                          add_spm_dir = add_spm_dir,
-                          spmdir = spmdir,
-                          clean = clean,
-                          verbose = verbose,
-                          ...)
+  res = run_spm12_script(
+    script_name = "Realign_Estimate",
+    jobvec = jobvec,
+    mvec = NULL,
+    add_spm_dir = add_spm_dir,
+    spmdir = spmdir,
+    clean = clean,
+    verbose = verbose,
+    ...)
   stopifnot(res == 0)
   ####################
   # Copy outfiles

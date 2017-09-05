@@ -1,13 +1,13 @@
 #' @title Wrapper for running \code{spm12_script}
 #'
-#' @description Runs \code{\link{spm12_script}} with wrapper for 
+#' @description Runs \code{\link{spm12_script}} with wrapper for
 #' spm12r functions
 #' @param script_name Name of the script filename without .m ext,
 #' passed to \code{\link{spm12_script}}
 #' @param jobvec Vector of characters to be substituted in _job.m file
 #' @param mvec Vector of characters to be substituted in .m file
 #' @param add_spm_dir Add SPM12 directory from this package
-#' @param spmdir SPM dir to add, will use package default directory 
+#' @param spmdir SPM dir to add, will use package default directory
 #' @param clean Remove scripts from temporary directory after running
 #' @param verbose Print diagnostic messages
 #' @param ... Arguments to pass to \code{\link{spm12_script}}
@@ -15,8 +15,8 @@
 #' @importFrom matlabr run_matlab_script get_matlab run_matlab_code
 #' @return Result of \code{\link{run_matlab_script}}
 run_spm12_script <- function(
-  script_name, 
-  jobvec = NULL, 
+  script_name,
+  jobvec = NULL,
   mvec = NULL,
   add_spm_dir = TRUE,
   spmdir = spm_dir(),
@@ -28,7 +28,7 @@ run_spm12_script <- function(
   
   scripts = spm12_script(script_name, ...)
   # put in the correct filenames
-  job = readLines(scripts['job'])
+  job = readLines(scripts["job"])
   njvec = names(jobvec)
   if (any(is.na(jobvec))){
     print(jobvec)
@@ -38,7 +38,7 @@ run_spm12_script <- function(
     job = gsub(njvec[ijob], jobvec[ijob], job)
   }
   
-  m = readLines(scripts['script'])  
+  m = readLines(scripts["script"])
   nmvec = names(mvec)
   for (ijob in seq_along(mvec)){
     m = gsub(nmvec[ijob], mvec[ijob], job)

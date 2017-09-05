@@ -22,17 +22,23 @@ spm12_coregister(..., add_spm_dir = TRUE, spmdir = spm_dir(verbose =
 
 \item{moving}{moving file to be registered to fixed space}
 
-\item{other.files}{Other files to register to fixed, in same space as moving file}
+\item{other.files}{Other files to register to fixed, 
+in same space as moving file}
 
 \item{cost_fun}{Cost function}
 
-\item{separation}{The  average  distance  between  sampled points (in mm).
-Can be a vector to allow a coarse registration followed by increasingly fine}
+\item{separation}{The  average  distance  between  sampled 
+points (in mm).  
+Can be a vector to allow a coarse registration followed by 
+increasingly fine}
 
-\item{tol}{The  accuracy  for  each  parameter.    Iterations  stop  when 
-differences  between  successive  estimates  are  less  than  the required}
+\item{tol}{The  accuracy  for  each  parameter.    Iterations
+stop  when 
+ differences  between  successive  estimates  are  less  than  
+ the required}
 
-\item{fwhm}{Gaussian  smoothing  to  apply  to  the 256x256 joint histogram. 
+\item{fwhm}{Gaussian  smoothing  to  apply  to  the 256x256 
+joint histogram. 
 Other information theoretic coregistration methods use fewer bins,}
 
 \item{interp}{Interpolator for sampling in fixed space}
@@ -43,8 +49,10 @@ Other information theoretic coregistration methods use fewer bins,}
 
 \item{wrap_z}{wrap in z-direction}
 
-\item{mask}{Mask the data.  With masking enabled, the program searches 
-through the whole time series looking for voxels which need to be sampled 
+\item{mask}{Mask the data.  With masking enabled, 
+the program searches 
+through the whole time series looking for voxels which need to
+ be sampled 
 from outside  the  original  images.  Where  this  occurs, 
  that  voxel is set to zero for the whole set of images}
 
@@ -58,13 +66,16 @@ from outside  the  original  images.  Where  this  occurs,
 
 \item{verbose}{Print diagnostic messages}
 
-\item{outdir}{Directory to copy results.  If full filename given, then results will
+\item{outdir}{Directory to copy results.  If full filename 
+given, then results will
 be in \code{dirname(filename)}}
 
-\item{...}{Additional arguments to pass to \code{\link{run_matlabbatch}}}
+\item{...}{Additional arguments to pass to 
+\code{\link{run_matlabbatch}}}
 }
 \value{
-List of output files, the \code{matlabbatch} object, and the script
+List of output files, the \code{matlabbatch} object, 
+and the script
 }
 \description{
 Performs SPM12 coregistration estimation and 
@@ -72,7 +83,8 @@ reslicing on an Image
 }
 \examples{
 \dontrun{
-fname = "~/Desktop/D2/scratch/100-318_20070723_0957_CT_3_CT_Head-_SS_0.01_SyN_ROI.nii.gz"
+fname = paste0("~/Desktop/D2/scratch/", 
+"100-318_20070723_0957_CT_3_CT_Head-_SS_0.01_SyN_ROI.nii.gz")
 spm = batch_spm12_coregister(
 fixed = fname,
 moving = fname, 

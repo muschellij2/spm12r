@@ -13,7 +13,8 @@ spm12_realign_est(filename, fwhm = 5, register_to = c("first", "mean"),
 
 \item{fwhm}{Full-Width Half Max to smooth}
 
-\item{register_to}{Should the files be registered to the first or the mean}
+\item{register_to}{Should the files be registered to the first 
+or the mean}
 
 \item{add_spm_dir}{Add SPM12 directory from this package}
 
@@ -23,7 +24,8 @@ spm12_realign_est(filename, fwhm = 5, register_to = c("first", "mean"),
 
 \item{verbose}{Print diagnostic messages}
 
-\item{outdir}{Directory to copy results.  If full filename given, then results will
+\item{outdir}{Directory to copy results.
+If full filename given, then results will
 be in \code{dirname(filename)}}
 
 \item{...}{Arguments passed to \code{\link{run_spm12_script}}}

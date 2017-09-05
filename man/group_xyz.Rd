@@ -9,7 +9,8 @@ group_xyz(img, k = 1, ...)
 \arguments{
 \item{img}{Object of class nifti}
 
-\item{k}{Minimum number of voxels for a cluster.  See \code{\link{spm_bwlabel}}}
+\item{k}{Minimum number of voxels for a cluster.
+See \code{\link{spm_bwlabel}}}
 
 \item{...}{Arguments passed to \code{\link{spm_bwlabel}}}
 }

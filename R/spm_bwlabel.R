@@ -33,12 +33,12 @@ spm_bwlabel = function(infile, # input filename
 ){
   install_spm12(verbose = verbose)
   
-  infile = checkimg(infile, gzipped=FALSE)
+  infile = checkimg(infile, gzipped = FALSE)
   infile = path.expand(infile)
   ##################
   # Checking on outfiles or return images
   ##################  
-  if (retimg){
+  if (retimg) {
     if (is.null(outfile)) {
       outfile = tempfile(fileext = ".nii")
     } 
@@ -48,24 +48,26 @@ spm_bwlabel = function(infile, # input filename
   
   outfile = path.expand(outfile)
   
-  if (grepl("\\.gz$", infile)){
-    infile = R.utils::gunzip(infile, remove=FALSE, temporary=TRUE,
-                    overwrite=TRUE)
-  } else { 
+  if (grepl("\\.gz$", infile)) {
+    infile = R.utils::gunzip(
+      infile,
+      remove = FALSE, temporary = TRUE,
+      overwrite = TRUE)
+  } else {
     infile = paste0(nii.stub(infile), ".nii")
   }
   stopifnot(file.exists(infile))
-  gzip.outfile = FALSE
-  if (grepl("\\.gz$", outfile)){
-    gzip.outfile = TRUE
+  gzip_outfile = FALSE
+  if (grepl("\\.gz$", outfile)) {
+    gzip_outfile = TRUE
     outfile = nii.stub(outfile)
     outfile = paste0(outfile, ".nii")
   }
   meas.use = NULL
-  if (!is.null(k) & !is.null(topN)){
+  if (!is.null(k) & !is.null(topN)) {
     stop("Need only K or topN")
   }  
-  if (is.null(k) & is.null(topN)){
+  if (is.null(k) & is.null(topN)) {
     message("Using k with no defaults, using 1")
     #     pdim = sapply(1:3, function(x) {
     #       as.numeric(fslval(file=infile, keyword = paste0("pixdim", x)))
@@ -134,20 +136,20 @@ spm_bwlabel = function(infile, # input filename
     )
   } else {
     addcmds = c(
-      '[l2, num] = spm_bwlabel(double(dat>0),26);',
+      "[l2, num] = spm_bwlabel(double(dat>0),26);",
       "if ~num, warning('No clusters found.'); end",
-      '%-Extent threshold, and sort clusters according to their extent',
+      "%-Extent threshold, and sort clusters according to their extent",
       "[n, ni] = sort(histc(l2(:),0:num), 1, 'descend');",
-      'l  = zeros(size(l2));',
-      'printnum = min(num, 5);',
-      'disp(ni(1:printnum));',
-      'disp(n(1:printnum));',
-      'n  = n(ni ~=  1); ni = ni(ni ~= 1)-1;',
+      "l  = zeros(size(l2));",
+      "printnum = min(num, 5);",
+      "disp(ni(1:printnum));",
+      "disp(n(1:printnum));",
+      "n  = n(ni ~=  1); ni = ni(ni ~= 1)-1;",
       ifelse(meas.use == "k", 
-             'ni = ni(n>=k); n  = n(n>=k);',
-             sprintf('ni = ni(1:%d); n  = n(1:%d);', topN, topN)),
-      'for i=1:length(n), l(l2==ni(i)) = i; end',
-      'clear l2 ni;',
+             "ni = ni(n>=k); n  = n(n>=k);",
+             sprintf("ni = ni(1:%d); n  = n(1:%d);", topN, topN)),
+      "for i=1:length(n), l(l2==ni(i)) = i; end",
+      "clear l2 ni;",
       "fprintf('Selected %d clusters (out of %d) in image.',length(n),num);",
       ifelse(binary, "dat = l~=0;", "dat = l;")
     )
@@ -157,34 +159,39 @@ spm_bwlabel = function(infile, # input filename
            sprintf("ROI = '%s'", infile), 
            sprintf('k = %d', k),
            sprintf("ROIf  = '%s'", outfile), 
-           '%-Connected Component labelling',
-           'V = spm_vol(ROI);',
-           'dat = spm_read_vols(V);',
+           "%-Connected Component labelling",
+           "V = spm_vol(ROI);",
+           "dat = spm_read_vols(V);",
            addcmds,
-           '%-Write new image',
-           'V.fname = ROIf;',
-           'V.private.cal = [0 1];',
-           'spm_write_vol(V,dat);')
+           "%-Write new image",
+           "V.fname = ROIf;",
+           "V.private.cal = [0 1];",
+           "spm_write_vol(V,dat);")
   
   #   sname = file.path(tempdir(), "my_lung_script.m")
   sname = paste0(tempfile(), ".m")
-  writeLines(cmds, con=sname)
-  if (verbose){
+  writeLines(cmds, con = sname)
+  if (verbose) {
     message(paste0("# Script is located at ", sname, "\n"))
   }
   res = run_matlab_script(sname, verbose = verbose)
   
   
-  if (gzip.outfile) {
-    R.utils::gzip(outfile, overwrite = TRUE, remove=TRUE)
+  if (gzip_outfile) {
+    R.utils::gzip(
+      outfile, 
+      overwrite = TRUE, 
+      remove = TRUE)
     outfile = paste0(nii.stub(outfile), ".nii.gz")
   }
-  if (retimg){
-    if (verbose){
-      message(paste0("# Reading output file ", outfile, "\n"))
+  if (retimg) {
+    if (verbose) {
+      message(
+        paste0("# Reading output file ", outfile, "\n")
+        )
     }    
     res = readNIfTI(outfile, reorient = reorient)
   }
-  message('\n')
+  message("\n")
   return(res)
 }

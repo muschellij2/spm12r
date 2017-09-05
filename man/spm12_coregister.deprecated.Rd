@@ -13,7 +13,8 @@ spm12_coregister.deprecated(fixed, moving, other.files = NULL, prefix = "r",
 
 \item{moving}{moving file to be registered to fixed space}
 
-\item{other.files}{Other files to register to fixed, in same space as moving file}
+\item{other.files}{Other files to register to fixed, in same 
+space as moving file}
 
 \item{prefix}{Prefix to append to front of image filename}
 
@@ -25,7 +26,8 @@ spm12_coregister.deprecated(fixed, moving, other.files = NULL, prefix = "r",
 
 \item{verbose}{Print diagnostic messages}
 
-\item{outdir}{Directory to copy results.  If full filename given, then results will
+\item{outdir}{Directory to copy results.  If full filename given, 
+then results will
 be in \code{dirname(filename)}}
 
 \item{...}{Arguments passed to \code{\link{run_spm12_script}}}
@@ -34,5 +36,6 @@ be in \code{dirname(filename)}}
 Result from run_matlab_script
 }
 \description{
-Performs SPM12 coregistration estimation and reslicing on an Image
+Performs SPM12 coregistration estimation and 
+reslicing on an Image
 }

@@ -1,36 +1,47 @@
 #' @rdname spm12_realign
 #' @title SPM12 Realign (Estimate and Reslice)
 #'
-#' @description Performs SPM12 realignment estimation and reslicing on an Image
+#' @description Performs SPM12 realignment estimation 
+#' and reslicing on an Image
 #'
 #' @param filename Files to be realigned and resliced
-#' @param fwhm Full-Width Half Max to smooth.  Gaussian  smoothing  
+#' @param fwhm Full-Width Half Max to smooth.  Gaussian  
+#' smoothing  
 #' to  apply  to  the 256x256 joint histogram. 
-#' @param register_to Should the files be registered to the first or the mean
-#' @param reslice Options for reslicing all - all images in filename,
+#' @param register_to Should the files be registered to the 
+#' first or the mean
+#' @param reslice Options for reslicing all - all 
+#' images in filename,
 #' 2:n - all images in filename 2:length(filename),
 #' all+mean - all images and the mean, mean - mean only
 #' @param prefix Prefix to append to front of image filename
 #' @param add_spm_dir Add SPM12 directory from this package
 #' @param spmdir SPM dir to add, will use package default directory
-#' @param clean Remove scripts from temporary directory after running
+#' @param clean Remove scripts from temporary directory 
+#' after running
 #' @param verbose Print diagnostic messages
-#' @param outdir Directory to copy results.  If full filename given, then results will
+#' @param outdir Directory to copy results.  
+#' If full filename given, then results will
 #' be in \code{dirname(filename)}
 #' @param quality Quality versus speed trade-off.  
 #' Highest quality (1) gives most precise results, 
 #' whereas lower qualities gives faster realignment.
-#' @param separation The  average  distance  between  sampled points (in mm).  
-#' Can be a vector to allow a coarse registration followed by increasingly fine
+#' @param separation The  average  distance  between 
+#'  sampled points (in mm).  
+#' Can be a vector to allow a coarse registration 
+#' followed by increasingly fine
 #' @param wrap_x wrap in x-direction
 #' @param wrap_y wrap in y-direction
 #' @param wrap_z wrap in z-direction
-#' @param mask Mask the data.  With masking enabled, the program searches 
-#' through the whole time series looking for voxels which need to be sampled 
+#' @param mask Mask the data.  With masking enabled, the 
+#' program searches 
+#' through the whole time series looking for voxels which 
+#' need to be sampled 
 #' from outside  the  original  images.  Where  this  occurs, 
 #'  that  voxel is set to zero for the whole set of images  
 #' @param est_interp Interpolator for estimation
-#' @param weight_image weighting image to weight each voxel of the reference 
+#' @param weight_image weighting image to weight each 
+#' voxel of the reference 
 #' image during estimation. The weights are proportional to the 
 #' inverses of the standard deviations. May be used when there is
 #' a lot of motion.
@@ -38,7 +49,8 @@
 #' @param ... Arguments passed to \code{\link{run_spm12_script}}
 #'
 #' @export
-#' @return List of output files, the \code{matlabbatch} object, and the script
+#' @return List of output files, the \code{matlabbatch} object, 
+#' and the script
 build_spm12_realign <- function(
   filename,
   fwhm = 5,

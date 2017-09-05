@@ -30,7 +30,8 @@ all+mean - all images and the mean, mean - mean only}
 
 \item{verbose}{Print diagnostic messages}
 
-\item{outdir}{Directory to copy results.  If full filename given, then results will
+\item{outdir}{Directory to copy results.
+If full filename given, then results will
 be in \code{dirname(filename)}}
 
 \item{...}{Arguments passed to \code{\link{run_spm12_script}}}
@@ -39,5 +40,6 @@ be in \code{dirname(filename)}}
 Result from run_matlab_script
 }
 \description{
-Performs SPM12 realignment estimation and reslicing on an Image
+Performs SPM12 realignment estimation 
+and reslicing on an Image
 }

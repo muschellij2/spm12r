@@ -30,6 +30,6 @@ passed to \code{\link{spm12_script}}}
 Result of \code{\link{run_matlab_script}}
 }
 \description{
-Runs \code{\link{spm12_script}} with wrapper for 
+Runs \code{\link{spm12_script}} with wrapper for
 spm12r functions
 }
