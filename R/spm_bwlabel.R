@@ -31,7 +31,7 @@ spm_bwlabel = function(infile, # input filename
                        reorient = FALSE,
                        verbose = TRUE
 ){
-  install_spm12()
+  install_spm12(verbose = verbose)
   
   infile = checkimg(infile, gzipped=FALSE)
   infile = path.expand(infile)
@@ -172,7 +172,7 @@ spm_bwlabel = function(infile, # input filename
   if (verbose){
     message(paste0("# Script is located at ", sname, "\n"))
   }
-  res = run_matlab_script(sname)
+  res = run_matlab_script(sname, verbose = verbose)
   
   
   if (gzip.outfile) {

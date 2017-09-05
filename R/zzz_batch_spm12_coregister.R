@@ -1,3 +1,4 @@
+#' @rdname spm12_coregister
 #' @title Batch SPM12 Coregister (Estimate and Reslice)
 #'
 #' @description Performs SPM12 coregistration estimation and 
@@ -29,8 +30,6 @@
 #' through the whole time series looking for voxels which need to be sampled 
 #' from outside  the  original  images.  Where  this  occurs, 
 #'  that  voxel is set to zero for the whole set of images 
-#' @param execute Should the script be executed or just return
-#' the  \code{matlabbatch}  object
 #' @param ... Additional arguments to pass to \code{\link{run_matlabbatch}}
 #'
 #' @return List of output files, the \code{matlabbatch} object, and the script
@@ -44,7 +43,7 @@
 #' other.files = fname,
 #' execute = FALSE)
 #' }
-spm12_coregister <- function(
+build_spm12_coregister <- function(
   fixed,
   moving,
   other.files = NULL,
@@ -67,7 +66,6 @@ spm12_coregister <- function(
   clean = TRUE,
   verbose = TRUE,
   outdir = NULL,
-  execute = TRUE,
   ...
 ){  
   
@@ -83,7 +81,7 @@ spm12_coregister <- function(
   
   levs = c("nearestneighbor", "trilinear", paste0("bspline", 2:7))
   interp = interp[1]
-  interp = match.arg(interp, choices = levs)
+  interp = match.arg(interp)
   interp = factor(interp, levels = levs)
   interp = convert_to_matlab(interp)
   
@@ -158,31 +156,60 @@ spm12_coregister <- function(
     spm = spm,
     script = script)
   L$outfile = omoving
+  L$other.outfiles = other.ofiles
+  return(L)
+}
+
+
+#' @export
+#' @rdname spm12_coregister
+spm12_coregister = function(
+  ...,
+  add_spm_dir = TRUE,
+  spmdir = spm_dir(verbose = verbose),
+  clean = TRUE,
+  verbose = TRUE,
+  outdir = NULL
+) {
   
-  if (execute) {
-    res = run_matlabbatch(
-      spm, 
-      add_spm_dir = add_spm_dir, 
-      clean = clean,
-      verbose = verbose,
-      spmdir = spmdir,
-      ...) 
-    
-    if (res != 0) {
-      warning("Result was not zero!")
-    }
-    ####################
-    # Copy outfiles
-    ####################
-    if (!is.null(outdir)) {
-      file.copy(omoving, to = outdir, overwrite = TRUE)
-      if (other) {
-        file.copy(other.ofiles, to = outdir, overwrite = TRUE)
-      }
-    }
-    L$other.outfiles = other.ofiles
-    L$result = res    
+  install_spm12(verbose = verbose)
+  L = build_spm12_coregister(verbose = verbose, ...)
+  spm = L$spm
+  other.ofiles = L$other.outfiles
+  other = !is.null(other.ofiles)
+  omoving = L$outfile
+  
+  if (verbose) {
+    message("# Running matlabbatch job")
+  }  
+  res = run_matlabbatch(
+    spm, 
+    add_spm_dir = add_spm_dir, 
+    clean = clean,
+    verbose = verbose,
+    spmdir = spmdir) 
+  
+  if (res != 0) {
+    warning("Result was not zero!")
   }
+  ####################
+  # Copy outfiles
+  ####################
+  if (!is.null(outdir)) {
+    file.copy(omoving, to = outdir, overwrite = TRUE)
+    omoving = file.path(outdir, basename(omoving))
+    if (other) {
+      file.copy(other.ofiles, to = outdir, overwrite = TRUE)
+      other.ofiles = file.path(
+        outdir, 
+        basename(other.ofiles))
+    }
+  }
+  
+  L$outfile = omoving
+  L$other.outfiles = other.ofiles
+  L$result = res    
+  
   
   return(L)
 }

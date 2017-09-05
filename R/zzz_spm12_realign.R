@@ -1,3 +1,4 @@
+#' @rdname spm12_realign
 #' @title SPM12 Realign (Estimate and Reslice)
 #'
 #' @description Performs SPM12 realignment estimation and reslicing on an Image
@@ -35,13 +36,11 @@
 #' inverses of the standard deviations. May be used when there is
 #' a lot of motion.
 #' @param reslice_interp Interpolator for reslicing
-#' @param execute Should the script be executed or just return
-#' the  \code{matlabbatch}  object
 #' @param ... Arguments passed to \code{\link{run_spm12_script}}
 #'
 #' @export
 #' @return List of output files, the \code{matlabbatch} object, and the script
-spm12_realign <- function(
+build_spm12_realign <- function(
   filename,
   fwhm = 5,
   quality = 0.9,
@@ -65,15 +64,9 @@ spm12_realign <- function(
     "fourier"),
   mask = FALSE, 
   prefix = "r",
-  add_spm_dir = TRUE,
-  spmdir = spm_dir(verbose = verbose),
-  clean = TRUE,
   verbose = TRUE,
-  outdir = NULL,
-  execute = TRUE,
   ...
 ){
-  install_spm12(verbose = verbose)
   
   
   ########################
@@ -86,7 +79,7 @@ spm12_realign <- function(
   wrap = c(wrap_x, wrap_y, wrap_z)
   wrap = as.integer(wrap)
   class(wrap) = "rowvec"
-  wrap = convert_to_matlab(wrap)  
+  wrap = convert_to_matlab(wrap, sep = "")  
   
   time_points = ntime_points(filename)
   
@@ -111,7 +104,11 @@ spm12_realign <- function(
   # Pasting together for a 4D file
   ##########################################################
   filename = paste0(filename, ",", time_points)
-  filename = rvec_to_matlabcell(filename)
+  filename = rvec_to_matlabcell(filename, 
+                                transpose = FALSE,
+                                sep = "\n")
+  filename = sub(";$", "", filename)
+  filename = paste0("{", filename, "}';")
   
   ###################
   # If reslice is just mean, then the file is simply returned
@@ -143,7 +140,7 @@ spm12_realign <- function(
     weight_image = ""  
   }
   weight_image = convert_to_matlab(weight_image)
-
+  
   ###########################
   # interpolations
   ###########################  
@@ -154,7 +151,8 @@ spm12_realign <- function(
       "trilinear", 
       paste0("bspline", 2:7)
     ))
-  est_interp = convert_to_matlab(est_interp)
+  est_interp = convert_to_matlab(est_interp,
+                                 subtractor = 0)
   
   reslice_interp = match.arg(reslice_interp)
   reslice_interp = factor(
@@ -165,6 +163,9 @@ spm12_realign <- function(
       "fourier")
   )
   reslice_interp = convert_to_matlab(reslice_interp)
+  
+  mask = as.integer(mask)
+  prefix = convert_to_matlab(prefix)
   
   ###########################
   # register to which scan
@@ -210,42 +211,66 @@ spm12_realign <- function(
   L = list(
     spm = spm,
     script = script)
+  L$outfiles = outfile
+  L$rp = rpfile
+  L$mean = meanfile
+  L$mat = matfile
   
-  
-  if (execute) {
-    res = run_matlabbatch(
-      spm, 
-      add_spm_dir = add_spm_dir, 
-      clean = clean,
-      verbose = verbose,
-      spmdir = spmdir,
-      ...) 
-    
-    if (res != 0) {
-      warning("Result was not zero!")
-    }
-
-    ####################
-    # Copy outfiles
-    ####################
-    if (!is.null(outdir)) {
-      file.copy(outfile, to = outdir, overwrite = TRUE)
-      file.copy(rpfile, to = outdir, overwrite = TRUE)
-      if (!is.null(meanfile)) {
-        file.copy(meanfile, to = outdir, overwrite = TRUE)
-      }
-      file.copy(matfile, to = outdir, overwrite = TRUE)
-    }
-    
-    L$outfiles = outfile
-    L$rp = rpfile
-    L$mean = meanfile
-    L$mat = matfile
-    L$result = res    
-  }
-  
- 
   return(L)
 }
 
-
+#' @export
+#' @rdname spm12_realign
+spm12_realign = function(
+  ...,
+  add_spm_dir = TRUE,
+  spmdir = spm_dir(verbose = verbose),
+  clean = TRUE,
+  verbose = TRUE,
+  outdir = NULL
+) {
+  install_spm12(verbose = verbose)
+  L = build_spm12_realign(verbose = verbose, ...)
+  spm = L$spm
+  outfile = L$outfile 
+  rpfile = L$rp 
+  meanfile = L$mean
+  matfile = L$mat 
+  if (verbose) {
+    message("# Running matlabbatch job")
+  }
+  res = run_matlabbatch(
+    spm, 
+    add_spm_dir = add_spm_dir, 
+    clean = clean,
+    verbose = verbose,
+    spmdir = spmdir)
+  L$result = res    
+  
+  if (res != 0) {
+    warning("Result was not zero!")
+  }
+  
+  ####################
+  # Copy outfiles
+  ####################
+  if (!is.null(outdir)) {
+    file.copy(outfile, to = outdir, overwrite = TRUE)
+    file.copy(rpfile, to = outdir, overwrite = TRUE)
+    if (!is.null(meanfile)) {
+      file.copy(meanfile, to = outdir, overwrite = TRUE)
+    }
+    file.copy(matfile, to = outdir, overwrite = TRUE)
+    
+    outfile = file.path(outdir, basename(outfile))
+    rpfile = file.path(outdir, basename(rpfile))
+    meanfile = file.path(outdir, basename(meanfile))
+    matfile = file.path(outdir, basename(matfile))
+    
+  }
+  L$outfiles = outfile
+  L$rp = rpfile
+  L$mean = meanfile
+  L$mat = matfile  
+  return(L)
+}

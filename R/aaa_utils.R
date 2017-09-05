@@ -23,8 +23,7 @@ is.matlabbatch = function(x) {
 
 #' @importFrom matlabr rvec_to_matlab rvec_to_matlabcell 
 #' @importFrom matlabr rvec_to_matlabclist rmat_to_matlab_mat
-#' @export
-convert_to_matlab = function(x, ...) {
+convert_to_matlab = function(x, subtractor = 1, ...) {
   if (is.rowvec(x)) {
     x = matlabr::rvec_to_matlab(x, row = TRUE, ...)
     return(x)
@@ -41,9 +40,13 @@ convert_to_matlab = function(x, ...) {
     x = matlabr::rvec_to_matlabclist(x = x, ...)
     return(x)
   } 
-  
+
+  if (is.logical(x)) {
+    x = as.integer(x)
+    return(x)
+  }      
   if (is.factor(x)) {
-    x = as.numeric(x) - 1
+    x = as.numeric(x) - subtractor
     return(x)
   }    
   if (is.character(x)) {

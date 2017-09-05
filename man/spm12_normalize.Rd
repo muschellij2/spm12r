@@ -5,8 +5,13 @@
 \title{SPM12 Normalize (Estimate and Write)}
 \usage{
 spm12_normalize(filename, other.files = NULL, bounding_box = matrix(c(-90,
-  -126, -72, 90, 90, 108), nrow = 2, byrow = TRUE), add_spm_dir = TRUE,
-  spmdir = spm_dir(), clean = TRUE, verbose = TRUE, ...)
+  -126, -72, 90, 90, 108), nrow = 2, byrow = TRUE), biasreg = 0.001,
+  biasfwhm = 60, regularization = c(0, 0.001, 0.5, 0.05, 0.2),
+  affine = c("mni", "eastern", "subj", "none", ""), smoothness = 0,
+  sampling_distance = 3, voxel_size = c(2, 2, 2), interp = c("bspline4",
+  "nearestneighbor", "trilinear", paste0("bspline", 2:3), paste0("bspline",
+  5:7)), add_spm_dir = TRUE, spmdir = spm_dir(), clean = TRUE,
+  verbose = TRUE, ...)
 }
 \arguments{
 \item{filename}{File to be normalized to the template}
@@ -16,6 +21,25 @@ normalization}
 
 \item{bounding_box}{matrix (2x3) of the bounding box to use.  Default is for MNI 2mm template
 size}
+
+\item{biasreg}{Amount of bias regularization}
+
+\item{biasfwhm}{FWHM  of  Gaussian  smoothness  of  bias.}
+
+\item{regularization}{parameters for warping regularization}
+
+\item{affine}{Space to register the image to, using an affine registration}
+
+\item{smoothness}{FWHM of smoothing done}
+
+\item{sampling_distance}{smoothingess of the warping field. 
+This is used to derive a fudge factor to account for 
+correlations between neighbouring voxels.  Smoother data have more}
+
+\item{voxel_size}{The voxel sizes (x, y & z, in mm) 
+of the written normalised images.}
+
+\item{interp}{Interpolator for sampling in fixed space}
 
 \item{add_spm_dir}{Add SPM12 directory from this package}
 

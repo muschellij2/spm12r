@@ -22,12 +22,13 @@ matlabbatch_to_script(spm, prefix = "matlabbatch{1}.", ...)
 
 \item{verbose}{Print diagnostic messages}
 
-\item{...}{additional arguments to pass to  \code{\link{add_spm_dir}}}
+\item{...}{additional arguments to pass to 
+\code{\link{matlabbatch_job}}}
 
 \item{prefix}{prefix to add to the names of \code{spm}}
 }
 \value{
-Result of \code{\link{res}}
+Result of \code{\link{run_matlab_script}}
 }
 \description{
 Run Matlab Batch from List

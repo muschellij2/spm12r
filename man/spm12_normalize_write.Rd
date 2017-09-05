@@ -6,8 +6,10 @@
 \usage{
 spm12_normalize_write(deformation, other.files = NULL,
   bounding_box = matrix(c(-90, -126, -72, 90, 90, 108), nrow = 2, byrow =
-  TRUE), retimg = TRUE, reorient = FALSE, add_spm_dir = TRUE,
-  spmdir = spm_dir(), clean = TRUE, verbose = TRUE, ...)
+  TRUE), voxel_size = c(2, 2, 2), interp = c("bspline4", "nearestneighbor",
+  "trilinear", paste0("bspline", 2:3), paste0("bspline", 5:7)), retimg = TRUE,
+  reorient = FALSE, add_spm_dir = TRUE, spmdir = spm_dir(),
+  clean = TRUE, verbose = TRUE, ...)
 }
 \arguments{
 \item{deformation}{Filename of deformation (nifti)}
@@ -17,6 +19,11 @@ normalization}
 
 \item{bounding_box}{matrix (2x3) of the bounding box to use.  Default is for MNI 2mm template
 size}
+
+\item{voxel_size}{The voxel sizes (x, y & z, in mm) 
+of the written normalised images.}
+
+\item{interp}{Interpolator for sampling in fixed space}
 
 \item{retimg}{Logical indicating if image should be returned or
 result from \code{\link{run_matlab_script}}}

@@ -4,11 +4,26 @@
 \alias{spm12_normalize_est}
 \title{SPM12 Normalize (Estimate)}
 \usage{
-spm12_normalize_est(filename, add_spm_dir = TRUE, spmdir = spm_dir(),
-  clean = TRUE, verbose = TRUE, ...)
+spm12_normalize_est(filename, biasreg = 0.001, biasfwhm = 60,
+  regularization = c(0, 0.001, 0.5, 0.05, 0.2), affine = c("mni", "eastern",
+  "subj", "none", ""), smoothness = 0, sampling_distance = 3,
+  add_spm_dir = TRUE, spmdir = spm_dir(verbose = verbose), clean = TRUE,
+  verbose = TRUE, ...)
 }
 \arguments{
 \item{filename}{File to be normalized to the template}
+
+\item{biasreg}{Amount of bias regularization}
+
+\item{regularization}{parameters for warping regularization}
+
+\item{affine}{Space to register the image to, using an affine registration}
+
+\item{smoothness}{FWHM of smoothing done}
+
+\item{sampling_distance}{smoothingess of the warping field. 
+This is used to derive a fudge factor to account for 
+correlations between neighbouring voxels.  Smoother data have more}
 
 \item{add_spm_dir}{Add SPM12 directory from this package}
 

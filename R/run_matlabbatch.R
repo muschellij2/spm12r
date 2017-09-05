@@ -1,11 +1,12 @@
 #' Run Matlab Batch from List
 #'
 #' @param spm List of the class \code{matlabbatch}
-#' @param ... additional arguments to pass to  \code{\link{add_spm_dir}}
+#' @param ... additional arguments to pass to 
+#' \code{\link{matlabbatch_job}}
 #' @param clean Remove scripts from temporary directory after running
 #' @param verbose Print diagnostic messages
 #' 
-#' @return Result of \code{\link{res}}
+#' @return Result of \code{\link{run_matlab_script}}
 #' @export
 run_matlabbatch = function(
   spm, 
@@ -13,11 +14,23 @@ run_matlabbatch = function(
   clean = TRUE,
   verbose = TRUE,
   ...) {
-  exec_fname = matlabbatch_job(
+  if (verbose) {
+    message("# Creating matlabbatch job")
+  }
+  L = matlabbatch_job(
     spm = spm, 
     add_spm_dir = add_spm_dir, 
+    verbose = verbose,
     ...)
-  res = run_matlab_script(exec_fname)
+
+  exec_fname = L$exec_script
+  script = L$script
+  if (verbose) {
+    msg = paste0("Running job: ", exec_fname,
+      ", which calls ", script)
+    message(msg)
+  }
+  res = run_matlab_script(exec_fname, verbose = verbose)
   if (verbose) {
     message(paste0("# Result is ", res, "\n"))
   }  
@@ -26,6 +39,7 @@ run_matlabbatch = function(
   ##################################### 
   if (clean) {
     file.remove(script)
+    file.remove(exec_fname)
     if (verbose) {
       message(paste0("# Removing scripts\n"))
     }      
@@ -47,12 +61,24 @@ matlabbatch_job = function(
     package = "spm12r")
   exec_script = readLines(exec_script)
   if (add_spm_dir) {
-    exec_script = add_spm_dir(x = exec_script, ...)
+    args = list(...)
+    nargs = names(args)
+    add_args = list(x = exec_script)
+    if ("spmdir" %in% nargs) {
+      add_args$spmdir = args$spmdir  
+    }
+    if ("verbose" %in% nargs) {
+      add_args$verbose = args$verbose  
+    }    
+    exec_script = do.call("add_spm_dir", add_args)
   }
   exec_script = gsub("%jobfile%", script, exec_script)
   exec_fname = tempfile(fileext = ".m")
   writeLines(exec_script, con = exec_fname)
-  return(exec_fname)
+  L = list(
+    exec_script = exec_fname,
+    script = script)
+  return(L)
 }
 
 #' @rdname run_matlabbatch
@@ -69,8 +95,11 @@ matlabbatch_to_script = function(
   mbatch = paste0(mbatch, ";")
   mbatch = sub(";;$", ";", mbatch)
   
+  # remove empty lines
+  mbatch = mbatch[ !mbatch %in% "" ]
+  
   mbatch = paste0(prefix, mbatch)
   fname = tempfile(fileext = ".m")
-  writeLines(mbatch, fname)
+  writeLines(mbatch, con = fname)
   return(fname)
 }

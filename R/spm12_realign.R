@@ -17,20 +17,23 @@
 #' @param ... Arguments passed to \code{\link{run_spm12_script}}
 #' @export
 #' @return Result from run_matlab_script
-spm12_realign <- function(filename,
-                          fwhm = 5,
-                          register_to = c("first", "mean"),
-                          reslice = c("all","2:n", "all+mean", "mean"),
-                          prefix = "r",
-                          add_spm_dir = TRUE,
-                          spmdir = spm_dir(),
-                          clean = TRUE,
-                          verbose = TRUE,
-                          outdir = NULL,
-                          ...
+spm12_realign.deprecated <- function(
+  filename,
+  fwhm = 5,
+  register_to = c("first", "mean"),
+  reslice = c("all","2:n", "all+mean", "mean"),
+  prefix = "r",
+  add_spm_dir = TRUE,
+  spmdir = spm_dir(),
+  clean = TRUE,
+  verbose = TRUE,
+  outdir = NULL,
+  ...
 ){
+  # .Deprecated(new = "spm12_realign"s)
+  
   install_spm12()
-
+  
   ########################
   # Getting Number of Time points
   ########################
@@ -38,9 +41,11 @@ spm12_realign <- function(filename,
     message("# Getting Number of Time Points\n")
   }
   time_points = ntime_points(filename)
-
-  reslice = match.arg(reslice, c("all","2:n", "all+mean", "mean"))
-
+  
+  reslice = match.arg(
+    reslice, 
+    c("all","2:n", "all+mean", "mean"))
+  
   # check filenames
   filename = filename_check(filename)
   ###################
@@ -55,13 +60,13 @@ spm12_realign <- function(filename,
     outfile = file.path(dirname(filename),
                         paste0(prefix, basename(filename)))
   }
-
+  
   reslice = switch(reslice,
                    "all" = "[2 0]",
                    "2:n" = "[1 0]",
                    "all+mean" = "[2 1]",
                    "mean" = "[0 1]")
-
+  
   stub = nii.stub(filename, bn=TRUE)[1]
   rpfile = file.path(dirname(filename),
                      paste0("rp_", stub, ".txt"))
@@ -69,31 +74,32 @@ spm12_realign <- function(filename,
                        paste0("mean", stub, ".nii"))
   matfile = file.path(dirname(filename),
                       paste0(stub, ".mat"))
-
+  
   ##########################################################
   # Pasting together for a 4D file
   ##########################################################
   filename = paste0(filename, ",", time_points)
   filename = rvec_to_matlabcell(filename)
-
+  
   register_to = match.arg(register_to, c("first", "mean"))
   register_to = switch(register_to,
                        first = 0,
                        mean = 1)
-
+  
   jobvec = c(filename, prefix, fwhm, reslice,
              register_to, spmdir)
   names(jobvec) = c("%filename%", "%prefix%", "%fwhm%", "%reslice%",
                     "%registerto%", "%spmdir%")
-
-  res = run_spm12_script( script_name = "Realign",
-                          jobvec = jobvec,
-                          mvec = NULL,
-                          add_spm_dir = add_spm_dir,
-                          spmdir = spmdir,
-                          clean = clean,
-                          verbose = verbose,
-                          ...)
+  
+  res = run_spm12_script( 
+    script_name = "Realign",
+    jobvec = jobvec,
+    mvec = NULL,
+    add_spm_dir = add_spm_dir,
+    spmdir = spmdir,
+    clean = clean,
+    verbose = verbose,
+    ...)
   stopifnot(res == 0)
   ####################
   # Copy outfiles
@@ -106,7 +112,7 @@ spm12_realign <- function(filename,
     }
     file.copy(matfile, to = outdir, overwrite = TRUE)
   }
-
+  
   l = list(outfiles = outfile,
            rp = rpfile,
            mean = meanfile,

@@ -5,13 +5,13 @@
 %-----------------------------------------------------------------------
 matlabbatch{1}.spm.spatial.normalise.estwrite.subj.vol = {'%filename%'};
 matlabbatch{1}.spm.spatial.normalise.estwrite.subj.resample = %resample%;
-matlabbatch{1}.spm.spatial.normalise.estwrite.eoptions.biasreg = 0.0001;
-matlabbatch{1}.spm.spatial.normalise.estwrite.eoptions.biasfwhm = 60;
+matlabbatch{1}.spm.spatial.normalise.estwrite.eoptions.biasreg = %biasreg%;
+matlabbatch{1}.spm.spatial.normalise.estwrite.eoptions.biasfwhm = %biasfwhm%;
 matlabbatch{1}.spm.spatial.normalise.estwrite.eoptions.tpm = {'%spmdir%/tpm/TPM.nii'};
-matlabbatch{1}.spm.spatial.normalise.estwrite.eoptions.affreg = 'mni';
-matlabbatch{1}.spm.spatial.normalise.estwrite.eoptions.reg = [0 0.001 0.5 0.05 0.2];
-matlabbatch{1}.spm.spatial.normalise.estwrite.eoptions.fwhm = 0;
-matlabbatch{1}.spm.spatial.normalise.estwrite.eoptions.samp = 3;
+matlabbatch{1}.spm.spatial.normalise.estwrite.eoptions.affreg = %affreg%;
+matlabbatch{1}.spm.spatial.normalise.estwrite.eoptions.reg = %reg%;
+matlabbatch{1}.spm.spatial.normalise.estwrite.eoptions.fwhm = %fwhm%;
+matlabbatch{1}.spm.spatial.normalise.estwrite.eoptions.samp = %samp%;
 matlabbatch{1}.spm.spatial.normalise.estwrite.woptions.bb = %bbox%
-matlabbatch{1}.spm.spatial.normalise.estwrite.woptions.vox = [2 2 2];
-matlabbatch{1}.spm.spatial.normalise.estwrite.woptions.interp = 4;
+matlabbatch{1}.spm.spatial.normalise.estwrite.woptions.vox = %vox%;
+matlabbatch{1}.spm.spatial.normalise.estwrite.woptions.interp = %interp%;

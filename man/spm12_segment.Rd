@@ -8,8 +8,8 @@ spm12_segment(filename, set_origin = TRUE, biasreg = 0.001, biasfwhm = 60,
   native = TRUE, dartel = FALSE, modulated = FALSE, unmodulated = FALSE,
   bias_field = FALSE, bias_corrected = FALSE, n_gaus = c(1, 1, 2, 3, 4,
   2), smoothness = 0, sampling_distance = 3, regularization = c(0, 0.001,
-  0.5, 0.05, 0.2), affine = c("mni", "eastern", "subj", "none"),
-  def_inverse = FALSE, def_forward = FALSE, warp_cleanup = c("light",
+  0.5, 0.05, 0.2), affine = c("mni", "eastern", "subj", "none"), mrf = 1,
+  def_inverse = TRUE, def_forward = TRUE, warp_cleanup = c("light",
   "none", "thorough"), retimg = TRUE, add_spm_dir = TRUE,
   spmdir = spm_dir(verbose = verbose), clean = TRUE, verbose = TRUE,
   reorient = FALSE, ...)
@@ -41,15 +41,18 @@ for  the  effect of spatial normalisation.}
 \item{n_gaus}{The number of Gaussians used to represent the 
 intensity distribution for each tissue class.  Can be 1:8 or infinity}
 
-\item{smoothness}{}
+\item{smoothness}{FWHM of smoothing done}
 
 \item{sampling_distance}{smoothingess of the warping field. 
 This is used to derive a fudge factor to account for 
 correlations between neighbouring voxels.  Smoother data have more}
 
-\item{regularization}{parameters fro warping regularization}
+\item{regularization}{parameters for warping regularization}
 
 \item{affine}{Space to register the image to, using an affine registration}
+
+\item{mrf}{strength of the Markov random field. 
+Setting the value to zero will disable the cleanup.}
 
 \item{def_inverse}{keep the inverse deformation field}
 

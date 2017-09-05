@@ -24,11 +24,11 @@
 #' @param bias_corrected save an estimated bias field from  your images
 #' @param n_gaus The number of Gaussians used to represent the 
 #' intensity distribution for each tissue class.  Can be 1:8 or infinity
-#' @param smoothness 
+#' @param smoothness FWHM of smoothing done
 #' @param sampling_distance smoothingess of the warping field. 
 #' This is used to derive a fudge factor to account for 
 #' correlations between neighbouring voxels.  Smoother data have more
-#' @param regularization parameters fro warping regularization
+#' @param regularization parameters for warping regularization
 #' @param affine Space to register the image to, using an affine registration
 #' @param def_inverse keep the inverse deformation field
 #' @param def_forward keep the forward deformation field
@@ -36,7 +36,8 @@
 #' If you find pieces of brain being chopped out in your data, 
 #' then you may wish to disable or tone down the cleanup procedure. 
 #' @param ... Arguments passed to \code{\link{run_spm12_script}}
-#'
+#' @param mrf strength of the Markov random field. 
+#' Setting the value to zero will disable the cleanup.
 #' @export
 #' @return List of output files (or niftis depending on \code{retimg}),
 #' output matrix, and output deformations.
@@ -57,8 +58,9 @@ spm12_segment <- function(
   sampling_distance = 3,
   regularization = c(0, 0.001, 0.5, 0.05, 0.2),
   affine = c("mni", "eastern", "subj", "none"),
-  def_inverse = FALSE,
-  def_forward = FALSE,
+  mrf = 1,
+  def_inverse = TRUE,
+  def_forward = TRUE,
   warp_cleanup = c("light", "none", "thorough"),
   retimg = TRUE,
   add_spm_dir = TRUE,
@@ -116,7 +118,8 @@ spm12_segment <- function(
     unmodulated, modulated,
     smoothness, sampling_distance,
     affine, def_inverse, def_forward,
-    regularization, warp_cleanup)
+    regularization, warp_cleanup,
+    mrf)
   
   names(jobvec) = c(
     "%filename%", "%spmdir%", 
@@ -127,7 +130,8 @@ spm12_segment <- function(
     "%unmodulated%", "%modulated%", 
     "%fwhm%", "%samp%", 
     "%affreg%", "%def_inverse%", "%def_forward%", 
-    "%reg%", "%warp_cleanup%")
+    "%reg%", "%warp_cleanup%",
+    "%mrf%")
   
 
   res = run_spm12_script( script_name = "Segment",

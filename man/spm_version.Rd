@@ -16,7 +16,7 @@ Character vector of length 1
 SPM Version
 }
 \examples{
-if (have_matlab()) {
+if (matlabr::have_matlab()) {
 spm_version()
 }
 }

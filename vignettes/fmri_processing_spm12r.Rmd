@@ -118,6 +118,12 @@ library(spm12r)
 ####################################
 # Realignment
 ####################################
+spm = build_spm12_realign( 
+  filename = run_fmri, 
+  register_to = "mean",
+  reslice = "mean"
+)
+print(names(spm))
 if (have_matlab()) {
   realigned = spm12_realign( 
 	filename = run_fmri, 
@@ -265,7 +271,8 @@ if (have_matlab()) {
   seg_res = spm12_segment(
   	filename = coreg_anat,
   	set_origin = FALSE,
-  	retimg = FALSE)
+  	retimg = FALSE,
+  	clean = FALSE)
   print(seg_res)
 }
 ```

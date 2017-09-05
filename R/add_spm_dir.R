@@ -6,9 +6,10 @@
 #'
 #' @return A character vector
 #' @export
-add_spm_dir = function(x, 
-                       spmdir = spm_dir(verbose = verbose),
-                       verbose = TRUE) {
+add_spm_dir = function(
+  x, 
+  spmdir = spm_dir(verbose = verbose),
+  verbose = TRUE) {
   if (verbose) {
     message(paste0("# Adding SPMDIR: ", spmdir, "\\n"))
   }

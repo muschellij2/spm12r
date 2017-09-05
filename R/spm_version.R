@@ -4,7 +4,7 @@
 #' @export
 #'
 #' @examples 
-#' if (have_matlab()) {
+#' if (matlabr::have_matlab()) {
 #' spm_version()
 #' }
 spm_version = function() {

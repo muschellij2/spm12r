@@ -7,5 +7,5 @@ README.md
 ^.gitattributes
 ^.Rhistory
 ^.travis.yaml
-
 inst/spm12.zip
+inst/scripts\.zip
