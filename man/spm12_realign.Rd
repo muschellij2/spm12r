@@ -19,7 +19,8 @@ spm12_realign(..., add_spm_dir = TRUE, spmdir = spm_dir(verbose = verbose),
 \arguments{
 \item{filename}{Files to be realigned and resliced}
 
-\item{fwhm}{Full-Width Half Max to smooth}
+\item{fwhm}{Full-Width Half Max to smooth.  Gaussian  smoothing
+to  apply  to  the 256x256 joint histogram.}
 
 \item{quality}{Quality versus speed trade-off.
 Highest quality (1) gives most precise results, 
@@ -68,9 +69,6 @@ from outside  the  original  images.  Where  this  occurs,
 
 \item{outdir}{Directory to copy results.  If full filename given, then results will
 be in \code{dirname(filename)}}
-
-\item{fwhm}{Gaussian  smoothing  to  apply  to  the 256x256 joint histogram. 
-Other information theoretic coregistration methods use fewer bins,}
 }
 \value{
 List of output files, the \code{matlabbatch} object, and the script

@@ -3,6 +3,7 @@
 #' @description Estimate SPM12 (Spatial) Normalization from image
 #' @param filename File to be normalized to the template
 #' @param biasreg Amount of bias regularization
+#' @param biasfwhm FWHM  of  Gaussian  smoothness  of  bias.  
 #' @param regularization parameters for warping regularization
 #' @param affine Space to register the image to, using an affine registration
 #' @param smoothness FWHM of smoothing done

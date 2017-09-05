@@ -15,6 +15,8 @@ spm12_normalize_est(filename, biasreg = 0.001, biasfwhm = 60,
 
 \item{biasreg}{Amount of bias regularization}
 
+\item{biasfwhm}{FWHM  of  Gaussian  smoothness  of  bias.}
+
 \item{regularization}{parameters for warping regularization}
 
 \item{affine}{Space to register the image to, using an affine registration}

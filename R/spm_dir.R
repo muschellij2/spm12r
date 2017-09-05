@@ -1,6 +1,8 @@
 #' @title Get SPM12 Directory
 #'
 #' @description Returns the SPM12 directory 
+#' @param verbose print diagnostic messages, passed to 
+#' \code{\link{install_spm12}}
 #' @export
 #' @return Chracter vector of spm12 paths
 spm_dir <- function(verbose = FALSE){

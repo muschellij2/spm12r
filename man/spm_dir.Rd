@@ -6,6 +6,10 @@
 \usage{
 spm_dir(verbose = FALSE)
 }
+\arguments{
+\item{verbose}{print diagnostic messages, passed to 
+\code{\link{install_spm12}}}
+}
 \value{
 Chracter vector of spm12 paths
 }

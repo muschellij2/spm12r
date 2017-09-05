@@ -2,9 +2,14 @@ Package: spm12r
 Type: Package
 Title: Wrapper Functions for 'SPM' (Statistical Parametric Mapping) Version 12
     from the 'Wellcome' Trust Centre for 'Neuroimaging'
-Version: 2.5
-Date: 2017-03-01
-Author: John Muschelli
+Version: 2.5.1
+Date: 2017-09-05
+Authors@R: c(
+    person(given = "John",
+           family = "Muschelli",
+           role = "cre",
+           email = "muschellij2@gmail.com")
+    )
 Maintainer: John Muschelli <muschellij2@gmail.com>
 Description: Installs 'SPM12' to the R library directory and has associated
     functions for 'fMRI' and general imaging utilities, called through 'MATLAB'.

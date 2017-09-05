@@ -4,7 +4,8 @@
 #' @description Performs SPM12 realignment estimation and reslicing on an Image
 #'
 #' @param filename Files to be realigned and resliced
-#' @param fwhm Full-Width Half Max to smooth
+#' @param fwhm Full-Width Half Max to smooth.  Gaussian  smoothing  
+#' to  apply  to  the 256x256 joint histogram. 
 #' @param register_to Should the files be registered to the first or the mean
 #' @param reslice Options for reslicing all - all images in filename,
 #' 2:n - all images in filename 2:length(filename),
@@ -21,8 +22,6 @@
 #' whereas lower qualities gives faster realignment.
 #' @param separation The  average  distance  between  sampled points (in mm).  
 #' Can be a vector to allow a coarse registration followed by increasingly fine
-#' @param fwhm Gaussian  smoothing  to  apply  to  the 256x256 joint histogram. 
-#' Other information theoretic coregistration methods use fewer bins,
 #' @param wrap_x wrap in x-direction
 #' @param wrap_y wrap in y-direction
 #' @param wrap_z wrap in z-direction
