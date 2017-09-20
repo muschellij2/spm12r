@@ -11,7 +11,7 @@ run_matlabbatch(spm, add_spm_dir = TRUE, clean = TRUE, verbose = TRUE,
 
 matlabbatch_job(spm, add_spm_dir = TRUE, ...)
 
-matlabbatch_to_script(spm, prefix = "matlabbatch{1}.", ...)
+matlabbatch_to_script(spm, batch_prefix = "matlabbatch{1}.", ...)
 }
 \arguments{
 \item{spm}{List of the class \code{matlabbatch}}
@@ -25,7 +25,7 @@ matlabbatch_to_script(spm, prefix = "matlabbatch{1}.", ...)
 \item{...}{additional arguments to pass to 
 \code{\link{matlabbatch_job}}}
 
-\item{prefix}{prefix to add to the names of \code{spm}}
+\item{batch_prefix}{prefix to add to the names of \code{spm}}
 }
 \value{
 Result of \code{\link{run_matlab_script}}

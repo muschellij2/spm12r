@@ -20,7 +20,13 @@
 #' @param verbose Print diagnostic messages
 #' @param ... Arguments passed to \code{\link{run_spm12_script}}
 #' @export
-#' @return Result from run_matlab_script
+#' @return List of SPM object, results, and output filenames
+#' @examples 
+#' dims = rep(10, 3)
+#' temp_nii = array(rnorm(prod(dims)), dim = dims)
+#' temp_nii = oro.nifti::nifti(temp_nii)
+#' res = build_spm12_normalize_write(temp_nii, 
+#' other.files = temp_nii)
 spm12_normalize_write <- function(
   deformation,
   other.files = NULL,
@@ -35,39 +41,39 @@ spm12_normalize_write <- function(
   retimg = TRUE,
   reorient = FALSE,
   add_spm_dir = TRUE,
-  spmdir = spm_dir(),
+  spmdir = spm_dir(verbose = verbose),
   clean = TRUE,
   verbose = TRUE,
   ...
 ){
-  install_spm12(verbose = verbose)
   
-  # check deformations
-  deformation = filename_check(deformation)
+  L = build_spm12_normalize_write(
+    deformation = deformation,
+    other.files = other.files,
+    bounding_box = bounding_box,
+    voxel_size = voxel_size,
+    interp = interp,
+    retimg = retimg,
+    reorient = reorient,
+    add_spm_dir = add_spm_dir,
+    spmdir = spmdir,
+    clean = clean,
+    verbose = verbose,
+    ...)
   
-  if (!is.null(other.files)) {
-    other.files = filename_check(other.files)
-  } else {
-    stop("No files specified, no files written")
-  }
-  other.fnames = other.files
-  other.files = rvec_to_matlabcell(other.fnames, transpose = TRUE)
+  spm = L$spm$spm
   
+  other_fnames = L$other_fnames
+  deformation = L$deformation
   
-  if (is.matrix(bounding_box)) {
-    bounding_box = rmat_to_matlab_mat(bounding_box)
-  }
-  
-  stopifnot(length(voxel_size) == 3)
-  class(voxel_size) = "rowvec"
-  voxel_size = convert_to_matlab(voxel_size)
-  
-  levs = c("nearestneighbor", "trilinear", paste0("bspline", 2:7))
-  interp = interp[1]
-  interp = match.arg(interp)
-  interp = factor(interp, levels = levs)
-  interp = convert_to_matlab(interp)  
-  
+  red_spm = spm$spatial$normalise$write$subj
+  other.files = red_spm$resample 
+  woptions = red_spm$woptions
+  interp = woptions$interp
+  voxel_size = woptions$vox
+  bounding_box = woptions$bb
+  rm(list = c("spm", "red_spm"))
+
   jobvec = c(
     deformation, other.files, bounding_box,
     interp, voxel_size)
@@ -88,12 +94,65 @@ spm12_normalize_write <- function(
     warning("Result was not zero!")
   }
   outfiles = file.path(
-    dirname(other.fnames),
-    paste0("w", basename(other.fnames)))
+    dirname(other_fnames),
+    paste0("w", basename(other_fnames)))
   if (retimg) {
     outfiles = lapply(outfiles, readNIfTI, reorient = reorient)
   }
-  L = list(outfiles = outfiles)
+  L$outfiles = outfiles
+  L$result = res
+  return(L)
+}
+
+
+
+#' @export
+#' @rdname spm12_normalize_write
+build_spm12_normalize_write <- function(
+  deformation,
+  other.files = NULL,
+  bounding_box = matrix(
+    c(-90, -126, -72, 90, 90, 108),
+    nrow = 2, byrow = TRUE),         
+  voxel_size = c(2,2,2),
+  interp = c(
+    "bspline4", "nearestneighbor", "trilinear", 
+    paste0("bspline", 2:3),
+    paste0("bspline", 5:7)),      
+  retimg = TRUE,
+  reorient = FALSE,
+  add_spm_dir = TRUE,
+  spmdir = spm_dir(verbose = verbose),
+  clean = TRUE,
+  verbose = TRUE,
+  ...
+){
+  install_spm12(verbose = verbose)
+  
+  # check deformations
+  deformation = filename_check(deformation)
+  
+  if (!is.null(other.files)) {
+    other.files = filename_check(other.files)
+  } else {
+    stop("No files specified, no files written")
+  }
+  other_fnames = other.files
+  other.files = rvec_to_matlabcell(other_fnames, transpose = TRUE)
+  
+  if (is.matrix(bounding_box)) {
+    bounding_box = rmat_to_matlab_mat(bounding_box)
+  }
+  
+  stopifnot(length(voxel_size) == 3)
+  class(voxel_size) = "rowvec"
+  voxel_size = convert_to_matlab(voxel_size)
+  
+  levs = c("nearestneighbor", "trilinear", paste0("bspline", 2:7))
+  interp = interp[1]
+  interp = match.arg(interp)
+  interp = factor(interp, levels = levs)
+  interp = convert_to_matlab(interp)  
   
   #########################################
   # Change nothign in the jobvec after here
@@ -122,10 +181,12 @@ spm12_normalize_write <- function(
   class(spm) = "matlabbatch"
   
   script = matlabbatch_to_script(spm)      
-  L$spm = spm
-  L$script = script
+  L = list(
+    spm = spm,
+    script = script,
+    deformation = deformation,
+    other_fnames = other_fnames
+  )
   
   return(L)
 }
-
-

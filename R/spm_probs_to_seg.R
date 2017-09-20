@@ -13,16 +13,17 @@
 #' seg = spm_probs_to_seg(spm_seg)
 #'}
 spm_probs_to_seg <- function(img,
-    ties.method = c("first", "last", "random") 
-    ){
-    stopifnot(inherits(img, "list"))
-    xmax = sapply(img, c)
-    ties.method = match.arg(ties.method, 
-                            c("first", "last", "random")
-                            )
-
-    maxs = max.col(xmax, 
-        ties.method = ties.method)
-    res = niftiarr(img[[1]], maxs)   
-    res
+                             ties.method = c("first", "last", "random") 
+){
+  stopifnot(inherits(img, "list"))
+  xmax = sapply(img, c)
+  ties.method = match.arg(
+    ties.method, 
+    c("first", "last", "random")
+  )
+  
+  maxs = max.col(xmax, 
+                 ties.method = ties.method)
+  res = niftiarr(img[[1]], maxs)   
+  res
 }

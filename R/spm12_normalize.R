@@ -48,12 +48,12 @@ spm12_normalize <- function(
              paste0("bspline", 2:3),
              paste0("bspline", 5:7)),    
   add_spm_dir = TRUE,
-  spmdir = spm_dir(),
+  spmdir = spm_dir(verbose = verbose),
   clean = TRUE,
   verbose = TRUE,
   ...
 ){
-  install_spm12()
+  install_spm12(verbose = verbose)
   
   # check filenames
   filename = filename_check(filename)

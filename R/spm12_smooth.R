@@ -39,6 +39,7 @@ spm12_smooth <- function(
   install_spm12(verbose = verbose)
   # check filenames
   filename = filename_check(filename)
+  xfilename = filename
   
   dtype = toupper(dtype)
   dtype = match.arg(dtype)
@@ -52,10 +53,43 @@ spm12_smooth <- function(
     FLOAT64 = 64)
   
   implicit_mask = as.integer(implicit_mask)
+  xprefix = prefix
   jobvec = c(filename, prefix, fwhm, 
              dtype, implicit_mask)
   names(jobvec) = c("%filename%", "%prefix%", "%fwhm%", 
                     "%dtype%", "%implicit_mask%")
+  
+  class(filename) = "cell"
+  filename = convert_to_matlab(filename)
+  
+  fwhm = rep(fwhm, 3)
+  class(fwhm) = "rowvec"
+  fwhm = convert_to_matlab(fwhm)
+  
+  # Change nothign in the jobvec after here
+  #########################################
+  prefix = convert_to_matlab(prefix)
+  
+  spm = list(
+    spatial = list(
+      smooth = list(
+        im = filename,
+        fwhm = fwhm,
+        dtype = dtype,
+        im = implicit_mask,
+        prefix = prefix
+      )
+    )
+  )
+  
+  spm = list(spm = spm)
+  class(spm) = "matlabbatch"
+  
+  script = matlabbatch_to_script(spm)    
+  
+  L = list(
+    spm = spm,
+    script = script)  
   
   res = run_spm12_script(
     script_name = "Smooth",
@@ -66,14 +100,21 @@ spm12_smooth <- function(
     clean = clean,
     verbose = verbose,
     ...)
+  L$result = res
   if (res != 0) {
     warning("Result was not zero!")
   }  
-  outfile = file.path(dirname(filename),
-                      paste0(prefix, basename(filename)))
-  L = list(outfiles = outfile)  
+  outfile = file.path(
+    dirname(xfilename),
+    paste0(xprefix, basename(xfilename)))
+  L$outfiles = outfile
+
   if (retimg) {
-    L$outfiles = lapply(L$outfiles, readNIfTI, reorient = reorient)
+    if (length(outfile) > 1) {
+      L$outfiles = lapply(outfile, readNIfTI, reorient = reorient)
+    } else {
+      L$outfiles = readNIfTI(outfile, reorient = reorient)
+    }
   }
   return(L)
 }

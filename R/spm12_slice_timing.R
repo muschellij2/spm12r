@@ -31,7 +31,7 @@
 #' @importFrom oro.nifti readNIfTI
 #' @importFrom matlabr rvec_to_matlab
 #' @return Output filenames
-spm12_slice_timing <- function(
+spm12_slice_timing.deprecated <- function(
   filename,
   time_points = NULL,
   nslices,
@@ -60,6 +60,9 @@ spm12_slice_timing <- function(
     }
     time_points = ntime_points(filename)
   }
+  if (length(time_points) < 2) {
+    stop("SPM Slice Timing Correction requires >= 2 images")
+  }  
 
   # check filenames
   filename = filename_check(filename)
@@ -80,9 +83,6 @@ spm12_slice_timing <- function(
                       paste0(prefix, base_name)
   )
 
-  if (length(time_points) < 2) {
-    stop("SPM Slice Timing Correction requires >= 2 images")
-  }
 
   slice_order = rvec_to_matlab(slice_order, row = TRUE)
   filename = paste0(filename, ",", time_points)

@@ -28,5 +28,6 @@ Suggests: knitr,
     kirby21.fmri (>= 1.5)
 SystemRequirements: MATLAB
 Remotes: muschellij2/matlabr
+Encoding: UTF-8
 RoxygenNote: 6.0.1.9000
 VignetteBuilder: knitr

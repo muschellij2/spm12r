@@ -118,12 +118,13 @@ library(spm12r)
 ####################################
 # Realignment
 ####################################
-spm = build_spm12_realign( 
+realign_batch = build_spm12_realign( 
   filename = run_fmri, 
   register_to = "mean",
   reslice = "mean"
 )
-print(names(spm))
+print(names(realign_batch))
+print(names(unlist(realign_batch$spm)))
 if (have_matlab()) {
   realigned = spm12_realign( 
 	filename = run_fmri, 
@@ -169,17 +170,32 @@ slice_order = 1:nslices
 ref_slice = slice_order[median(seq(nslices))]
 ta = tr - tr/nslices
 n_time_points = ntim(run_fmri)
+
+st_batch = build_spm12_slice_timing(
+  filename = realigned[['outfiles']],
+  time_points = seq(n_time_points),
+  nslices = nslices,
+  tr = tr,
+  ref_slice = ref_slice,
+  prefix = "a")
+
+print(names(st_batch))
+print(names(unlist(st_batch$spm)))
+
 if (have_matlab()) {
-  aimg = spm12_slice_timing(
-  	filename = realigned[['outfiles']],
-  	nslices = nslices,
-  	tr = tr, 
-  	slice_order = slice_order,
-  	ta = ta, 
-  	ref_slice = ref_slice,
-  	prefix = "a", 
-  	clean = FALSE, 
-  	retimg = FALSE)
+  
+  st_results = spm12_slice_timing(
+    filename = realigned[['outfiles']],
+    time_points = seq(n_time_points),
+    nslices = nslices,
+    tr = tr, 
+    slice_order = slice_order,
+    ta = ta, 
+    ref_slice = ref_slice,
+    prefix = "a", 
+    clean = FALSE, 
+    retimg = FALSE)
+  aimg = st_results$outfile
   print(aimg)
   mean_img = realigned[["mean"]]
   mean_nifti = readnii(mean_img)
@@ -312,8 +328,7 @@ if (have_matlab()) {
   	deformation = seg_res$deformation,
   	other.files = c(coreg_anat, mean_img, aimg),
   	bounding_box = bbox,
-  	retimg = FALSE, 
-  	clean = FALSE)
+  	retimg = FALSE)
   print(norm)
   norm_data = norm$outfiles
   names(norm_data) = c("anat", "mean", "fmri")
@@ -386,7 +401,7 @@ if (have_matlab()) {
   	filename = norm_data["mean"],
   	prefix = "s",
   	retimg = FALSE
-  	)  
+  	)
   smoothed_mean_data = smoothed_mean$outfiles
 }
 ```

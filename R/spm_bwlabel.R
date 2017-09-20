@@ -20,16 +20,17 @@
 #' http://en.wikibooks.org/wiki/SPM/How-to#How_to_remove_clusters_under_a_certain_size_in_a_binary_mask.3F
 #' @return Result from \code{\link{run_matlab_script}}
 #' @importFrom neurobase checkimg nii.stub niftiarr
-spm_bwlabel = function(infile, # input filename
-                       outfile = NULL, # output filename
-                       retimg = TRUE,
-                       k = NULL,
-                       topN = NULL,
-                       margin = NULL,
-                       binary = TRUE,
-                       spmdir = spm_dir(),
-                       reorient = FALSE,
-                       verbose = TRUE
+spm_bwlabel = function(
+  infile, # input filename
+  outfile = NULL, # output filename
+  retimg = TRUE,
+  k = NULL,
+  topN = NULL,
+  margin = NULL,
+  binary = TRUE,
+  spmdir = spm_dir(),
+  reorient = FALSE,
+  verbose = TRUE
 ){
   install_spm12(verbose = verbose)
   
@@ -188,7 +189,7 @@ spm_bwlabel = function(infile, # input filename
     if (verbose) {
       message(
         paste0("# Reading output file ", outfile, "\n")
-        )
+      )
     }    
     res = readNIfTI(outfile, reorient = reorient)
   }

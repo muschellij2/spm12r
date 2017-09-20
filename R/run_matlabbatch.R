@@ -82,12 +82,12 @@ matlabbatch_job = function(
 }
 
 #' @rdname run_matlabbatch
-#' @param prefix prefix to add to the names of \code{spm}
+#' @param batch_prefix prefix to add to the names of \code{spm}
 #' @param add_spm_dir should SPM12 directory be added to the script
 #' @export
 matlabbatch_to_script = function(
   spm, 
-  prefix = "matlabbatch{1}.",
+  batch_prefix = "matlabbatch{1}.",
   ...) {
   mbatch = convert_to_matlab(spm)
   # ending the lines
@@ -98,7 +98,7 @@ matlabbatch_to_script = function(
   # remove empty lines
   mbatch = mbatch[!mbatch %in% ""]
   
-  mbatch = paste0(prefix, mbatch)
+  mbatch = paste0(batch_prefix, mbatch)
   fname = tempfile(fileext = ".m")
   writeLines(mbatch, con = fname)
   return(fname)

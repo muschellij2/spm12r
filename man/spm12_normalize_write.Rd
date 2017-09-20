@@ -2,14 +2,22 @@
 % Please edit documentation in R/spm12_normalize_write.R
 \name{spm12_normalize_write}
 \alias{spm12_normalize_write}
+\alias{build_spm12_normalize_write}
 \title{SPM12 Normalize (Write)}
 \usage{
 spm12_normalize_write(deformation, other.files = NULL,
   bounding_box = matrix(c(-90, -126, -72, 90, 90, 108), nrow = 2, byrow =
   TRUE), voxel_size = c(2, 2, 2), interp = c("bspline4", "nearestneighbor",
   "trilinear", paste0("bspline", 2:3), paste0("bspline", 5:7)), retimg = TRUE,
-  reorient = FALSE, add_spm_dir = TRUE, spmdir = spm_dir(),
-  clean = TRUE, verbose = TRUE, ...)
+  reorient = FALSE, add_spm_dir = TRUE, spmdir = spm_dir(verbose =
+  verbose), clean = TRUE, verbose = TRUE, ...)
+
+build_spm12_normalize_write(deformation, other.files = NULL,
+  bounding_box = matrix(c(-90, -126, -72, 90, 90, 108), nrow = 2, byrow =
+  TRUE), voxel_size = c(2, 2, 2), interp = c("bspline4", "nearestneighbor",
+  "trilinear", paste0("bspline", 2:3), paste0("bspline", 5:7)), retimg = TRUE,
+  reorient = FALSE, add_spm_dir = TRUE, spmdir = spm_dir(verbose =
+  verbose), clean = TRUE, verbose = TRUE, ...)
 }
 \arguments{
 \item{deformation}{Filename of deformation (nifti)}
@@ -43,8 +51,15 @@ result from \code{\link{run_matlab_script}}}
 \item{...}{Arguments passed to \code{\link{run_spm12_script}}}
 }
 \value{
-Result from run_matlab_script
+List of SPM object, results, and output filenames
 }
 \description{
 Applies SPM12 (Spatial) Normalization to images
+}
+\examples{
+dims = rep(10, 3)
+temp_nii = array(rnorm(prod(dims)), dim = dims)
+temp_nii = oro.nifti::nifti(temp_nii)
+res = build_spm12_normalize_write(temp_nii, 
+other.files = temp_nii)
 }

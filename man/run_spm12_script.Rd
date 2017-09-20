@@ -2,10 +2,15 @@
 % Please edit documentation in R/run_spm12_script.R
 \name{run_spm12_script}
 \alias{run_spm12_script}
+\alias{build_spm12_script}
 \title{Wrapper for running \code{spm12_script}}
 \usage{
 run_spm12_script(script_name, jobvec = NULL, mvec = NULL,
-  add_spm_dir = TRUE, spmdir = spm_dir(), clean = TRUE, verbose = TRUE,
+  add_spm_dir = TRUE, spmdir = spm_dir(verbose = verbose), clean = TRUE,
+  verbose = TRUE, ...)
+
+build_spm12_script(script_name, jobvec = NULL, mvec = NULL,
+  add_spm_dir = TRUE, spmdir = spm_dir(verbose = verbose), verbose = TRUE,
   ...)
 }
 \arguments{

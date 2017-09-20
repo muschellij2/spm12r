@@ -133,6 +133,54 @@ spm12_segment <- function(
     "%reg%", "%warp_cleanup%",
     "%mrf%")
   
+  tpm = file.path(spmdir, "tpm", "TPM.nii")
+  tpm = convert_to_matlab(tpm)
+
+  tissues = NULL
+  for (i in 1:6) {
+    tlist = list(
+      tpm = paste0("{", tpm, ",", i, "}"),
+      ngaus = n_gaus[i],
+      native = paste0("[", native, " ", dartel, "]"),
+      warped = paste0("[", unmodulated, " ", modulated, "]")
+    )
+    tissues = c(tissues, list(tlist))
+  }
+  class(tissues) = "unnumbered_list"
+  attr(tissues, "mat_name") = "tissue"
+  names(tissues) = paste0("tissue(", seq_along(tissues), ")")
+  
+  spm = list(
+    spatial = list(
+      preproc = list(
+        channel = 
+          list(
+            biasreg = biasreg,
+            biasfwhm = biasfwhm,
+            write = paste0("[", bias_field, " ", bias_corrected, "];")
+          ),
+        tissue = tissues,
+        warp = list(
+          mrf = mrf,
+          cleanup = warp_cleanup,
+          reg = regularization,
+          affreg = affine,
+          fwhm = smoothness,
+          samp = sampling_distance,
+          write = paste0("[", def_inverse, " ", def_forward, "];")
+        )
+      )
+    )
+  )
+  
+  spm = list(spm = spm)
+  class(spm) = "matlabbatch"
+
+  script = matlabbatch_to_script(spm)    
+  
+  L = list(
+    spm = spm,
+    script = script)
 
   res = run_spm12_script( script_name = "Segment",
                           jobvec = jobvec,
@@ -155,16 +203,17 @@ spm12_segment <- function(
                       paste0(
                         "y_",
                         basename(filename)))
-  res = list(
-    outfiles = outfiles,
-    outmat = out_mat,
-    deformation = out_def)
+  L$result = res
+  L$outfiles = outfiles
+  
+  L$outmat = out_mat
+  L$deformation = out_def
   
   if (retimg) {
-    res$outfiles = check_nifti(outfiles, reorient = reorient)
+    L$outfiles = check_nifti(outfiles, reorient = reorient)
   }
   
-  return(res)
+  return(L)
 }
 
 

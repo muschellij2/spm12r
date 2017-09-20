@@ -10,8 +10,8 @@ spm12_normalize(filename, other.files = NULL, bounding_box = matrix(c(-90,
   affine = c("mni", "eastern", "subj", "none", ""), smoothness = 0,
   sampling_distance = 3, voxel_size = c(2, 2, 2), interp = c("bspline4",
   "nearestneighbor", "trilinear", paste0("bspline", 2:3), paste0("bspline",
-  5:7)), add_spm_dir = TRUE, spmdir = spm_dir(), clean = TRUE,
-  verbose = TRUE, ...)
+  5:7)), add_spm_dir = TRUE, spmdir = spm_dir(verbose = verbose),
+  clean = TRUE, verbose = TRUE, ...)
 }
 \arguments{
 \item{filename}{File to be normalized to the template}

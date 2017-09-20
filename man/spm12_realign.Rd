@@ -88,3 +88,10 @@ and the script
 Performs SPM12 realignment estimation 
 and reslicing on an Image
 }
+\examples{
+dims = rep(10, 4)
+temp_nii = array(rnorm(prod(dims)), dim = dims)
+temp_nii = oro.nifti::nifti(temp_nii)
+res = build_spm12_realign(temp_nii)
+
+}

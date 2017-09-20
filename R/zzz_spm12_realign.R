@@ -51,6 +51,13 @@
 #' @export
 #' @return List of output files, the \code{matlabbatch} object, 
 #' and the script
+#' 
+#' @examples 
+#' dims = rep(10, 4)
+#' temp_nii = array(rnorm(prod(dims)), dim = dims)
+#' temp_nii = oro.nifti::nifti(temp_nii)
+#' res = build_spm12_realign(temp_nii)
+#' 
 build_spm12_realign <- function(
   filename,
   fwhm = 5,

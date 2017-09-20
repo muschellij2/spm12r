@@ -55,6 +55,17 @@
 #' other.files = fname,
 #' execute = FALSE)
 #' }
+#' dims = rep(10, 3)
+#' fixed = array(rnorm(prod(dims)), dim = dims)
+#' fixed = oro.nifti::nifti(fixed)
+#' moving = array(rnorm(prod(dims)), dim = dims)
+#' moving = oro.nifti::nifti(moving) 
+#' res = build_spm12_coregister(
+#' fixed = fixed, moving = moving)
+#' if (matlabr::have_matlab()) {
+#' run = spm12_coregister(
+#'    fixed = fixed, moving = moving)
+#' }
 build_spm12_coregister <- function(
   fixed,
   moving,

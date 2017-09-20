@@ -13,6 +13,9 @@ is.cell_list = function(x) {
   inherits(x, "cell_list")
 }  
 
+is.unnumbered_list = function(x) {
+  inherits(x, "unnumbered_list")
+}
 
 is.matlabbatch = function(x) {
   inherits(x, "matlabbatch")
@@ -32,6 +35,14 @@ convert_to_matlab = function(x, subtractor = 1, ...) {
     x = matlabr::rvec_to_matlab(x, row = FALSE, ...)
     return(x)
   }    
+  
+  if (is.unnumbered_list(x)) {
+    nn = attributes(x)$mat_name
+    x = lapply(x, unlist)
+    names(x) = paste0(nn, "(", seq_along(x), ")")
+    x = unlist(x)
+    return(x)
+  }      
   if (is.cell(x)) {
     x = matlabr::rvec_to_matlabcell(x = x, ...)
     return(x)
