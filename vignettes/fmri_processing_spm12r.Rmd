@@ -132,7 +132,7 @@ if (have_matlab()) {
 	reslice = "mean",
 	clean = FALSE
 	)
-  print(realigned)
+  print(names(realigned))
 }
 ```
 
@@ -171,8 +171,10 @@ ref_slice = slice_order[median(seq(nslices))]
 ta = tr - tr/nslices
 n_time_points = ntim(run_fmri)
 
+# using run_fmri because if you do not have
+# matlab, then realigned not available
 st_batch = build_spm12_slice_timing(
-  filename = realigned[['outfiles']],
+  filename = run_fmri,
   time_points = seq(n_time_points),
   nslices = nslices,
   tr = tr,
@@ -237,7 +239,7 @@ if (have_matlab()) {
   	bounding_box = bbox,
   	clean = FALSE
   	)
-  print(direct_norm)
+  print(names(direct_norm))
   dnorm_files = direct_norm$outfiles
   dnorm_mean_img = readnii(dnorm_files[1])
 }
@@ -289,7 +291,7 @@ if (have_matlab()) {
   	set_origin = FALSE,
   	retimg = FALSE,
   	clean = FALSE)
-  print(seg_res)
+  print(names(seg_res))
 }
 ```
 
@@ -329,7 +331,7 @@ if (have_matlab()) {
   	other.files = c(coreg_anat, mean_img, aimg),
   	bounding_box = bbox,
   	retimg = FALSE)
-  print(norm)
+  print(names(norm))
   norm_data = norm$outfiles
   names(norm_data) = c("anat", "mean", "fmri")
   norm_mean_img = readnii(norm_data["mean"])
