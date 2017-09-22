@@ -2,10 +2,13 @@
 % Please edit documentation in R/spm12_condition.R
 \name{spm12_condition}
 \alias{spm12_condition}
+\alias{spm12_condition_list}
 \title{Build Conditions for SPM12 first level model}
 \usage{
 spm12_condition(name, onset, duration, time_mod_order = 0, param_mod = NULL,
   orth = TRUE)
+
+spm12_condition_list(cond)
 }
 \arguments{
 \item{name}{Name of the condition}

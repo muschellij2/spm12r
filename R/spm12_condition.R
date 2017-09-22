@@ -71,7 +71,7 @@ spm12_condition = function(
 
 
 
-#' @rdname spm12_regressor
+#' @rdname spm12_condition
 #' @export
 spm12_condition_list = function(cond) {
   
