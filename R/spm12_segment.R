@@ -86,7 +86,7 @@ spm12_segment <- function(
   warp_cleanup = match.arg(warp_cleanup)
   warp_cleanup = factor(warp_cleanup, 
                         levels = c("none", "light", "thorough")
-                        )
+  )
   warp_cleanup = convert_to_matlab(warp_cleanup)
   
   affine = match.arg(affine)
@@ -135,7 +135,7 @@ spm12_segment <- function(
   
   tpm = file.path(spmdir, "tpm", "TPM.nii")
   tpm = convert_to_matlab(tpm)
-
+  
   tissues = NULL
   for (i in 1:6) {
     tlist = list(
@@ -175,39 +175,106 @@ spm12_segment <- function(
   
   spm = list(spm = spm)
   class(spm) = "matlabbatch"
-
+  
   script = matlabbatch_to_script(spm)    
   
   L = list(
     spm = spm,
     script = script)
-
-  res = run_spm12_script( script_name = "Segment",
-                          jobvec = jobvec,
-                          mvec = NULL,
-                          add_spm_dir = add_spm_dir,
-                          spmdir = spmdir,
-                          clean = clean,
-                          verbose = verbose,
-                          ...)  
+  
+  res = run_spm12_script( 
+    script_name = "Segment",
+    jobvec = jobvec,
+    mvec = NULL,
+    add_spm_dir = add_spm_dir,
+    spmdir = spmdir,
+    clean = clean,
+    verbose = verbose,
+    ...)  
   outfiles = file.path(
     dirname(filename), 
     paste0("c", 1:6, basename(filename)))
   
-  out_mat = file.path(dirname(filename),
-                      paste0(  
-                        nii.stub(filename, bn = TRUE),
-                        "_seg8.mat"))
+  if (dartel) {
+    dartel_outfiles = file.path(
+      dirname(filename), 
+      paste0("rc", 1:6, basename(filename)))
+  } else {
+    dartel_outfiles = NULL
+  }
   
-  out_def = file.path(dirname(filename),
-                      paste0(
-                        "y_",
-                        basename(filename)))
+  if (unmodulated) {
+    unmod_outfiles = file.path(
+      dirname(filename), 
+      paste0("wc", 1:6, basename(filename)))
+  } else {
+    unmod_outfiles = NULL
+  }
+  if (modulated) {
+    mod_outfiles = file.path(
+      dirname(filename), 
+      paste0("mwc", 1:6, basename(filename))) 
+  } else {
+    mod_outfiles = NULL
+  }
+  
+  
+  out_mat = file.path(
+    dirname(filename),
+    paste0(  
+      nii.stub(filename, bn = TRUE),
+      "_seg8.mat"))
+  if (def_forward) {
+    out_def = file.path(
+      dirname(filename),
+      paste0(
+        "y_",
+        basename(filename)))
+  } else {
+    out_def = NULL
+  }
+  if (def_inverse) {
+    inv_def = file.path(
+      dirname(filename),
+      paste0(
+        "iy_",
+        basename(filename)))
+  } else {
+    inv_def = NULL 
+  }
+  
+  if (bias_corrected) {
+    bc_outfile = file.path(
+      dirname(filename),
+      paste0(
+        "m",
+        basename(filename)))
+  } else {
+    bc_outfile = NULL
+  }
+
+  if (bias_field) {
+    bf_outfile = file.path(
+      dirname(filename),
+      paste0(
+        "BiasField_",
+        basename(filename)))
+  } else {
+    bf_outfile = NULL
+  }  
+
   L$result = res
   L$outfiles = outfiles
   
   L$outmat = out_mat
   L$deformation = out_def
+  L$inverse_deformation = inv_def
+  
+  L$dartel = dartel_outfiles
+  L$unmodulated = unmod_outfiles
+  L$modulated = mod_outfiles
+  L$bias_corrected = bc_outfile
+  L$bias_field = bf_outfile
   
   if (retimg) {
     L$outfiles = check_nifti(outfiles, reorient = reorient)
