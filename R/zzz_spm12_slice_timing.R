@@ -46,7 +46,7 @@ spm12_slice_timing <- function(
   clean = TRUE,
   verbose = TRUE,
   outdir = tempdir(),
-  retimg = TRUE,
+  retimg = FALSE,
   reorient = FALSE,
   ...
 ){

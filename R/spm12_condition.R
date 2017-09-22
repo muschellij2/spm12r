@@ -1,12 +1,16 @@
 
-#' Title
+#' Build Conditions for SPM12 first level model
 #'
-#' @param name 
-#' @param onset 
-#' @param duration 
-#' @param time_mod_order 
-#' @param param_mod 
-#' @param orth 
+#' @param name Name of the condition
+#' @param onset vector of onsets of the condition
+#' @param duration vector of duration of the condition, 
+#' must be the same length as \code{onset}
+#' @param time_mod_order time modulation order. 
+#' This option allows for the characterization of linear or 
+#' nonlinear time effects. Zero means no modulation
+#' @param param_mod parametric modulation.  Not currently
+#' supported in \code{spm12r}
+#' @param orth Orthogonalize the regressors within trial types.
 #' @param cond List of conditions
 #'
 #' @return A list of objects, each with a \code{name}, \code{onset}, 

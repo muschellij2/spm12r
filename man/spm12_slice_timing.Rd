@@ -8,7 +8,7 @@
 spm12_slice_timing(filename, time_points = NULL, nslices, tr, ta = tr -
   tr/nslices, slice_order = 1:nslices, ref_slice, prefix = "a",
   add_spm_dir = TRUE, spmdir = spm_dir(verbose = verbose), clean = TRUE,
-  verbose = TRUE, outdir = tempdir(), retimg = TRUE, reorient = FALSE,
+  verbose = TRUE, outdir = tempdir(), retimg = FALSE, reorient = FALSE,
   ...)
 
 build_spm12_slice_timing(filename, time_points = NULL, nslices, tr, ta = tr

@@ -23,14 +23,14 @@
 #' \code{retimg}
 spm12_smooth <- function(
   filename,
-  retimg = TRUE,
+  retimg = FALSE,
   fwhm = 8,
   dtype = c("SAME", "UINT8", "INT16", 
             "INT32", "FLOAT32", "FLOAT64"),
   implicit_mask = FALSE,
   prefix = "s",
   add_spm_dir = TRUE,
-  spmdir = spm_dir(),
+  spmdir = spm_dir(verbose = verbose),
   clean = TRUE,
   verbose = TRUE,
   reorient = FALSE,

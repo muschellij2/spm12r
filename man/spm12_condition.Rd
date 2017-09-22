@@ -2,23 +2,27 @@
 % Please edit documentation in R/spm12_condition.R
 \name{spm12_condition}
 \alias{spm12_condition}
-\title{Title}
+\title{Build Conditions for SPM12 first level model}
 \usage{
 spm12_condition(name, onset, duration, time_mod_order = 0, param_mod = NULL,
   orth = TRUE)
 }
 \arguments{
-\item{name}{}
+\item{name}{Name of the condition}
 
-\item{onset}{}
+\item{onset}{vector of onsets of the condition}
 
-\item{duration}{}
+\item{duration}{vector of duration of the condition, 
+must be the same length as \code{onset}}
 
-\item{time_mod_order}{}
+\item{time_mod_order}{time modulation order. 
+This option allows for the characterization of linear or 
+nonlinear time effects. Zero means no modulation}
 
-\item{param_mod}{}
+\item{param_mod}{parametric modulation.  Not currently
+supported in \code{spm12r}}
 
-\item{orth}{}
+\item{orth}{Orthogonalize the regressors within trial types.}
 
 \item{cond}{List of conditions}
 }
@@ -27,7 +31,7 @@ A list of objects, each with a \code{name}, \code{onset},
 \code{duration}, and other condition values.
 }
 \description{
-Title
+Build Conditions for SPM12 first level model
 }
 \examples{
 res = spm12_condition(

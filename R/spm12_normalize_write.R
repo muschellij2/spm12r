@@ -38,7 +38,7 @@ spm12_normalize_write <- function(
     "bspline4", "nearestneighbor", "trilinear", 
     paste0("bspline", 2:3),
     paste0("bspline", 5:7)),      
-  retimg = TRUE,
+  retimg = FALSE,
   reorient = FALSE,
   add_spm_dir = TRUE,
   spmdir = spm_dir(verbose = verbose),
@@ -47,17 +47,14 @@ spm12_normalize_write <- function(
   ...
 ){
   
+  install_spm12(verbose = verbose)
+  
   L = build_spm12_normalize_write(
     deformation = deformation,
     other.files = other.files,
     bounding_box = bounding_box,
     voxel_size = voxel_size,
     interp = interp,
-    retimg = retimg,
-    reorient = reorient,
-    add_spm_dir = add_spm_dir,
-    spmdir = spmdir,
-    clean = clean,
     verbose = verbose,
     ...)
   
@@ -96,8 +93,13 @@ spm12_normalize_write <- function(
   outfiles = file.path(
     dirname(other_fnames),
     paste0("w", basename(other_fnames)))
+  
   if (retimg) {
-    outfiles = lapply(outfiles, readNIfTI, reorient = reorient)
+    if (length(outfiles) > 1) {
+      outfiles = lapply(outfiles, readNIfTI, reorient = reorient)
+    } else {
+      outfiles = readNIfTI(outfiles, reorient = reorient)
+    }
   }
   L$outfiles = outfiles
   L$result = res
@@ -119,15 +121,9 @@ build_spm12_normalize_write <- function(
     "bspline4", "nearestneighbor", "trilinear", 
     paste0("bspline", 2:3),
     paste0("bspline", 5:7)),      
-  retimg = TRUE,
-  reorient = FALSE,
-  add_spm_dir = TRUE,
-  spmdir = spm_dir(verbose = verbose),
-  clean = TRUE,
   verbose = TRUE,
   ...
 ){
-  install_spm12(verbose = verbose)
   
   # check deformations
   deformation = filename_check(deformation)

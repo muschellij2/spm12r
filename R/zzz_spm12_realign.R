@@ -239,11 +239,16 @@ build_spm12_realign <- function(
 
 #' @export
 #' @rdname spm12_realign
+#' @param retimg (logical) return image of class nifti
+#' @param reorient (logical) If retimg, should file be 
+#' reoriented when read in? 
 spm12_realign = function(
   ...,
   add_spm_dir = TRUE,
   spmdir = spm_dir(verbose = verbose),
   clean = TRUE,
+  retimg = FALSE,
+  reorient = FALSE,  
   verbose = TRUE,
   outdir = NULL
 ) {
@@ -286,6 +291,18 @@ spm12_realign = function(
     matfile = file.path(outdir, basename(matfile))
     
   }
+  
+  #############################
+  # Returning Image
+  #############################
+  if (retimg) {
+    if (length(outfile) > 1) {
+      outfile = lapply(outfile, readNIfTI, reorient = reorient)
+    } else {
+      outfile = readNIfTI(outfile, reorient = reorient)
+    }
+  }
+  
   L$outfiles = outfile
   L$rp = rpfile
   L$mean = meanfile
