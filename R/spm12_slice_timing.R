@@ -45,7 +45,7 @@ spm12_slice_timing.deprecated <- function(
   clean = TRUE,
   verbose = TRUE,
   outdir = tempdir(),
-  retimg = TRUE,
+  retimg = FALSE,
   reorient = FALSE,
   ...
 ){

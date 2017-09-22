@@ -8,16 +8,15 @@
 spm12_normalize_write(deformation, other.files = NULL,
   bounding_box = matrix(c(-90, -126, -72, 90, 90, 108), nrow = 2, byrow =
   TRUE), voxel_size = c(2, 2, 2), interp = c("bspline4", "nearestneighbor",
-  "trilinear", paste0("bspline", 2:3), paste0("bspline", 5:7)), retimg = TRUE,
-  reorient = FALSE, add_spm_dir = TRUE, spmdir = spm_dir(verbose =
-  verbose), clean = TRUE, verbose = TRUE, ...)
+  "trilinear", paste0("bspline", 2:3), paste0("bspline", 5:7)),
+  retimg = FALSE, reorient = FALSE, add_spm_dir = TRUE,
+  spmdir = spm_dir(verbose = verbose), clean = TRUE, verbose = TRUE, ...)
 
 build_spm12_normalize_write(deformation, other.files = NULL,
   bounding_box = matrix(c(-90, -126, -72, 90, 90, 108), nrow = 2, byrow =
   TRUE), voxel_size = c(2, 2, 2), interp = c("bspline4", "nearestneighbor",
-  "trilinear", paste0("bspline", 2:3), paste0("bspline", 5:7)), retimg = TRUE,
-  reorient = FALSE, add_spm_dir = TRUE, spmdir = spm_dir(verbose =
-  verbose), clean = TRUE, verbose = TRUE, ...)
+  "trilinear", paste0("bspline", 2:3), paste0("bspline", 5:7)),
+  verbose = TRUE, ...)
 }
 \arguments{
 \item{deformation}{Filename of deformation (nifti)}

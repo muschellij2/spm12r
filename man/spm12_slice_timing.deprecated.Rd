@@ -7,7 +7,7 @@
 spm12_slice_timing.deprecated(filename, time_points = NULL, nslices, tr,
   ta = tr - tr/nslices, slice_order = 1:nslices, ref_slice, prefix = "a",
   add_spm_dir = TRUE, spmdir = spm_dir(), clean = TRUE, verbose = TRUE,
-  outdir = tempdir(), retimg = TRUE, reorient = FALSE, ...)
+  outdir = tempdir(), retimg = FALSE, reorient = FALSE, ...)
 }
 \arguments{
 \item{filename}{Files to be slice-time corrected}

@@ -14,7 +14,8 @@ build_spm12_realign(filename, fwhm = 5, quality = 0.9, separation = 4,
   prefix = "r", verbose = TRUE, ...)
 
 spm12_realign(..., add_spm_dir = TRUE, spmdir = spm_dir(verbose = verbose),
-  clean = TRUE, verbose = TRUE, outdir = NULL)
+  clean = TRUE, retimg = FALSE, reorient = FALSE, verbose = TRUE,
+  outdir = NULL)
 }
 \arguments{
 \item{filename}{Files to be realigned and resliced}
@@ -75,6 +76,11 @@ from outside  the  original  images.  Where  this  occurs,
 
 \item{clean}{Remove scripts from temporary directory 
 after running}
+
+\item{retimg}{(logical) return image of class nifti}
+
+\item{reorient}{(logical) If retimg, should file be 
+reoriented when read in?}
 
 \item{outdir}{Directory to copy results.
 If full filename given, then results will
