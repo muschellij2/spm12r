@@ -6,14 +6,34 @@
 #' filenames, or a single 4D nifti 
 #' @export
 #' @return Vector of time points
-#' @importFrom oro.nifti is.nifti ntim nifti_header
+#' @importFrom oro.nifti is.nifti ntim 
 #' @importFrom neurobase check_nifti
 ntime_points <- function(filename){
   ########################
   # Getting Number of Time points
   ########################
+  
+  oro_pkg = packageVersion("oro.nifti")
+  
+  if (oro_pkg < 0.8) {
+    nifti_header = function(
+      fname, verbose = FALSE, warn = -1
+    ) {
+      nim = oro.nifti::readNIfTI(
+        fname = fname, 
+        verbose = verbose,
+        warn = warn, 
+        call = NULL,
+        read_data = FALSE,
+        reorient = FALSE)
+      return(nim)
+    }
+  } else {
+    nifti_header = oro.nifti::nifti_header
+  }
+  
   if (is.nifti(filename)) {
-    img = oro.nifti::nifti_header(filename)
+    img = nifti_header(filename)
   } else {
     img = check_nifti(filename)
   }
