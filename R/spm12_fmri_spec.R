@@ -53,12 +53,18 @@
 #' @param correlation Serial correlations in fMRI time series
 #' @param n_time_points Number of time points
 #' @param verbose Print diagnostic messages
-#'
+#' @param add_spm_dir Add SPM12 directory from this package
+#' @param spmdir SPM dir to add, will use package default directory
+#' @param clean Remove scripts from temporary directory after running
+#' @param outdir output directory for results
+#' @param overwrite If a SPM.mat file exists in the outdir, 
+#' should the file be removed?
+#' @param ... Arguments passed to \code{\link{run_spm12_script}}
 #' @return A list of objects, including an spm object and output files.
 #' @export
-#'
+#' @rdname spm12_first_level_spec
 # #' @examples
-spm12_first_level_spec = function(
+build_spm12_first_level_spec = function(
   scans = NULL,
   outdir = NULL,
   units = c("scans", "secs"),
@@ -79,13 +85,26 @@ spm12_first_level_spec = function(
   mask = NULL,
   correlation = c("AR(1)", "none", "FAST"),
   n_time_points = NULL,
-  verbose = TRUE
+  verbose = TRUE,
+  overwrite = TRUE,
+  ...
 ) {
   
   if (is.null(outdir)) {
     outdir = tempfile()
     dir.create(outdir, showWarnings = FALSE)
   }
+  spm_mat = file.path(outdir, "SPM.mat")    
+  if (file.exists(spm_mat)) {
+    if (!overwrite) {
+      stop(paste0(
+        "SPM.mat exists in outdir specified, but ", 
+           "overwrite = FALSE")
+      )
+    } else {
+      file.remove(spm_mat)
+    }
+  }  
   
   ##################
   # Time units
@@ -125,8 +144,8 @@ spm12_first_level_spec = function(
       filename, 
       transpose = FALSE,
       sep = "\n")
-    filename = sub(";$", "", filename)
-    filename = paste0("{", filename, "}';")  
+    # filename = sub(";$", "", filename)
+    # filename = paste0("{", filename, "}';")  
   }
   
   ###################################
@@ -186,6 +205,7 @@ spm12_first_level_spec = function(
   )
   
   if (!is.null(condition_mat)) {
+    condition_mat = normalizePath(condition_mat)
     class(condition_mat) = "cell"
     condition_mat = convert_to_matlab(condition_mat, sep = "")
     sess$cond = paste0("struct('name', {}, 'onset', {},", 
@@ -203,6 +223,7 @@ spm12_first_level_spec = function(
   }
   
   if (!is.null(regressor_mat)) {
+    regressor_mat = normalizePath(regressor_mat)
     class(regressor_mat) = "cell"
     regressor_mat = convert_to_matlab(regressor_mat, sep = "")
     sess$regress = paste0("struct('name', {}, 'val', {});")
@@ -211,11 +232,17 @@ spm12_first_level_spec = function(
     if (length(regressor_list) == 1) {
       regressor_list = list(regressor_list)
     }
-    regressor_list = spm12_regressor_list(regressor_list)
+    regressor_list = spm12_regressor_list(
+      regressor_list, 
+      n_time_points = n_time_points)
     sess$regress = regressor_list
     sess$multi_reg = "{''}"
   }  
   
+  xoutdir = outdir
+
+  class(outdir) = "cell"
+  outdir = convert_to_matlab(outdir)
   
   sess$hpf = hpf
   
@@ -248,13 +275,56 @@ spm12_first_level_spec = function(
   spm = list(spm = spm)
   class(spm) = "matlabbatch"
   
-  script = matlabbatch_to_script(spm)    
+  script = matlabbatch_to_script(spm, ...)    
   
   L = list(
     spm = spm,
     script = script)
+  L$outfile = L$spm_mat = spm_mat 
   
+  L$outdir = xoutdir
   return(L)
   
 }
 
+
+#' @rdname spm12_first_level_spec
+#' @export
+spm12_first_level_spec = function(
+  ...,   
+  outdir = NULL,
+  add_spm_dir = TRUE,
+  spmdir = spm_dir(verbose = verbose),
+  clean = TRUE,
+  verbose = TRUE,
+  overwrite = TRUE
+){
+  
+  install_spm12(verbose = verbose)
+  
+  L = build_spm12_first_level_spec(
+    outdir = outdir,
+    verbose = verbose,
+    ...)
+  
+  outdir = L$outdir
+  spm = L$spm
+  
+  if (verbose) {
+    message("# Running matlabbatch job")
+  }  
+  res = run_matlabbatch(
+    spm, 
+    add_spm_dir = add_spm_dir, 
+    clean = clean,
+    verbose = verbose,
+    spmdir = spmdir) 
+  
+  if (res != 0) {
+    warning("Result was not zero!")
+  }
+
+
+  L$result = res
+  return(L)
+}

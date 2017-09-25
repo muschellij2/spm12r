@@ -30,15 +30,17 @@
 #' res = spm12_condition_list(L)
 #' print(res) 
 spm12_condition = function(
-  name, onset, duration, 
+  name, onsets, durations, 
   time_mod_order = 0, 
   param_mod = NULL, 
   orth = TRUE) {
   if (length(name) != 1) {
     stop("Condition name must be 1!")
   }
-  l_onsets = length(onset)
-  l_durations = length(duration)
+  name = convert_to_matlab(name)
+  
+  l_onsets = length(onsets)
+  l_durations = length(durations)
   if (l_onsets != l_durations) {
     stop("Number of onsets must be equal to the number of durations")
   }
@@ -52,15 +54,15 @@ spm12_condition = function(
   }
   param_mod = "struct('name', {}, 'param', {}, 'poly', {})"
   
-  class(onset) = "rowvec"
-  onset = convert_to_matlab(onset)
-  class(duration) = "rowvec"
-  duration = convert_to_matlab(duration)
+  class(onsets) = "rowvec"
+  onsets = convert_to_matlab(onsets)
+  class(durations) = "rowvec"
+  durations = convert_to_matlab(durations)
   
   L = list(
     name = name,
-    onset = onset,
-    duration = duration,
+    onsets = onsets,
+    durations = durations,
     tmod = time_mod_order,
     pmod = param_mod,
     orth = orth

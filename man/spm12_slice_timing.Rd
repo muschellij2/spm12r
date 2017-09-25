@@ -19,7 +19,8 @@ build_spm12_slice_timing(filename, time_points = NULL, nslices, tr, ta = tr
 \arguments{
 \item{filename}{Files to be slice-time corrected}
 
-\item{time_points}{Time points to run slice-time correction.
+\item{time_points}{A vector of time points to run 
+slice-time correction.  
 If \code{filename} is a
 4D file, then will do all the time points.  Otherwise, 
 \code{filename} must be a character

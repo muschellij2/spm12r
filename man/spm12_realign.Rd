@@ -5,10 +5,11 @@
 \alias{spm12_realign}
 \title{SPM12 Realign (Estimate and Reslice)}
 \usage{
-build_spm12_realign(filename, fwhm = 5, quality = 0.9, separation = 4,
-  register_to = c("first", "mean"), est_interp = c("bspline2", "trilinear",
-  paste0("bspline", 3:7)), wrap_x = FALSE, wrap_y = FALSE, wrap_z = FALSE,
-  weight_image = NULL, reslice = c("all+mean", "all", "2:n", "mean"),
+build_spm12_realign(filename, time_points = NULL, fwhm = 5, quality = 0.9,
+  separation = 4, register_to = c("first", "mean"),
+  est_interp = c("bspline2", "trilinear", paste0("bspline", 3:7)),
+  wrap_x = FALSE, wrap_y = FALSE, wrap_z = FALSE, weight_image = NULL,
+  reslice = c("all+mean", "all", "2:n", "mean"),
   reslice_interp = c("bspline4", "nearestneighbor", "trilinear",
   paste0("bspline", 2:3), paste0("bspline", 5:7), "fourier"), mask = FALSE,
   prefix = "r", verbose = TRUE, ...)
@@ -19,6 +20,12 @@ spm12_realign(..., add_spm_dir = TRUE, spmdir = spm_dir(verbose = verbose),
 }
 \arguments{
 \item{filename}{Files to be realigned and resliced}
+
+\item{time_points}{A vector of time points to run realignment,
+If \code{filename} is a
+4D file, then will do all the time points.  Otherwise, 
+\code{filename} must be a character
+vector of 3D files or a list of 3D nifti objects.}
 
 \item{fwhm}{Full-Width Half Max to smooth.  Gaussian
 smoothing  

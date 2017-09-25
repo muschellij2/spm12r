@@ -1,0 +1,155 @@
+#' SPM12 Results Report
+#'
+#' @param spm Path to SPM.mat file
+#' @param write_residuals Should residuals be written?
+#' @param method Method for model estimation
+#' @param bayesian If method = "Bayesian", this is for a 1st level
+#' model Bayesian estimation and this list specifies the 
+#' parameters
+#' @param ... Arguments passed to 
+#' \code{\link{matlabbatch_to_script}}
+#' @param add_spm_dir Add SPM12 directory from this package
+#' @param spmdir SPM dir to add, will use package default directory
+#' @param clean Remove scripts from temporary directory after running
+#' @param verbose Print diagnostic messages
+#' @param ... Arguments passed to \code{\link{run_spm12_script}} 
+#'
+#' @return A list of output and results
+#' @export
+spm12_results = function(
+  ...,
+  add_spm_dir = TRUE,
+  spmdir = spm_dir(verbose = verbose),
+  clean = TRUE,
+  verbose = TRUE
+) {
+  install_spm12(verbose = verbose)
+  L = build_spm12_results(...)
+  
+  spm = L$spm
+  
+  if (verbose) {
+    message("# Running matlabbatch job")
+  }  
+  res = run_matlabbatch(
+    spm, 
+    add_spm_dir = add_spm_dir, 
+    clean = clean,
+    verbose = verbose,
+    spmdir = spmdir) 
+  
+  if (res != 0) {
+    warning("Result was not zero!")
+  }
+  
+  L$result = res  
+  return(L)
+  
+}
+
+
+#' @rdname spm12_results
+#' @export
+build_spm12_results = function(
+  spm,
+  units = c("Volumetric", "Scalp-Time", 
+            "Scalp-Frequency", "Time-Frequency", 
+            "Frequency-Frequency"),
+  result_format = c("none", "ps", "eps", "pdf", "jpg", "tif",
+                    "fig", "csv", "nidm"),
+  write_images = c("none", "threshold_spm", 
+                   "binary_clusters", "nary_clusters"),  
+  contrast_list = NULL,
+  image_basename = NULL,
+  ...
+) {
+  
+  
+  units = match.arg(units)
+  
+  unit_levs = c("Volumetric", "Scalp-Time", "Scalp-Frequency", 
+                "Time-Frequency", "Frequency-Frequency")  
+  units = factor(units, levels = unit_levs)
+  units = convert_to_matlab(units, subtractor = 0)
+  
+  if (length(contrast_list) == 1) {
+    contrast_list = list(contrast_list)
+  }
+  contrast_list = spm12_contrast_query_list(contrast_list)
+
+  spmmat = normalizePath(spm)
+  xspmmat = spmmat
+  class(spmmat) = "cell"
+  spmmat = convert_to_matlab(spmmat)
+  
+
+  ###########################
+  # output printout
+  ###########################
+  result_format = match.arg(result_format)
+  if (result_format == "none") {
+    result_format = "false"
+  } else {
+    result_format = convert_to_matlab(result_format)
+  }
+  
+  ###########################
+  # output images
+  ###########################
+  write_images = match.arg(write_images)
+  if (write_images != "none") {
+    if (is.null(image_basename)) {
+      stop(paste0(
+        "If write_images != none, then image_basename ",
+        "must be specified")
+      )
+    } else {
+      image_basename = convert_to_matlab(image_basename)
+    }
+    l_name = switch(
+      write_images,
+      threshold_spm = "tspm",
+      binary_clusters = "binary", 
+      nary_clusters = "nary")
+    write = list(
+      basename = image_basename
+    )
+    write = list(write)
+    names(write) = l_name
+  } else {
+    write = list(
+      none = 1
+    )
+  }
+  
+  names(contrast_list) = paste0("conspec", names(contrast_list))
+  
+  spm = list(
+    stats = list(
+      results = list(
+        spmmat = spmmat,
+        contrast_list,
+        units = units,
+        print = result_format,
+        write = write        
+      )
+    )
+  )
+  
+  spm = list(spm = spm)
+  class(spm) = "matlabbatch"
+  
+  script = matlabbatch_to_script(spm, ...)  
+  
+  L = list(
+    spm = spm,
+    script = script)
+  
+  L$spmmat = xspmmat
+  
+  return(L) 
+  
+}
+
+
+

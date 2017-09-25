@@ -23,6 +23,9 @@
 #' print(res)
 spm12_regressor = function(
   name, value, n_time_points) {
+  
+  name = convert_to_matlab(name)
+  
   l_value = length(value)
   stopifnot(l_value == n_time_points)
   class(value) = "rowvec"

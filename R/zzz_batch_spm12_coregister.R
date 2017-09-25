@@ -87,11 +87,7 @@ build_spm12_coregister <- function(
   wrap_z = FALSE, #  c(0, 0, 0),
   mask = FALSE, # c(FALSE, TRUE) as.numeric
   prefix = "r",
-  add_spm_dir = TRUE,
-  spmdir = spm_dir(),
-  clean = TRUE,
   verbose = TRUE,
-  outdir = NULL,
   ...
 ){  
   
@@ -143,8 +139,9 @@ build_spm12_coregister <- function(
     other = FALSE
   } else {
     other.files = filename_check(other.files)
-    other.ofiles = file.path(dirname(other.files),
-                             paste0(prefix, basename(other.files)))
+    other.ofiles = file.path(
+      dirname(other.files),
+      paste0(prefix, basename(other.files)))
     other.files = rvec_to_matlabcell(other.files)
     other = TRUE
   }
@@ -187,19 +184,117 @@ build_spm12_coregister <- function(
 }
 
 
-#' @export
 #' @rdname spm12_coregister
-spm12_coregister = function(
+#' @export
+build_spm12_coregister_estimate <- function(
+  fixed,
+  moving,
+  other.files = NULL,
+  cost_fun = c("nmi", "ecc", "ncc"), # 
+  separation = c(4, 2),
+  tol = c(0.02, 0.02, 0.02, 0.001, 0.001, 0.001, 
+          0.01, 0.01, 0.01, 0.001, 0.001, 0.001),
+  fwhm = c(7, 7),
+  verbose = TRUE,
+  ...
+){  
+  
+  
+  L = build_spm12_coregister(
+    fixed = fixed,
+    moving = moving, 
+    other.files = other.files,
+    cost_fun = cost_fun,
+    separation = separation,
+    tol = tol,
+    fwhm = fwhm, 
+    prefix = "",
+    verbose = verbose,
+    ...)
+  spm = L$spm$spm
+  
+  
+  coreg = spm$spatial$coreg
+  ewrite = coreg$estwrite
+  ewrite$roptions = NULL
+  coreg$estwrite = NULL
+  coreg$estimate = ewrite
+  spm$spatial$coreg = coreg
+  L$spm$spm = spm
+  L$script = matlabbatch_to_script(L$spm, ...)  
+  
+  return(L)
+  
+}
+
+
+
+#' @rdname spm12_coregister
+#' @export
+build_spm12_coregister_reslice <- function(
+  fixed,
+  moving,
+  interp = c("bspline4", "nearestneighbor", "trilinear", 
+             paste0("bspline", 2:3),
+             paste0("bspline", 5:7)),  
+  wrap_x = FALSE, #  c(0, 0, 0),
+  wrap_y = FALSE, #  c(0, 0, 0),
+  wrap_z = FALSE, #  c(0, 0, 0),
+  mask = FALSE, # c(FALSE, TRUE) as.numeric
+  prefix = "r",
+  verbose = TRUE,
+  ...
+){  
+  
+  
+  L = build_spm12_coregister(
+    fixed = fixed,
+    moving = moving, 
+    interp = interp,
+    wrap_x = wrap_x, #  c(0, 0, 0),
+    wrap_y = wrap_y, #  c(0, 0, 0),
+    wrap_z = wrap_z, #  c(0, 0, 0),
+    mask = mask, # c(FALSE, TRUE) as.numeric
+    prefix = prefix,
+    add_spm_dir = add_spm_dir,
+    verbose = verbose,
+    ...)
+  spm = L$spm$spm
+  
+  
+  coreg = spm$spatial$coreg
+  ewrite = coreg$estwrite
+  ewrite$eoptions = NULL
+  coreg$write = ewrite
+  coreg$estwrite = NULL
+  spm$spatial$coreg = coreg
+  L$spm$spm = spm
+  L$script = matlabbatch_to_script(L$spm, ...)  
+  
+  return(L)
+  
+}
+
+
+
+#' @rdname spm12_coregister
+spm12_coregister_wrapper = function(
   ...,
+  func = c("build_spm12_coregister",
+           "build_spm12_coregister_reslice",
+           "build_spm12_coregister_estimate"),
   add_spm_dir = TRUE,
   spmdir = spm_dir(verbose = verbose),
   clean = TRUE,
   verbose = TRUE,
   outdir = NULL
 ) {
-  
   install_spm12(verbose = verbose)
-  L = build_spm12_coregister(verbose = verbose, ...)
+  func = match.arg(func)
+  args = list(...)
+  args$verbose = verbose
+  L = do.call(func, args = args)
+  
   spm = L$spm
   other.ofiles = L$other.outfiles
   other = !is.null(other.ofiles)
@@ -236,9 +331,78 @@ spm12_coregister = function(
   L$other.outfiles = other.ofiles
   L$result = res    
   
-  
   return(L)
 }
 
 
+#' @export
+#' @rdname spm12_coregister
+spm12_coregister = function(
+  ...,
+  add_spm_dir = TRUE,
+  spmdir = spm_dir(verbose = verbose),
+  clean = TRUE,
+  verbose = TRUE,
+  outdir = NULL
+) {
+  L = spm12_coregister_wrapper(
+    ...,
+    func = "build_spm12_coregister",
+    add_spm_dir = add_spm_dir,
+    spmdir = spmdir,
+    clean = clean,
+    verbose = verbose,
+    outdir = outdir
+  )
+  return(L)
+  
+}
 
+
+#' @export
+#' @rdname spm12_coregister
+spm12_coregister_estimate = function(
+  ...,
+  add_spm_dir = TRUE,
+  spmdir = spm_dir(verbose = verbose),
+  clean = TRUE,
+  verbose = TRUE,
+  outdir = NULL
+) {
+  L = spm12_coregister_wrapper(
+    ...,
+    func = "build_spm12_coregister_estimate",
+    add_spm_dir = add_spm_dir,
+    spmdir = spmdir,
+    clean = clean,
+    verbose = verbose,
+    outdir = outdir
+  )
+  return(L)
+  
+}
+
+
+#' @export
+#' @rdname spm12_coregister
+#' @param func not used
+spm12_coregister_reslice = function(
+  ...,
+  add_spm_dir = TRUE,
+  spmdir = spm_dir(verbose = verbose),
+  clean = TRUE,
+  verbose = TRUE,
+  outdir = NULL
+) {
+  L = spm12_coregister_wrapper(
+    ...,
+    func = "build_spm12_coregister_reslice",
+    add_spm_dir = add_spm_dir,
+    spmdir = spmdir,
+    clean = clean,
+    verbose = verbose,
+    outdir = outdir
+  )
+  return(L)
+  
+}

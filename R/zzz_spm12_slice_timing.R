@@ -2,7 +2,8 @@
 #'
 #' @description Performs SPM12 slice timing correction on images
 #' @param filename Files to be slice-time corrected
-#' @param time_points Time points to run slice-time correction.  
+#' @param time_points A vector of time points to run 
+#' slice-time correction.  
 #' If \code{filename} is a
 #' 4D file, then will do all the time points.  Otherwise, 
 #' \code{filename} must be a character
@@ -50,6 +51,8 @@ spm12_slice_timing <- function(
   reorient = FALSE,
   ...
 ){
+  install_spm12(verbose = verbose)
+  
   L = build_spm12_slice_timing(
     filename = filename,
     time_points = time_points,
@@ -91,6 +94,12 @@ spm12_slice_timing <- function(
   }
   file.copy(outfile, to = outdir, overwrite = TRUE)
   
+  outfile = file.path(outdir, basename(outfile))
+  if (!file.exists(outfile)) {
+    warning(paste0("Output file of slice timing", 
+                   " does not exist!  May be an error")
+    )
+  }
   #############################
   # Returning Image
   #############################
@@ -124,7 +133,6 @@ build_spm12_slice_timing <- function(
   outdir = tempdir(),
   ...
 ){
-  install_spm12(verbose = verbose)
   
   ########################
   # Getting Number of Time points

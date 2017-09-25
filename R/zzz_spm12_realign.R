@@ -5,6 +5,11 @@
 #' and reslicing on an Image
 #'
 #' @param filename Files to be realigned and resliced
+#' @param time_points A vector of time points to run realignment,
+#' If \code{filename} is a
+#' 4D file, then will do all the time points.  Otherwise, 
+#' \code{filename} must be a character
+#' vector of 3D files or a list of 3D nifti objects.
 #' @param fwhm Full-Width Half Max to smooth.  Gaussian  
 #' smoothing  
 #' to  apply  to  the 256x256 joint histogram. 
@@ -60,6 +65,7 @@
 #' 
 build_spm12_realign <- function(
   filename,
+  time_points = NULL,  
   fwhm = 5,
   quality = 0.9,
   separation = 4,
@@ -86,21 +92,22 @@ build_spm12_realign <- function(
   ...
 ){
   
-  
+
   ########################
   # Getting Number of Time points
   ########################
-  if (verbose) {
-    message("# Getting Number of Time Points\n")
+  if (is.null(time_points)) {
+    if (verbose) {
+      message("# Getting Number of Time Points\n")
+    }
+    time_points = ntime_points(filename)
   }
   
   wrap = c(wrap_x, wrap_y, wrap_z)
   wrap = as.integer(wrap)
   class(wrap) = "rowvec"
   wrap = convert_to_matlab(wrap, sep = "")  
-  
-  time_points = ntime_points(filename)
-  
+    
   # check filenames
   filename = filename_check(filename)
   stub = nii.stub(filename, bn = TRUE)[1]
