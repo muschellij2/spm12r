@@ -16,27 +16,13 @@ ntime_points <- function(filename){
   oro_pkg = packageVersion("oro.nifti")
   
   if (oro_pkg < 0.8) {
-    nifti_header = function(
-      fname, verbose = FALSE, warn = -1
-    ) {
-      nim = oro.nifti::readNIfTI(
-        fname = fname, 
-        verbose = verbose,
-        warn = warn, 
-        call = NULL,
-        read_data = FALSE,
-        reorient = FALSE)
-      return(nim)
-    }
+    nifti_header = neurobase::check_nifti_header
   } else {
-    nifti_header = oro.nifti::nifti_header
+    nifti_header = neurobase::check_nifti
   }
   
-  if (is.nifti(filename)) {
-    img = nifti_header(filename)
-  } else {
-    img = check_nifti(filename)
-  }
+  img = nifti_header(filename)
+
   if (is.list(img)) {
     time_points = rep(1, length(img))
   } else if (is.nifti(img)) {
