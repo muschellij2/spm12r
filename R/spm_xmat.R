@@ -5,6 +5,7 @@
 #'
 #' @return Matrix of values
 #' @export
+#' @importFrom utils read.csv
 spm_xmat = function(spm) {
   tfile = tempfile(fileext = ".csv")
   spmmat = normalizePath(spm)
@@ -14,7 +15,7 @@ spm_xmat = function(spm) {
   )
   res = matlabr::run_matlab_code(code)
   if (res != 0) {
-    warning("Bad juju")
+    warning("Result was non-zero!  May have errors")
   }
   mat = read.csv(
     tfile, 

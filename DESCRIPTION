@@ -2,7 +2,7 @@ Package: spm12r
 Type: Package
 Title: Wrapper Functions for 'SPM' (Statistical Parametric Mapping) 
     Version 12 from the 'Wellcome' Trust Centre for 'Neuroimaging'
-Version: 2.6.1
+Version: 2.6.2
 Date: 2017-09-25
 Authors@R: c(
     person(given = "John",
@@ -27,7 +27,8 @@ Suggests: knitr,
     kirby21.t1 (>= 1.5),
     kirby21.fmri (>= 1.5)
 SystemRequirements: MATLAB
-Remotes: muschellij2/matlabr, muschellij2/oro.nifti
+Remotes: muschellij2/matlabr, muschellij2/oro.nifti, 
+    muschellij2/neurobase
 Encoding: UTF-8
 RoxygenNote: 6.0.1.9000
 VignetteBuilder: knitr
