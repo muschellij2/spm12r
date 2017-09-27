@@ -17,20 +17,28 @@ run_matlabbatch = function(
   if (verbose) {
     message("# Creating matlabbatch job")
   }
-  L = matlabbatch_job(
-    spm = spm, 
-    add_spm_dir = add_spm_dir, 
-    verbose = verbose,
-    ...)
-
+  args = list(...)
+  nargs = names(args)
+  if ("desktop" %in% nargs) {
+    desktop = args$desktop
+    args$desktop = NULL
+  }
+  args$spm = spm
+  args$add_spm_dir = add_spm_dir
+  args$verbose = verbose
+  
+  L = do.call("matlabbatch_job", args)
+  
   exec_fname = L$exec_script
   script = L$script
   if (verbose) {
     msg = paste0("Running job: ", exec_fname,
-      ", which calls ", script)
+                 ", which calls ", script)
     message(msg)
   }
-  res = run_matlab_script(exec_fname, verbose = verbose)
+  res = run_matlab_script(
+    exec_fname, verbose = verbose,
+    desktop = desktop)
   if (verbose) {
     message(paste0("# Result is ", res, "\n"))
   }  

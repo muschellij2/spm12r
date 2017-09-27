@@ -19,7 +19,7 @@ Imports:
     R.utils,
     neurobase,
     utils,
-    matlabr (>= 1.2),
+    matlabr (>= 1.4),
     oro.nifti,
     git2r
 Suggests: knitr,

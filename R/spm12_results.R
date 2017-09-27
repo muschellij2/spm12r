@@ -7,6 +7,9 @@
 #' @param spmdir SPM dir to add, will use package default directory
 #' @param clean Remove scripts from temporary directory after running
 #' @param verbose Print diagnostic messages
+#' @param desktop Run \code{\link{run_matlab_script}} with
+#' the \code{desktop} option on, which is required.  May fail
+#' if no displays are available.
 #'
 #' @return A list of output and results
 #' @export
@@ -15,10 +18,12 @@ spm12_results = function(
   add_spm_dir = TRUE,
   spmdir = spm_dir(verbose = verbose),
   clean = TRUE,
-  verbose = TRUE
+  verbose = TRUE,
+  desktop = TRUE
 ) {
   install_spm12(verbose = verbose)
-  L = build_spm12_results(...)
+  args = list(...)
+  L = do.call("build_spm12_results", args = args)
   
   spm = L$spm
   
@@ -30,7 +35,8 @@ spm12_results = function(
     add_spm_dir = add_spm_dir, 
     clean = clean,
     verbose = verbose,
-    spmdir = spmdir) 
+    spmdir = spmdir,
+    desktop = desktop) 
   
   if (res != 0) {
     warning("Result was not zero!")
