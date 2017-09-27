@@ -26,7 +26,7 @@ Requires MATLAB (installs SPM to R library)
 - `spm12_normalize` - brains look better in MNI
 - `spm12_smooth` - turn that noise down
 
-# Kirby21 Data usd
+# Kirby21 Data used
 
 We will use the subject 113 from the Kirby21 data set to illustrate some basic operations of functional magnetic resonance imaging (fMRI).  We will load in the T1 anatomical image and the fMRI from the respective packages. 
 

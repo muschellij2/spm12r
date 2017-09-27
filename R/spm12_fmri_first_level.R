@@ -1,5 +1,6 @@
 #' SPM12 fMRI First Level Model
 #'
+#' @param outdir output directory for results
 #' @param est_args Arguments passed to 
 #' \code{\link{build_spm12_fmri_est}}
 #' @param verbose Print diagnostic messages

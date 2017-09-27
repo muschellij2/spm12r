@@ -16,6 +16,8 @@ spm12_first_level(..., outdir = NULL, est_args = list(write_residuals =
 \item{...}{Arguments passed to 
 \code{\link{build_spm12_first_level_spec}}}
 
+\item{outdir}{output directory for results}
+
 \item{est_args}{Arguments passed to 
 \code{\link{build_spm12_fmri_est}}}
 

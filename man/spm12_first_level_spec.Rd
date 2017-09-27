@@ -21,7 +21,7 @@ spm12_first_level_spec(..., outdir = NULL, add_spm_dir = TRUE,
 \arguments{
 \item{scans}{images to run}
 
-\item{outdir}{output directory}
+\item{outdir}{output directory for results}
 
 \item{units}{The onsets of events or blocks can be 
 specified in either scans or seconds.}
@@ -88,8 +88,6 @@ should the file be removed?}
 \item{spmdir}{SPM dir to add, will use package default directory}
 
 \item{clean}{Remove scripts from temporary directory after running}
-
-\item{outdir}{output directory for results}
 }
 \value{
 A list of objects, including an spm object and output files.

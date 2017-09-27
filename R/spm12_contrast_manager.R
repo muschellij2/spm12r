@@ -1,18 +1,15 @@
 #' SPM12 fMRI Contrasts
 #'
 #' @param spm Path to SPM.mat file
-#' @param write_residuals Should residuals be written?
-#' @param method Method for model estimation
-#' @param bayesian If method = "Bayesian", this is for a 1st level
-#' model Bayesian estimation and this list specifies the 
-#' parameters
 #' @param ... Arguments passed to 
 #' \code{\link{matlabbatch_to_script}}
 #' @param add_spm_dir Add SPM12 directory from this package
 #' @param spmdir SPM dir to add, will use package default directory
 #' @param clean Remove scripts from temporary directory after running
 #' @param verbose Print diagnostic messages
-#' @param ... Arguments passed to \code{\link{run_spm12_script}} 
+#' @param delete_existing Delete existing contrasts
+#' @param contrast_list List of contrasts to pass to 
+#' \code{\link{spm12_contrast_list}} for conversion
 #'
 #' @return A list of output and results
 #' @export

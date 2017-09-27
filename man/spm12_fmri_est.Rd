@@ -34,8 +34,6 @@ build_spm12_fmri_est(spm, write_residuals = FALSE, method = c("Classical",
 \item{bayesian}{If method = "Bayesian", this is for a 1st level
 model Bayesian estimation and this list specifies the 
 parameters}
-
-\item{...}{Arguments passed to \code{\link{run_spm12_script}}}
 }
 \value{
 A list of output and results

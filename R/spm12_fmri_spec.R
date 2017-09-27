@@ -16,7 +16,7 @@
 #' SPM12 fMRI First Level Specification
 #'
 #' @param scans images to run
-#' @param outdir output directory
+#' @param outdir output directory for results
 #' @param slice_timed Were the image slice-time corrected
 #' @param nslices If the data were slice-time corrected, the number of 
 #' slices of the image
@@ -56,7 +56,6 @@
 #' @param add_spm_dir Add SPM12 directory from this package
 #' @param spmdir SPM dir to add, will use package default directory
 #' @param clean Remove scripts from temporary directory after running
-#' @param outdir output directory for results
 #' @param overwrite If a SPM.mat file exists in the outdir, 
 #' should the file be removed?
 #' @param ... Arguments passed to \code{\link{run_spm12_script}}
@@ -218,7 +217,10 @@ build_spm12_first_level_spec = function(
       condition_list = list(condition_list)
     }
     condition_list = spm12_condition_list(condition_list)
-    sess$cond = condition_list
+    names(condition_list) = paste0("cond", names(condition_list))
+    sess = c(sess, 
+             condition_list)
+    # sess$cond = condition_list
     sess$multi = "{''}"
   }
   
@@ -235,7 +237,10 @@ build_spm12_first_level_spec = function(
     regressor_list = spm12_regressor_list(
       regressor_list, 
       n_time_points = n_time_points)
-    sess$regress = regressor_list
+    names(regressor_list) = paste0("regress", names(regressor_list))
+    sess = c(sess, 
+             regressor_list)    
+    # sess$regress = regressor_list
     sess$multi_reg = "{''}"
   }  
   

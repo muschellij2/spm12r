@@ -24,7 +24,7 @@ acpc_reorient <- function(
   ...
 ){
 
-  install_spm12()
+  install_spm12(verbose = verbose)
 
 
   infiles = checknii(infiles)

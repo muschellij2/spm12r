@@ -5,13 +5,18 @@
 \alias{spm12_condition_list}
 \title{Build Conditions for SPM12 first level model}
 \usage{
-spm12_condition(name, onsets, durations, time_mod_order = 0,
-  param_mod = NULL, orth = TRUE)
+spm12_condition(name, onset, duration, time_mod_order = 0, param_mod = NULL,
+  orth = TRUE)
 
 spm12_condition_list(cond)
 }
 \arguments{
 \item{name}{Name of the condition}
+
+\item{onset}{vector of onset of the condition}
+
+\item{duration}{vector of duration of the condition, 
+must be the same length as \code{onset}}
 
 \item{time_mod_order}{time modulation order. 
 This option allows for the characterization of linear or 
@@ -23,11 +28,6 @@ supported in \code{spm12r}}
 \item{orth}{Orthogonalize the regressors within trial types.}
 
 \item{cond}{List of conditions}
-
-\item{onset}{vector of onsets of the condition}
-
-\item{duration}{vector of duration of the condition, 
-must be the same length as \code{onset}}
 }
 \value{
 A list of objects, each with a \code{name}, \code{onset}, 

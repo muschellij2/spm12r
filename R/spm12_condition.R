@@ -2,7 +2,7 @@
 #' Build Conditions for SPM12 first level model
 #'
 #' @param name Name of the condition
-#' @param onset vector of onsets of the condition
+#' @param onset vector of onset of the condition
 #' @param duration vector of duration of the condition, 
 #' must be the same length as \code{onset}
 #' @param time_mod_order time modulation order. 
@@ -30,7 +30,7 @@
 #' res = spm12_condition_list(L)
 #' print(res) 
 spm12_condition = function(
-  name, onsets, durations, 
+  name, onset, duration, 
   time_mod_order = 0, 
   param_mod = NULL, 
   orth = TRUE) {
@@ -39,10 +39,10 @@ spm12_condition = function(
   }
   name = convert_to_matlab(name)
   
-  l_onsets = length(onsets)
-  l_durations = length(durations)
-  if (l_onsets != l_durations) {
-    stop("Number of onsets must be equal to the number of durations")
+  l_onset = length(onset)
+  l_duration = length(duration)
+  if (l_onset != l_duration) {
+    stop("Number of onset must be equal to the number of duration")
   }
   orth = as.integer(orth)
   time_mod_order = as.integer(time_mod_order)
@@ -54,15 +54,15 @@ spm12_condition = function(
   }
   param_mod = "struct('name', {}, 'param', {}, 'poly', {})"
   
-  class(onsets) = "rowvec"
-  onsets = convert_to_matlab(onsets)
-  class(durations) = "rowvec"
-  durations = convert_to_matlab(durations)
+  class(onset) = "rowvec"
+  onset = convert_to_matlab(onset)
+  class(duration) = "rowvec"
+  duration = convert_to_matlab(duration)
   
   L = list(
     name = name,
-    onsets = onsets,
-    durations = durations,
+    onset = onset,
+    duration = duration,
     tmod = time_mod_order,
     pmod = param_mod,
     orth = orth

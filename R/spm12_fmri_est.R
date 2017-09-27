@@ -13,11 +13,9 @@
 #' @param spmdir SPM dir to add, will use package default directory
 #' @param clean Remove scripts from temporary directory after running
 #' @param verbose Print diagnostic messages
-#' @param ... Arguments passed to \code{\link{run_spm12_script}} 
 #'
 #' @return A list of output and results
 #' @export
-
 spm12_fmri_est = function(
   ...,
   add_spm_dir = TRUE,

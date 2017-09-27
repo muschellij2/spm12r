@@ -25,15 +25,10 @@ build_spm12_contrast_manager(spm, delete_existing = TRUE,
 
 \item{spm}{Path to SPM.mat file}
 
-\item{write_residuals}{Should residuals be written?}
+\item{delete_existing}{Delete existing contrasts}
 
-\item{method}{Method for model estimation}
-
-\item{bayesian}{If method = "Bayesian", this is for a 1st level
-model Bayesian estimation and this list specifies the 
-parameters}
-
-\item{...}{Arguments passed to \code{\link{run_spm12_script}}}
+\item{contrast_list}{List of contrasts to pass to 
+\code{\link{spm12_contrast_list}} for conversion}
 }
 \value{
 A list of output and results

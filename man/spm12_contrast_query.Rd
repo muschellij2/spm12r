@@ -18,47 +18,49 @@ must be the same length as the number of regressors}
 
 \item{name}{Name of the contrast}
 
+\item{threshold_type}{type of thresholding done, if any}
+
+\item{threshold}{Threshold value}
+
+\item{number_extent_voxels}{Number of voxel extent to call
+an area a cluster}
+
+\item{mask_type}{type of mask, if any}
+
+\item{mask_image}{If \code{mask_type = "Image"}, then the 
+filename of the mask}
+
+\item{mask_contrast}{Vector of weights for the contrast that
+will be used as the mask if \code{mask_type = "Contrast"}}
+
+\item{mask_threshold}{if \code{mask_type = "Contrast"},
+the threshold for the mask}
+
+\item{mask_inclusive}{Is the mask inclusive?  If \code{FALSE},
+then values in the mask which are zero will be included in the
+output}
+
 \item{cons}{List of contrasts}
-
-\item{replicate}{If  there  are  multiple  sessions with 
-identical conditions, one might want to specify contrasts 
-which are identical over sessions. Options are 
-no replication (\code{none}), 
-replicate (\code{repl}), 
-replicate + scale (\code{replsc}), 
-create per session (\code{sess}), 
-Both: Replicate + Create per session (\code{both}), 
-Both: Replicate + Scale + Create per session (\code{bothsc})}
-
-\item{type}{type of contrast, T-statistic or F-statistic}
 }
 \value{
-A list of objects, each with a \code{name} and \code{value}
+A list of objects, each with a 
+\code{titlestr} (title string), contrast, threshold description,
+theshold value, extent of voxels, and a mask (if appropriate)
 }
 \description{
 Build contrasts query for SPM12 results
 }
 \examples{
-res = spm12_contrast(name = "condition1", weights = c(
+res = spm12_contrast_query(name = "condition1", weights = c(
 1, rep(0, 8)))
 print(res)
 contrasts = list(
 list(name = "LeftHand",
-       weights = c(1, rep(0, 7)),
-replicate = "none",
-type = "T" ),
-list(name = "RightHand",
-weights = c(0, 1, rep(0, 6)),
-replicate = "none",
-type = "T"), 
-list(name = "AllEffects",
-weights = rbind(
-c(1, rep(0, 7)),
-         c(0, 1, rep(0, 6))
+       weights = c(1, rep(0, 7))
        ),
-replicate = "none",
-type = "F")   
+list(name = "RightHand",
+weights = c(0, 1, rep(0, 6))) 
 )
-res = spm12_contrast_list(contrasts)
+res = spm12_contrast_query_list(contrasts)
 print(res)
 }

@@ -28,15 +28,17 @@ build_spm12_results(spm, units = c("Volumetric", "Scalp-Time",
 
 \item{spm}{Path to SPM.mat file}
 
-\item{write_residuals}{Should residuals be written?}
+\item{units}{Units of the data}
 
-\item{method}{Method for model estimation}
+\item{result_format}{Output format to save, if any}
 
-\item{bayesian}{If method = "Bayesian", this is for a 1st level
-model Bayesian estimation and this list specifies the 
-parameters}
+\item{write_images}{Type of images to write out}
 
-\item{...}{Arguments passed to \code{\link{run_spm12_script}}}
+\item{contrast_list}{List of contrasts (or just one),
+to pass to \code{\link{spm12_contrast_query_list}}}
+
+\item{image_basename}{Base stub of filenames, if 
+any are to be written out}
 }
 \value{
 A list of output and results
