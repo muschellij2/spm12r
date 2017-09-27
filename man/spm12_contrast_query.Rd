@@ -51,15 +51,14 @@ theshold value, extent of voxels, and a mask (if appropriate)
 Build contrasts query for SPM12 results
 }
 \examples{
-res = spm12_contrast_query(name = "condition1", weights = c(
-1, rep(0, 8)))
+res = spm12_contrast_query(name = "condition1", weights = 1)
 print(res)
 contrasts = list(
-list(name = "LeftHand",
-       weights = c(1, rep(0, 7))
+list(name = "All Contrasts",
+       weights = Inf
        ),
 list(name = "RightHand",
-weights = c(0, 1, rep(0, 6))) 
+weights = 2) 
 )
 res = spm12_contrast_query_list(contrasts)
 print(res)
