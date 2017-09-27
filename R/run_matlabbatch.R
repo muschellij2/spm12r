@@ -23,11 +23,15 @@ run_matlabbatch = function(
   if ("display" %in% nargs) {
     display = args$display
     args$display = NULL
+  } else {
+    display = NULL
   }
   if ("desktop" %in% nargs) {
     desktop = args$desktop
     args$desktop = NULL
-  }  
+  } else {
+    desktop = NULL
+  } 
   args$spm = spm
   args$add_spm_dir = add_spm_dir
   args$verbose = verbose
@@ -42,10 +46,11 @@ run_matlabbatch = function(
                  ", which calls ", script)
     message(msg)
   }
-  res = run_matlab_script(
-    exec_fname, verbose = verbose,
-    display = display,
-    desktop = desktop)
+  run_args = list(fname = exec_fname, verbose = verbose)
+  run_args$desktop = desktop
+  run_args$display = display
+  res = do.call("run_matlab_script", args = run_args)
+  
   if (verbose) {
     message(paste0("# Result is ", res, "\n"))
   }  

@@ -112,7 +112,7 @@ reslicing on an Image
 \dontrun{
 fname = paste0("~/Desktop/D2/scratch/", 
 "100-318_20070723_0957_CT_3_CT_Head-_SS_0.01_SyN_ROI.nii.gz")
-spm = batch_spm12_coregister(
+spm = spm12_coregister(
 fixed = fname,
 moving = fname, 
 other.files = fname,

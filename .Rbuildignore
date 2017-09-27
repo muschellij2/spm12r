@@ -8,6 +8,8 @@ README.md
 ^.Rhistory
 ^.travis.yaml
 inst/spm12.zip
+insts/spm12
 inst/scripts\.zip
 vignettes/\.build\.timestamp$
 ^appveyor\.yml$
+^README\.Rmd$

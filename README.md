@@ -1,27 +1,30 @@
-R Package wrapping up [SPM12](http://www.fil.ion.ucl.ac.uk/spm/software/spm12/) from the Wellcome Trust Centre for Neuroimaging 
 
-[![Build Status](https://travis-ci.org/muschellij2/spm12r.svg?branch=master)](https://travis-ci.org/muschellij2/spm12r)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/spm12r)](http://cran.rstudio.com/web/packages/spm12r/index.html)
-[![](http://cranlogs.r-pkg.org/badges/grand-total/spm12r)](http://cran.rstudio.com/web/packages/spm12r/index.html)
+spm12r
+------
 
-## Installation
+`spm12r` is an R Package wrapping up [SPM12](http://www.fil.ion.ucl.ac.uk/spm/software/spm12/) from the Wellcome Trust Centre for Neuroimaging
 
-You can install the stable version on
-[CRAN](http://cran.rstudio.com/package=spm12r):
+[![Build Status](https://travis-ci.org/muschellij2/spm12r.svg?branch=master)](https://travis-ci.org/muschellij2/spm12r) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/muschellij2/spm12r?branch=master&svg=true)](https://ci.appveyor.com/project/muschellij2/spm12r) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/spm12r)](http://cran.rstudio.com/web/packages/spm12r/index.html) [![](http://cranlogs.r-pkg.org/badges/grand-total/spm12r)](http://cran.rstudio.com/web/packages/spm12r/index.html)
 
-```r
+Installation
+------------
+
+You can install the stable version on [CRAN](http://cran.rstudio.com/package=spm12r):
+
+``` r
 install.packages('spm12r', dependencies = TRUE)
 ```
 
 Install in `R` using `devtools`:
-```r
+
+``` r
 devtools::install_github("muschellij2/spm12r")
 ```
 
-
 ### Installing SPM12 Commands
+
 After `spm12r` is installed, you can install the required SPM scripts using:
 
-```r
+``` r
 spm12r::install_spm12()
 ```
