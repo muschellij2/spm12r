@@ -53,9 +53,9 @@ build_spm12_contrast_manager = function(
   ...
 ) {
   
-  if (length(contrast_list) == 1) {
-    contrast_list = list(contrast_list)
-  }
+  # if (length(contrast_list) == 1) {
+  #   contrast_list = list(contrast_list)
+  # }
   contrast_list = spm12_contrast_list(contrast_list)
   delete_existing = as.integer(delete_existing)
   

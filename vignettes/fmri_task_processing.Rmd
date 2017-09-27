@@ -410,6 +410,52 @@ if (have_matlab()) {
 }
 ```
 
+
+```{r tryout}
+contrast_query_list = list(
+  list(name = "LeftHand",
+       weights = 1,
+       threshold_type = "FWE",
+       number_extent_voxels = 0,
+       mask_type = "None"),
+  list(name = "RightHand",
+       weights = 2,
+       threshold_type = "FWE",
+       number_extent_voxels = 0,
+       mask_type = "None")  
+)
+
+contrast_query_list = 
+  list(
+    list(
+    name = "All Contrasts",
+    weights = Inf,
+    threshold_type = "FWE",
+    number_extent_voxels = 0,
+    mask_type = "None")
+  )
+if (have_matlab()) {
+  display = all(Sys.getenv("DISPLAY") != "")
+  desktop = display
+  result_format = "csv"
+  results = spm12_results(
+    spm = first_model$spmmat,
+    units = "Volumetric",
+    result_format = result_format,
+    contrast_list = contrast_query_list,
+    clean = FALSE,
+    display = display,
+    desktop = FALSE,
+    write_images = "binary_clusters",
+    image_basename = "thresholded")
+  out_results = list.files(
+    pattern = paste0("spm.*[.]", result_format),
+    path = output_directory,
+    full.names = TRUE)  
+  # out_dir = spm_directory(spm = first_model$spmmat)
+}
+```
+
 ## Bibliography
 
 ```{r}

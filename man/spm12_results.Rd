@@ -6,12 +6,12 @@
 \title{SPM12 Results Report}
 \usage{
 spm12_results(..., add_spm_dir = TRUE, spmdir = spm_dir(verbose = verbose),
-  clean = TRUE, verbose = TRUE, desktop = TRUE)
+  clean = TRUE, verbose = TRUE, display = FALSE, desktop = FALSE)
 
 build_spm12_results(spm, units = c("Volumetric", "Scalp-Time",
   "Scalp-Frequency", "Time-Frequency", "Frequency-Frequency"),
-  result_format = c("none", "ps", "eps", "pdf", "jpg", "tif", "fig", "csv",
-  "nidm"), write_images = c("none", "threshold_spm", "binary_clusters",
+  result_format = c("none", "ps", "eps", "png", "pdf", "jpg", "tif", "fig",
+  "csv", "nidm"), write_images = c("none", "threshold_spm", "binary_clusters",
   "nary_clusters"), contrast_list = NULL, image_basename = NULL, ...)
 }
 \arguments{
@@ -26,8 +26,8 @@ build_spm12_results(spm, units = c("Volumetric", "Scalp-Time",
 
 \item{verbose}{Print diagnostic messages}
 
-\item{desktop}{Run \code{\link{run_matlab_script}} with
-the \code{desktop} option on, which is required.  May fail
+\item{display}{Run \code{\link{run_matlab_script}} with
+the \code{display} option on, which is required.  May fail
 if no displays are available.}
 
 \item{spm}{Path to SPM.mat file}

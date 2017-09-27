@@ -13,19 +13,25 @@ run_matlabbatch = function(
   add_spm_dir = TRUE, 
   clean = TRUE,
   verbose = TRUE,
+  gui = FALSE,
   ...) {
   if (verbose) {
     message("# Creating matlabbatch job")
   }
   args = list(...)
   nargs = names(args)
+  if ("display" %in% nargs) {
+    display = args$display
+    args$display = NULL
+  }
   if ("desktop" %in% nargs) {
     desktop = args$desktop
     args$desktop = NULL
-  }
+  }  
   args$spm = spm
   args$add_spm_dir = add_spm_dir
   args$verbose = verbose
+  args$gui = gui
   
   L = do.call("matlabbatch_job", args)
   
@@ -38,6 +44,7 @@ run_matlabbatch = function(
   }
   res = run_matlab_script(
     exec_fname, verbose = verbose,
+    display = display,
     desktop = desktop)
   if (verbose) {
     message(paste0("# Result is ", res, "\n"))
@@ -57,15 +64,17 @@ run_matlabbatch = function(
 }
 
 #' @rdname run_matlabbatch
+#' @param gui is the GUI necessary?
 #' @export
 matlabbatch_job = function(
   spm, 
   add_spm_dir = TRUE, 
+  gui = FALSE,
   ...) {
   script = matlabbatch_to_script(spm, ...)
   exec_script = system.file(
     "scripts", 
-    "Executable.m", 
+    ifelse(gui, "Executable_withgui.m", "Executable.m"),
     package = "spm12r")
   exec_script = readLines(exec_script)
   if (add_spm_dir) {

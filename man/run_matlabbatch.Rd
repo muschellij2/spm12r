@@ -7,9 +7,9 @@
 \title{Run Matlab Batch from List}
 \usage{
 run_matlabbatch(spm, add_spm_dir = TRUE, clean = TRUE, verbose = TRUE,
-  ...)
+  gui = FALSE, ...)
 
-matlabbatch_job(spm, add_spm_dir = TRUE, ...)
+matlabbatch_job(spm, add_spm_dir = TRUE, gui = FALSE, ...)
 
 matlabbatch_to_script(spm, batch_prefix = "matlabbatch{1}.", ...)
 }
@@ -21,6 +21,8 @@ matlabbatch_to_script(spm, batch_prefix = "matlabbatch{1}.", ...)
 \item{clean}{Remove scripts from temporary directory after running}
 
 \item{verbose}{Print diagnostic messages}
+
+\item{gui}{is the GUI necessary?}
 
 \item{...}{additional arguments to pass to 
 \code{\link{matlabbatch_job}}}

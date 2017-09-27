@@ -5,6 +5,4 @@ jobs = repmat(jobfile, 1, nrun);
 inputs = cell(0, nrun);
 spm('defaults', 'FMRI');
 spm_jobman('initcfg');
-spm_get_defaults('cmdline',true);
-spm_get_defaults('Cmdline',true);
 spm_jobman('run', jobs, inputs{:});

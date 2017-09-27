@@ -7,7 +7,9 @@
 #' @export
 #' @return Chracter vector of script paths
 #' @examples spm12_script(script_name = "Segment")
-spm12_script <- function(script_name, outdir = tempdir()){
+spm12_script <- function(
+  script_name, 
+  outdir = tempdir()){
   
   m_scripts = system.file("scripts", 
                           paste0(script_name, c(".m")), 
@@ -18,8 +20,9 @@ spm12_script <- function(script_name, outdir = tempdir()){
   ####################  
   miss = m_scripts %in% ""
   if (any(miss)) {
-    m_scripts[miss] = system.file("scripts", "Executable.m", 
-                                  package = "spm12r")
+    m_scripts[miss] = system.file(
+      "scripts", "Executable.m", 
+      package = "spm12r")
   }
   ####################
   # Get Jobfile

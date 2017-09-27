@@ -213,9 +213,9 @@ build_spm12_first_level_spec = function(
                        "'orth', {});")
     sess$multi = condition_mat
   } else {
-    if (length(condition_list) == 1) {
-      condition_list = list(condition_list)
-    }
+    # if (length(condition_list) == 1) {
+    #   condition_list = list(condition_list)
+    # }
     condition_list = spm12_condition_list(condition_list)
     names(condition_list) = paste0("cond", names(condition_list))
     sess = c(sess, 
@@ -231,9 +231,9 @@ build_spm12_first_level_spec = function(
     sess$regress = paste0("struct('name', {}, 'val', {});")
     sess$multi_reg = regressor_mat
   } else {
-    if (length(regressor_list) == 1) {
-      regressor_list = list(regressor_list)
-    }
+    # if (length(regressor_list) == 1) {
+    #   regressor_list = list(regressor_list)
+    # }
     regressor_list = spm12_regressor_list(
       regressor_list, 
       n_time_points = n_time_points)

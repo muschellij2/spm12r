@@ -7,8 +7,8 @@
 #' @param spmdir SPM dir to add, will use package default directory
 #' @param clean Remove scripts from temporary directory after running
 #' @param verbose Print diagnostic messages
-#' @param desktop Run \code{\link{run_matlab_script}} with
-#' the \code{desktop} option on, which is required.  May fail
+#' @param display Run \code{\link{run_matlab_script}} with
+#' the \code{display} option on, which is required.  May fail
 #' if no displays are available.
 #'
 #' @return A list of output and results
@@ -19,8 +19,8 @@ spm12_results = function(
   spmdir = spm_dir(verbose = verbose),
   clean = TRUE,
   verbose = TRUE,
-  desktop = TRUE
-) {
+  display = FALSE,
+  desktop = FALSE) {
   install_spm12(verbose = verbose)
   args = list(...)
   L = do.call("build_spm12_results", args = args)
@@ -30,13 +30,33 @@ spm12_results = function(
   if (verbose) {
     message("# Running matlabbatch job")
   }  
+  if (args$result_format %in% c("csv", "xls")) {
+    if (!display) {
+      warning("CSV and xls may require display = TRUE")
+    }
+  }
+  gui = args$result_format %in% c("ps", "eps", "png",
+    "pdf", "jpg", "tif", "fig")
+  
+  if (L$write_images != "none") {
+    if (!display) {
+      warning("Writing Images may require display = TRUE")
+    }
+    if (!desktop) {
+      warning("Writing Images may require desktop = TRUE")
+    }    
+  }  
+  # L$write_images = NULL
+  
   res = run_matlabbatch(
     spm, 
     add_spm_dir = add_spm_dir, 
     clean = clean,
     verbose = verbose,
     spmdir = spmdir,
-    desktop = desktop) 
+    display = display,
+    desktop = desktop,
+    gui = gui)
   
   if (res != 0) {
     warning("Result was not zero!")
@@ -63,7 +83,8 @@ build_spm12_results = function(
   units = c("Volumetric", "Scalp-Time", 
             "Scalp-Frequency", "Time-Frequency", 
             "Frequency-Frequency"),
-  result_format = c("none", "ps", "eps", "pdf", "jpg", "tif",
+  result_format = c("none", "ps", "eps", "png",
+                    "pdf", "jpg", "tif",
                     "fig", "csv", "nidm"),
   write_images = c("none", "threshold_spm", 
                    "binary_clusters", "nary_clusters"),  
@@ -80,17 +101,17 @@ build_spm12_results = function(
   units = factor(units, levels = unit_levs)
   units = convert_to_matlab(units, subtractor = 0)
   
-  if (length(contrast_list) == 1) {
-    contrast_list = list(contrast_list)
-  }
+  # if (length(contrast_list) == 1) {
+  #   contrast_list = list(contrast_list)
+  # }
   contrast_list = spm12_contrast_query_list(contrast_list)
-
+  
   spmmat = normalizePath(spm)
   xspmmat = spmmat
   class(spmmat) = "cell"
   spmmat = convert_to_matlab(spmmat)
   
-
+  
   ###########################
   # output printout
   ###########################
@@ -153,6 +174,7 @@ build_spm12_results = function(
     spm = spm,
     script = script)
   
+  L$write_images = write_images
   L$spmmat = xspmmat
   
   return(L) 

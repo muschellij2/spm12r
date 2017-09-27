@@ -38,7 +38,7 @@
 #' res = spm12_contrast_query_list(contrasts)
 #' print(res)
 spm12_contrast_query = function(
-  weights, 
+  weights = Inf, 
   name = "", 
   threshold_type = c("FWE", "none", "FDR"),
   threshold = 0.05,
@@ -54,11 +54,30 @@ spm12_contrast_query = function(
   threshold_type = convert_to_matlab(threshold_type)
   
   name = convert_to_matlab(name)
+  is.wholenumber <- function(x, 
+                             tol = .Machine$double.eps^0.5)  {
+    non_fin = !is.infinite(x)
+    res = rep(TRUE, length = length(x))
+    res[non_fin] = abs(x[non_fin] - round(x[non_fin])) < tol
+    res
+  }
   
   if (is.matrix(weights)) {
-    weights = rmat_to_matlab_mat(weights)
+    stop("weights must be a vector for results query!")
+    # weights = rmat_to_matlab_mat(weights)
   } else {
-    if (all(weights != Inf)) {
+    msg = paste0(
+      "Weights must whole number (integers), indexing the ",
+      " contrast (> 0).  e.g. 1 or 1, 2 for conjunction")
+    if (!all(is.wholenumber(weights))) {
+      fin = is.finite(weights)
+      weights[fin] = as.integer(weights[fin])
+      warning(msg)
+    }
+    if (!all(weights > 0)) {
+      stop(msg)
+    }
+    if (all(!is.infinite(weights))) {
       class(weights) = "rowvec"
       weights = convert_to_matlab(weights)
     }
