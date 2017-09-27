@@ -27,7 +27,12 @@ build_spm12_results(spm, units = c("Volumetric", "Scalp-Time",
 \item{verbose}{Print diagnostic messages}
 
 \item{display}{Run \code{\link{run_matlab_script}} with
-the \code{display} option on, which is required.  May fail
+the \code{display} option on, which is required in some
+cases of output.  May fail
+if no displays are available.}
+
+\item{desktop}{Run \code{\link{run_matlab_script}} with
+the \code{desktop} option on.  May fail
 if no displays are available.}
 
 \item{spm}{Path to SPM.mat file}

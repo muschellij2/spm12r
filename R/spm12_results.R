@@ -8,8 +8,12 @@
 #' @param clean Remove scripts from temporary directory after running
 #' @param verbose Print diagnostic messages
 #' @param display Run \code{\link{run_matlab_script}} with
-#' the \code{display} option on, which is required.  May fail
+#' the \code{display} option on, which is required in some
+#' cases of output.  May fail
 #' if no displays are available.
+#' @param desktop Run \code{\link{run_matlab_script}} with
+#' the \code{desktop} option on.  May fail
+#' if no displays are available. 
 #'
 #' @return A list of output and results
 #' @export
