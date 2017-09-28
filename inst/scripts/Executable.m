@@ -1,3 +1,5 @@
+cd("~/") ;
+disp("Directory changed");
 % List of open inputs
 nrun = 1; % enter the number of runs here
 jobfile = {'%jobfile%'};
