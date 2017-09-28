@@ -11,9 +11,10 @@ spm12_script <- function(
   script_name, 
   outdir = tempdir()){
   
-  m_scripts = system.file("scripts", 
-                          paste0(script_name, c(".m")), 
-                          package = "spm12r")
+  m_scripts = system.file(
+    "scripts", 
+    paste0(script_name, c(".m")), 
+    package = "spm12r")
   
   ####################
   # Use General Executable
@@ -27,15 +28,17 @@ spm12_script <- function(
   ####################
   # Get Jobfile
   ####################    
-  job_scripts = system.file("scripts", 
-                            paste0(script_name, c("_job.m")), 
-                            package = "spm12r")  
+  job_scripts = system.file(
+    "scripts", 
+    paste0(script_name, c("_job.m")), 
+    package = "spm12r")  
   scripts = c(job = job_scripts, script = m_scripts)
   scripts = scripts[scripts != "", drop = FALSE]
   nn = names(scripts)
   if (length(scripts) > 0) {
     file.copy(scripts, to = outdir, overwrite = TRUE)
     scripts = file.path(outdir, basename(scripts))
+    scripts = gfilename(scripts)
     names(scripts) = nn
   }
   return(scripts)

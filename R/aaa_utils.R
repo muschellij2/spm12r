@@ -78,3 +78,13 @@ convert_to_matlab = function(x, subtractor = 1, ...) {
   }       
   return(x)
 }
+
+gfilename = function(x) {
+  if (.Platform$OS.type == "windows") {
+    nx = names(x)
+    x = gsub("\\\\", "/", x)
+    x = gsub("\\", "/", x)
+    names(x) = nx
+  } 
+  return(x)
+}

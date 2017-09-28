@@ -96,6 +96,7 @@ matlabbatch_job = function(
   }
   exec_script = gsub("%jobfile%", script, exec_script)
   exec_fname = tempfile(fileext = ".m")
+  exec_fname = gfilename(exec_fname)
   writeLines(exec_script, con = exec_fname)
   L = list(
     exec_script = exec_fname,
@@ -122,6 +123,7 @@ matlabbatch_to_script = function(
   
   mbatch = paste0(batch_prefix, mbatch)
   fname = tempfile(fileext = ".m")
+  fname = gfilename(fname)
   writeLines(mbatch, con = fname)
   return(fname)
 }
