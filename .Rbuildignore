@@ -13,3 +13,4 @@ inst/scripts\.zip
 vignettes/\.build\.timestamp$
 ^appveyor\.yml$
 ^README\.Rmd$
+^docs$
