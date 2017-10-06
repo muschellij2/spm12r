@@ -1,4 +1,8 @@
-cd('~/') ;
+if ~ispc 
+	cd('~/') ;
+else 
+	cd("C:") ;
+end
 disp('Directory changed');
 % List of open inputs
 nrun = 1; % enter the number of runs here
