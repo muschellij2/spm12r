@@ -1,7 +1,7 @@
 if ~ispc 
 	cd('~/') ;
 else 
-	cd("C:") ;
+	cd('C:') ;
 end
 disp('Directory changed');
 % List of open inputs
