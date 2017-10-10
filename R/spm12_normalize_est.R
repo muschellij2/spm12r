@@ -7,7 +7,7 @@
 #' @param regularization parameters for warping regularization
 #' @param affine Space to register the image to, using an affine registration
 #' @param smoothness FWHM of smoothing done
-#' @param sampling_distance smoothingess of the warping field. 
+#' @param sampling_distance amount of smoothing of the warping field. 
 #' This is used to derive a fudge factor to account for 
 #' correlations between neighbouring voxels.  Smoother data have more 
 #' @param add_spm_dir Add SPM12 directory from this package

@@ -55,7 +55,7 @@ of the written normalised images.}
 \item{...}{Arguments passed to \code{\link{run_spm12_script}}}
 }
 \value{
-List of outptu filenames
+List of output filenames
 }
 \description{
 Performs SPM12 (Spatial) Normalization on an Image

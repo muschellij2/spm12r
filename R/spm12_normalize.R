@@ -28,7 +28,7 @@
 #' @param biasfwhm FWHM  of  Gaussian  smoothness  of  bias.  
 #'
 #' @export
-#' @return List of outptu filenames
+#' @return List of output filenames
 #' @importFrom matlabr rvec_to_matlabcell rvec_to_matlabcell 
 #' @importFrom matlabr rmat_to_matlab_mat
 spm12_normalize <- function(

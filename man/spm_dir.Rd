@@ -11,7 +11,7 @@ spm_dir(verbose = FALSE)
 \code{\link{install_spm12}}}
 }
 \value{
-Chracter vector of spm12 paths
+Character vector of spm12 paths
 }
 \description{
 Returns the SPM12 directory

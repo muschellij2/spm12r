@@ -21,7 +21,7 @@
 #' 
 #' @return A list of objects, each with a 
 #' \code{titlestr} (title string), contrast, threshold description,
-#' theshold value, extent of voxels, and a mask (if appropriate)
+#' threshold value, extent of voxels, and a mask (if appropriate)
 #' @export
 #'
 #' @examples

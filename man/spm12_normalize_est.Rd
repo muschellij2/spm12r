@@ -23,7 +23,7 @@ spm12_normalize_est(filename, biasreg = 0.001, biasfwhm = 60,
 
 \item{smoothness}{FWHM of smoothing done}
 
-\item{sampling_distance}{smoothingess of the warping field. 
+\item{sampling_distance}{amount of smoothing of the warping field. 
 This is used to derive a fudge factor to account for 
 correlations between neighbouring voxels.  Smoother data have more}
 
