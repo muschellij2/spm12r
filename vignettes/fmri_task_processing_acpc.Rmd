@@ -49,6 +49,13 @@ names(out_files) = neurobase::nii.stub(
   out_files, bn = TRUE)
 ```
 
+```{r, include = FALSE}
+rm(list = "res"); 
+for (i in 1:10) {
+  gc()
+}
+```
+
 We know the repetition time (TR) is 2 seconds for this data.  It may be encoded in the NIfTI file itself or come from a parameter file from the scanner.  We will drop the first 20 seconds to allow for signal stabilization.
 
 ```{r}

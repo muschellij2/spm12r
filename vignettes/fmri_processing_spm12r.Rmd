@@ -205,7 +205,11 @@ if (have_matlab()) {
 ```
 We see the output `aimg` has the filename of the slice-timing corrected 4D image.  We also read in the mean image into a `nifti` object (`mean_nifti`).
 
-
+```{r}
+if (!have_matlab()) {
+  run_fmri = filename_check(run_fmri)
+}
+```
 
 
 ## Spatial Normalization
@@ -414,6 +418,13 @@ Here we can smooth the mean image in MNI space.  We could have also calculated a
 if (have_matlab()) {
   smooth_mean_img = readnii(smoothed_mean_data)
   ortho2(smooth_mean_img)
+}
+```
+
+```{r, echo = FALSE}
+rm(list = ls()); 
+for (i in 1:20) {
+  gc()
 }
 ```
 
