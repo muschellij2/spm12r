@@ -12,6 +12,14 @@ vignette: >
 
 ```{r knit-setup, echo=FALSE, results='hide', eval=TRUE, cache = FALSE, warning = FALSE, message = FALSE}
 library(spm12r)
+library(matlabr)
+in_ci <- function() {
+  nzchar(Sys.getenv("CI"))
+}
+have_matlab = function() {
+  matlabr::have_matlab() & !in_ci()
+}
+knitr::opts_chunk$set(eval = have_matlab())
 ```
 
 
@@ -45,6 +53,11 @@ files
 
 We know the repetition time (TR) is 2 seconds for this data.  It may be encoded in the NIfTI file itself or come from a parameter file from the scanner.  We will drop the first 20 seconds to allow for signal stabilization.
 
+```{r include = FALSE, eval = TRUE}
+tr = 2 # seconds
+DROP = 10 # 20 seconds for stabilization
+```
+
 ```{r}
 library(neurobase)
 tr = 2 # seconds
@@ -58,7 +71,7 @@ run_fmri = copyNIfTIHeader(fmri, fmri[,,,times], drop = TRUE)
 
 Now `run_fmri` contains a `nifti` object with the first `r DROP` volumes dropped.  We will pass this into the subsequent functions.
 
-```{r, echo = FALSE}
+```{r, include = FALSE}
 rm(list = "fmri"); gc(); gc();
 ```
 
@@ -98,8 +111,12 @@ if (ver < 0) {
 # Checking MATLAB
 As SPM requires MATLAB and calls all the functions through the `matlabr` package, we will have checks in this vignette/workflow that the user has MATLAB.  The `have_matlab()` function returns a logical that is `TRUE` when `matlabr` can find MATLAB to run the subsequent commands.  
 
-```{r have_matlab}
+```{r have_matlab, eval = FALSE}
 library(matlabr)
+have_matlab()
+```
+
+```{r, eval = TRUE}
 have_matlab()
 ```
 

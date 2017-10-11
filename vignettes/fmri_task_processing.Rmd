@@ -13,6 +13,14 @@ vignette: >
 ```{r knit-setup, echo=FALSE, results='hide', eval=TRUE, cache = FALSE, warning = FALSE, message = FALSE}
 library(spm12r)
 library(neurobase)
+library(matlabr)
+in_ci <- function() {
+  nzchar(Sys.getenv("CI"))
+}
+have_matlab = function() {
+  matlabr::have_matlab() & !in_ci()
+}
+knitr::opts_chunk$set(eval = have_matlab())
 ```
   
   
@@ -102,6 +110,10 @@ As SPM requires MATLAB and calls all the functions through the `matlabr` package
 
 ```{r have_matlab}
 library(matlabr)
+have_matlab()
+```
+
+```{r, eval = TRUE}
 have_matlab()
 ```
 
