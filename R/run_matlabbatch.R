@@ -49,6 +49,7 @@ run_matlabbatch = function(
   run_args = list(fname = exec_fname, verbose = verbose)
   run_args$desktop = desktop
   run_args$display = display
+  run_args$wait = TRUE
   res = do.call("run_matlab_script", args = run_args)
   
   if (verbose) {
