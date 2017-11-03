@@ -16,7 +16,7 @@ filename_check <- function(filename, # filename of an image
   ###########################
   filename = checknii(filename, ...)
   filename = path.expand(filename)
-  filename = normalizePath(filename)
+  filename = normalizePath(filename, winslash = "/")
 
   stopifnot(inherits(filename, "character"))
   stopifnot(all(file.exists(filename)))
