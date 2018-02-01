@@ -159,7 +159,7 @@ Overall the `spm12_realign` does the realignment.  There is some discussion of p
 
 ### Reading in the RP file
 
-Here we can read in the `rp` file to show the estiamted parameters.  These can be used as regressors in motion correction for further analyses.
+Here we can read in the `rp` file to show the estimated parameters.  These can be used as regressors in motion correction for further analyses.
 
 ```{r rp_file}
 ####################################
@@ -478,7 +478,7 @@ if (have_matlab()) {
 
 ## Bibliography
 
-```{r}
+```{r, echo = FALSE, results='asis'}
 bib = '@article{ashburner2005unified,
   title={Unified segmentation},
   author={Ashburner, John and Friston, Karl J},
@@ -489,4 +489,6 @@ bib = '@article{ashburner2005unified,
   year={2005},
   publisher={Elsevier}
 }'
+cat('Ashburner J and Friston KJ (2005). "Unified segmentation."
+_Neuroimage_, *26*(3), pp. 839-851.')
 ```
