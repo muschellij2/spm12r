@@ -8,9 +8,7 @@ Authors@R: c(
     person(given = "John",
            family = "Muschelli",
            role = c("cre", "aut"),
-           email = "muschellij2@gmail.com")
-    )
-Maintainer: John Muschelli <muschellij2@gmail.com>
+           email = "muschellij2@gmail.com"))
 Description: Installs 'SPM12' to the R library directory and has 
     associated functions for 'fMRI' and general imaging utilities, 
     called through 'MATLAB'.
