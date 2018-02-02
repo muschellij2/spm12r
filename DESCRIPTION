@@ -7,7 +7,7 @@ Date: 2018-02-01
 Authors@R: c(
     person(given = "John",
            family = "Muschelli",
-           role = "cre",
+           role = c("cre", "aut"),
            email = "muschellij2@gmail.com")
     )
 Maintainer: John Muschelli <muschellij2@gmail.com>
@@ -26,6 +26,7 @@ Suggests: knitr,
     rmarkdown,
     kirby21.t1 (>= 1.5),
     kirby21.fmri (>= 1.5),
+    scales,
     httr
 SystemRequirements: MATLAB
 Remotes: muschellij2/matlabr, muschellij2/oro.nifti, 
