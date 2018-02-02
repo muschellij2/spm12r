@@ -29,8 +29,6 @@ Suggests: knitr,
     scales,
     httr
 SystemRequirements: MATLAB
-Remotes: muschellij2/matlabr, muschellij2/oro.nifti, 
-    muschellij2/neurobase
 Encoding: UTF-8
 RoxygenNote: 6.0.1.9000
 VignetteBuilder: knitr
