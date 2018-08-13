@@ -4,11 +4,12 @@
 \alias{spm12_segment}
 \title{SPM12 Segment}
 \usage{
-spm12_segment(filename, set_origin = TRUE, biasreg = 0.001, biasfwhm = 60,
-  native = TRUE, dartel = FALSE, modulated = FALSE, unmodulated = FALSE,
-  bias_field = FALSE, bias_corrected = FALSE, n_gaus = c(1, 1, 2, 3, 4,
-  2), smoothness = 0, sampling_distance = 3, regularization = c(0, 0.001,
-  0.5, 0.05, 0.2), affine = c("mni", "eastern", "subj", "none"), mrf = 1,
+spm12_segment(filename, set_origin = TRUE, biasreg = 0.001,
+  biasfwhm = 60, native = TRUE, dartel = FALSE, modulated = FALSE,
+  unmodulated = FALSE, bias_field = FALSE, bias_corrected = FALSE,
+  n_gaus = c(1, 1, 2, 3, 4, 2), smoothness = 0,
+  sampling_distance = 3, regularization = c(0, 0.001, 0.5, 0.05, 0.2),
+  affine = c("mni", "eastern", "subj", "none"), mrf = 1,
   def_inverse = TRUE, def_forward = TRUE, warp_cleanup = c("light",
   "none", "thorough"), retimg = TRUE, add_spm_dir = TRUE,
   spmdir = spm_dir(verbose = verbose), clean = TRUE, verbose = TRUE,

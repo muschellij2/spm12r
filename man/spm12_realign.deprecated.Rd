@@ -6,8 +6,8 @@
 \usage{
 spm12_realign.deprecated(filename, fwhm = 5, register_to = c("first",
   "mean"), reslice = c("all", "2:n", "all+mean", "mean"), prefix = "r",
-  add_spm_dir = TRUE, spmdir = spm_dir(), clean = TRUE, verbose = TRUE,
-  outdir = NULL, ...)
+  add_spm_dir = TRUE, spmdir = spm_dir(), clean = TRUE,
+  verbose = TRUE, outdir = NULL, ...)
 }
 \arguments{
 \item{filename}{Files to be realigned and resliced}

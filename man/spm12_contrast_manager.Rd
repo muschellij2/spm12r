@@ -5,8 +5,8 @@
 \alias{build_spm12_contrast_manager}
 \title{SPM12 fMRI Contrasts}
 \usage{
-spm12_contrast_manager(..., add_spm_dir = TRUE, spmdir = spm_dir(verbose =
-  verbose), clean = TRUE, verbose = TRUE)
+spm12_contrast_manager(..., add_spm_dir = TRUE,
+  spmdir = spm_dir(verbose = verbose), clean = TRUE, verbose = TRUE)
 
 build_spm12_contrast_manager(spm, delete_existing = TRUE,
   contrast_list = NULL, ...)

@@ -5,10 +5,11 @@
 \alias{spm12_contrast_query_list}
 \title{Build contrasts query for SPM12 results}
 \usage{
-spm12_contrast_query(weights = Inf, name = "", threshold_type = c("FWE",
-  "none", "FDR"), threshold = 0.05, number_extent_voxels = 0,
-  mask_type = c("None", "Contrast", "Image"), mask_image = NULL,
-  mask_contrast = NULL, mask_threshold = 0.05, mask_inclusive = TRUE)
+spm12_contrast_query(weights = Inf, name = "",
+  threshold_type = c("FWE", "none", "FDR"), threshold = 0.05,
+  number_extent_voxels = 0, mask_type = c("None", "Contrast", "Image"),
+  mask_image = NULL, mask_contrast = NULL, mask_threshold = 0.05,
+  mask_inclusive = TRUE)
 
 spm12_contrast_query_list(cons)
 }

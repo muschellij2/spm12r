@@ -6,8 +6,8 @@
 \alias{matlabbatch_to_script}
 \title{Run Matlab Batch from List}
 \usage{
-run_matlabbatch(spm, add_spm_dir = TRUE, clean = TRUE, verbose = TRUE,
-  gui = FALSE, ...)
+run_matlabbatch(spm, add_spm_dir = TRUE, clean = TRUE,
+  verbose = TRUE, gui = FALSE, ...)
 
 matlabbatch_job(spm, add_spm_dir = TRUE, gui = FALSE, ...)
 

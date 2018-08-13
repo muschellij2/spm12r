@@ -88,3 +88,7 @@ gfilename = function(x) {
   } 
   return(x)
 }
+
+on_cran <- function() {
+  !identical(Sys.getenv("NOT_CRAN"), "true")
+}

@@ -5,8 +5,8 @@
 \title{SPM12 Realign (Estimate)}
 \usage{
 spm12_realign_est(filename, fwhm = 5, register_to = c("first", "mean"),
-  add_spm_dir = TRUE, spmdir = spm_dir(), clean = TRUE, verbose = TRUE,
-  outdir = NULL, ...)
+  add_spm_dir = TRUE, spmdir = spm_dir(), clean = TRUE,
+  verbose = TRUE, outdir = NULL, ...)
 }
 \arguments{
 \item{filename}{Files to be realigned}
