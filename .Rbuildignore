@@ -14,3 +14,4 @@ vignettes/\.build\.timestamp$
 ^appveyor\.yml$
 ^README\.Rmd$
 ^docs$
+^cran-comments\.md$
