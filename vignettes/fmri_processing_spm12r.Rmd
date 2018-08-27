@@ -42,6 +42,7 @@ We will use the subject 113 from the Kirby21 data set to illustrate some basic o
 ```{r makefiles}
 library(kirby21.t1)
 library(kirby21.fmri)
+install_dir = tempdir()
 outdir = tempfile()
 dir.create(outdir)
 stopifnot(download_fmri_data(outdir = outdir))
@@ -149,8 +150,9 @@ if (have_matlab()) {
 	filename = run_fmri, 
 	register_to = "mean",
 	reslice = "mean",
-	clean = FALSE
-	)
+	clean = FALSE,
+	install_dir = install_dir
+  )
   print(names(realigned))
 }
 ```
@@ -215,7 +217,9 @@ if (have_matlab()) {
     ref_slice = ref_slice,
     prefix = "a", 
     clean = FALSE, 
-    retimg = FALSE)
+    retimg = FALSE,
+    install_dir = install_dir
+    )
   aimg = st_results$outfile
   print(aimg)
   mean_img = realigned[["mean"]]
@@ -241,7 +245,9 @@ For the subsequent image normalization steps, SPM assumes the data is aligned al
 if (have_matlab()) {
   acpc_reorient(
     infiles = c(mean_img, aimg),
-    modality = "T1")
+    modality = "T1",
+    install_dir = install_dir
+    )
 }
 ```
 
@@ -260,7 +266,8 @@ if (have_matlab()) {
   	filename = mean_img,
   	other.files = c(mean_img, aimg),
   	bounding_box = bbox,
-  	clean = FALSE
+  	clean = FALSE,
+    install_dir = install_dir
   	)
   print(names(direct_norm))
   dnorm_files = direct_norm$outfiles
@@ -287,12 +294,16 @@ if (have_matlab()) {
   print(anat_img)
   acpc_reorient(
     infiles = anat_img,
-    modality = "T1")
+    modality = "T1",
+    install_dir = install_dir
+    )
 
   coreg = spm12_coregister(
   	fixed = mean_img,
   	moving = anat_img,
-  	prefix = "r")
+  	prefix = "r",
+    install_dir = install_dir
+  	)
   
   coreg_anat = coreg$outfile
   coreg_img = readnii(coreg_anat)
@@ -313,7 +324,9 @@ if (have_matlab()) {
   	filename = coreg_anat,
   	set_origin = FALSE,
   	retimg = FALSE,
-  	clean = FALSE)
+  	clean = FALSE,
+    install_dir = install_dir
+  	)
   print(names(seg_res))
 }
 ```
@@ -353,7 +366,9 @@ if (have_matlab()) {
   	deformation = seg_res$deformation,
   	other.files = c(coreg_anat, mean_img, aimg),
   	bounding_box = bbox,
-  	retimg = FALSE)
+  	retimg = FALSE,
+    install_dir = install_dir
+  	)
   print(names(norm))
   norm_data = norm$outfiles
   names(norm_data) = c("anat", "mean", "fmri")
@@ -412,7 +427,8 @@ if (have_matlab()) {
   	filename = norm_data["fmri"],
   	fwhm = 8,
   	prefix = "s",
-  	retimg = FALSE
+  	retimg = FALSE,
+    install_dir = install_dir
   	)
   smoothed_data = smoothed$outfiles
 }
@@ -425,7 +441,8 @@ if (have_matlab()) {
   smoothed_mean = spm12_smooth(
   	filename = norm_data["mean"],
   	prefix = "s",
-  	retimg = FALSE
+  	retimg = FALSE,
+    install_dir = install_dir
   	)
   smoothed_mean_data = smoothed_mean$outfiles
 }
