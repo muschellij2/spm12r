@@ -62,6 +62,7 @@ build_spm12_first_level = function(
 
 #' @export
 #' @rdname spm12_first_level
+#' @param install_dir directory to download SPM12
 spm12_first_level = function(
   ...,
   outdir = NULL,
@@ -70,9 +71,11 @@ spm12_first_level = function(
     method  = "Classical",
     bayesian = NULL),
   add_spm_dir = TRUE,
-  spmdir = spm_dir(verbose = verbose),
+  spmdir = spm_dir(verbose = verbose,
+                   install_dir = install_dir),
   clean = TRUE,
-  verbose = TRUE
+  verbose = TRUE,
+  install_dir = NULL
 ) {
   
   if (is.null(outdir)) {

@@ -11,7 +11,8 @@ build_spm12_first_level(..., outdir = NULL,
 
 spm12_first_level(..., outdir = NULL, est_args = list(write_residuals =
   FALSE, method = "Classical", bayesian = NULL), add_spm_dir = TRUE,
-  spmdir = spm_dir(verbose = verbose), clean = TRUE, verbose = TRUE)
+  spmdir = spm_dir(verbose = verbose, install_dir = install_dir),
+  clean = TRUE, verbose = TRUE, install_dir = NULL)
 }
 \arguments{
 \item{...}{Arguments passed to 
@@ -30,6 +31,8 @@ spm12_first_level(..., outdir = NULL, est_args = list(write_residuals =
 
 \item{clean}{Remove scripts from temporary directory 
 after running}
+
+\item{install_dir}{directory to download SPM12}
 }
 \value{
 A list of objects, including an spm object 
