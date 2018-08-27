@@ -15,8 +15,9 @@ build_spm12_first_level_spec(scans = NULL, outdir = NULL,
   verbose = TRUE, overwrite = TRUE, ...)
 
 spm12_first_level_spec(..., outdir = NULL, add_spm_dir = TRUE,
-  spmdir = spm_dir(verbose = verbose), clean = TRUE, verbose = TRUE,
-  overwrite = TRUE)
+  spmdir = spm_dir(verbose = verbose, install_dir = install_dir),
+  clean = TRUE, verbose = TRUE, overwrite = TRUE,
+  install_dir = NULL)
 }
 \arguments{
 \item{scans}{images to run}
@@ -88,6 +89,8 @@ should the file be removed?}
 \item{spmdir}{SPM dir to add, will use package default directory}
 
 \item{clean}{Remove scripts from temporary directory after running}
+
+\item{install_dir}{directory to download SPM12}
 }
 \value{
 A list of objects, including an spm object and output files.

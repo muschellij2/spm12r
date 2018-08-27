@@ -38,6 +38,8 @@
 #' @param ... Arguments passed to \code{\link{run_spm12_script}}
 #' @param mrf strength of the Markov random field. 
 #' Setting the value to zero will disable the cleanup.
+#' @param install_dir directory to download SPM12
+#' 
 #' @export
 #' @return List of output files (or niftis depending on \code{retimg}),
 #' output matrix, and output deformations.
@@ -64,13 +66,16 @@ spm12_segment <- function(
   warp_cleanup = c("light", "none", "thorough"),
   retimg = TRUE,
   add_spm_dir = TRUE,
-  spmdir = spm_dir(verbose = verbose), 
+  spmdir = spm_dir(verbose = verbose,
+                   install_dir = install_dir), 
   clean = TRUE,
   verbose = TRUE,
   reorient = FALSE,
+  install_dir = NULL,
   ...
 ){
-  install_spm12()
+  install_spm12(verbose = verbose,
+                install_dir = install_dir)
   # check filenames
   filename = filename_check(filename)  
   

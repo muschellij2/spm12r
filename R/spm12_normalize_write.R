@@ -18,6 +18,8 @@
 #' @param spmdir SPM dir to add, will use package default directory
 #' @param clean Remove scripts from temporary directory after running
 #' @param verbose Print diagnostic messages
+#' @param install_dir directory to download SPM12
+#' 
 #' @param ... Arguments passed to \code{\link{run_spm12_script}}
 #' @export
 #' @return List of SPM object, results, and output filenames
@@ -41,13 +43,16 @@ spm12_normalize_write <- function(
   retimg = FALSE,
   reorient = FALSE,
   add_spm_dir = TRUE,
-  spmdir = spm_dir(verbose = verbose),
+  spmdir = spm_dir(verbose = verbose,
+                   install_dir = install_dir),
   clean = TRUE,
   verbose = TRUE,
+  install_dir = NULL,
   ...
 ){
   
-  install_spm12(verbose = verbose)
+  install_spm12(verbose = verbose,
+                install_dir = install_dir)
   
   L = build_spm12_normalize_write(
     deformation = deformation,

@@ -10,6 +10,7 @@
 #' @param delete_existing Delete existing contrasts
 #' @param contrast_list List of contrasts to pass to 
 #' \code{\link{spm12_contrast_list}} for conversion
+#' @param install_dir directory to download SPM12
 #'
 #' @return A list of output and results
 #' @export
@@ -18,9 +19,11 @@ spm12_contrast_manager = function(
   add_spm_dir = TRUE,
   spmdir = spm_dir(verbose = verbose),
   clean = TRUE,
-  verbose = TRUE
+  verbose = TRUE,
+  install_dir = NULL
 ) {
-  install_spm12(verbose = verbose)
+  install_spm12(verbose = verbose,
+                install_dir = install_dir)
   L = build_spm12_contrast_manager(...)
   
   spm = L$spm

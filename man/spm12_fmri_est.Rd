@@ -6,7 +6,7 @@
 \title{SPM12 FMRI Estimation}
 \usage{
 spm12_fmri_est(..., add_spm_dir = TRUE, spmdir = spm_dir(verbose =
-  verbose), clean = TRUE, verbose = TRUE)
+  verbose), clean = TRUE, verbose = TRUE, install_dir = NULL)
 
 build_spm12_fmri_est(spm, write_residuals = FALSE,
   method = c("Classical", "Bayesian", "Bayesian2"),
@@ -25,6 +25,8 @@ build_spm12_fmri_est(spm, write_residuals = FALSE,
 \item{clean}{Remove scripts from temporary directory after running}
 
 \item{verbose}{Print diagnostic messages}
+
+\item{install_dir}{directory to download SPM12}
 
 \item{spm}{Path to SPM.mat file}
 

@@ -5,8 +5,9 @@
 \title{SPM12 Realign (Estimate)}
 \usage{
 spm12_realign_est(filename, fwhm = 5, register_to = c("first", "mean"),
-  add_spm_dir = TRUE, spmdir = spm_dir(), clean = TRUE,
-  verbose = TRUE, outdir = NULL, ...)
+  add_spm_dir = TRUE, spmdir = spm_dir(verbose = verbose, install_dir =
+  install_dir), clean = TRUE, verbose = TRUE, outdir = NULL,
+  install_dir = NULL, ...)
 }
 \arguments{
 \item{filename}{Files to be realigned}
@@ -27,6 +28,8 @@ or the mean}
 \item{outdir}{Directory to copy results.
 If full filename given, then results will
 be in \code{dirname(filename)}}
+
+\item{install_dir}{directory to download SPM12}
 
 \item{...}{Arguments passed to \code{\link{run_spm12_script}}}
 }

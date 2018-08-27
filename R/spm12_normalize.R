@@ -26,6 +26,7 @@
 #' of the written normalised images.
 #' @param interp Interpolator for sampling in fixed space
 #' @param biasfwhm FWHM  of  Gaussian  smoothness  of  bias.  
+#' @param install_dir directory to download SPM12
 #'
 #' @export
 #' @return List of output filenames
@@ -48,12 +49,15 @@ spm12_normalize <- function(
              paste0("bspline", 2:3),
              paste0("bspline", 5:7)),    
   add_spm_dir = TRUE,
-  spmdir = spm_dir(verbose = verbose),
+  spmdir = spm_dir(verbose = verbose,
+                   install_dir = install_dir),
   clean = TRUE,
   verbose = TRUE,
+  install_dir = NULL,
   ...
 ){
-  install_spm12(verbose = verbose)
+  install_spm12(verbose = verbose,
+                install_dir = install_dir)
   
   # check filenames
   filename = filename_check(filename)

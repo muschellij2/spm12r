@@ -6,8 +6,8 @@
 \title{SPM12 Results Report}
 \usage{
 spm12_results(..., add_spm_dir = TRUE, spmdir = spm_dir(verbose =
-  verbose), clean = TRUE, verbose = TRUE, display = FALSE,
-  desktop = FALSE)
+  verbose, install_dir = install_dir), clean = TRUE, verbose = TRUE,
+  display = FALSE, desktop = FALSE, install_dir = NULL)
 
 build_spm12_results(spm, units = c("Volumetric", "Scalp-Time",
   "Scalp-Frequency", "Time-Frequency", "Frequency-Frequency"),
@@ -36,6 +36,8 @@ if no displays are available.}
 \item{desktop}{Run \code{\link{run_matlab_script}} with
 the \code{desktop} option on.  May fail
 if no displays are available.}
+
+\item{install_dir}{directory to download SPM12}
 
 \item{spm}{Path to SPM.mat file}
 

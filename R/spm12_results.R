@@ -14,18 +14,23 @@
 #' @param desktop Run \code{\link{run_matlab_script}} with
 #' the \code{desktop} option on.  May fail
 #' if no displays are available. 
+#' @param install_dir directory to download SPM12
+#' 
 #'
 #' @return A list of output and results
 #' @export
 spm12_results = function(
   ...,
   add_spm_dir = TRUE,
-  spmdir = spm_dir(verbose = verbose),
+  spmdir = spm_dir(verbose = verbose,
+                   install_dir = install_dir),
   clean = TRUE,
   verbose = TRUE,
   display = FALSE,
-  desktop = FALSE) {
-  install_spm12(verbose = verbose)
+  desktop = FALSE,
+  install_dir = NULL) {
+  install_spm12(verbose = verbose,
+                install_dir = install_dir)
   args = list(...)
   L = do.call("build_spm12_results", args = args)
   

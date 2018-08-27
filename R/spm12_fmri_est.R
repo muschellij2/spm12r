@@ -13,6 +13,7 @@
 #' @param spmdir SPM dir to add, will use package default directory
 #' @param clean Remove scripts from temporary directory after running
 #' @param verbose Print diagnostic messages
+#' @param install_dir directory to download SPM12
 #'
 #' @return A list of output and results
 #' @export
@@ -21,9 +22,11 @@ spm12_fmri_est = function(
   add_spm_dir = TRUE,
   spmdir = spm_dir(verbose = verbose),
   clean = TRUE,
-  verbose = TRUE
+  verbose = TRUE,
+  install_dir = NULL
 ) {
-  install_spm12(verbose = verbose)
+  install_spm12(verbose = verbose,
+                install_dir = install_dir)
   L = build_spm12_fmri_est(...)
   
   spm = L$spm

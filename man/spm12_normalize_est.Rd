@@ -8,7 +8,8 @@ spm12_normalize_est(filename, biasreg = 0.001, biasfwhm = 60,
   regularization = c(0, 0.001, 0.5, 0.05, 0.2), affine = c("mni",
   "eastern", "subj", "none", ""), smoothness = 0,
   sampling_distance = 3, add_spm_dir = TRUE, spmdir = spm_dir(verbose
-  = verbose), clean = TRUE, verbose = TRUE, ...)
+  = verbose, install_dir = install_dir), clean = TRUE, verbose = TRUE,
+  install_dir = NULL, ...)
 }
 \arguments{
 \item{filename}{File to be normalized to the template}
@@ -34,6 +35,8 @@ correlations between neighbouring voxels.  Smoother data have more}
 \item{clean}{Remove scripts from temporary directory after running}
 
 \item{verbose}{Print diagnostic messages}
+
+\item{install_dir}{directory to download SPM12}
 
 \item{...}{Arguments passed to \code{\link{run_spm12_script}}}
 }

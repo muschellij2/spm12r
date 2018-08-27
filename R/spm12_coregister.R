@@ -14,6 +14,8 @@
 #' @param outdir Directory to copy results.  If full filename given, 
 #' then results will
 #' be in \code{dirname(filename)}
+#' @param install_dir directory to download SPM12
+#' 
 #' @param ... Arguments passed to \code{\link{run_spm12_script}}
 #' @export
 #' @return Result from run_matlab_script
@@ -27,10 +29,12 @@ spm12_coregister.deprecated <- function(
   clean = TRUE,
   verbose = TRUE,
   outdir = NULL,
+  install_dir = NULL,
   ...
 ){
   
-  install_spm12(verbose = verbose)
+  install_spm12(verbose = verbose,
+                install_dir = install_dir)
   
   ########################
   # Getting Number of Time points

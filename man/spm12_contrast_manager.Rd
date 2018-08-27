@@ -6,7 +6,8 @@
 \title{SPM12 fMRI Contrasts}
 \usage{
 spm12_contrast_manager(..., add_spm_dir = TRUE,
-  spmdir = spm_dir(verbose = verbose), clean = TRUE, verbose = TRUE)
+  spmdir = spm_dir(verbose = verbose), clean = TRUE, verbose = TRUE,
+  install_dir = NULL)
 
 build_spm12_contrast_manager(spm, delete_existing = TRUE,
   contrast_list = NULL, ...)
@@ -22,6 +23,8 @@ build_spm12_contrast_manager(spm, delete_existing = TRUE,
 \item{clean}{Remove scripts from temporary directory after running}
 
 \item{verbose}{Print diagnostic messages}
+
+\item{install_dir}{directory to download SPM12}
 
 \item{spm}{Path to SPM.mat file}
 

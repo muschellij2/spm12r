@@ -30,19 +30,21 @@ build_spm12_coregister_reslice(fixed, moving, interp = c("bspline4",
 
 spm12_coregister_wrapper(..., func = c("build_spm12_coregister",
   "build_spm12_coregister_reslice", "build_spm12_coregister_estimate"),
-  add_spm_dir = TRUE, spmdir = spm_dir(verbose = verbose),
-  clean = TRUE, verbose = TRUE, outdir = NULL)
+  add_spm_dir = TRUE, spmdir = spm_dir(verbose = verbose, install_dir =
+  install_dir), clean = TRUE, verbose = TRUE, outdir = NULL,
+  install_dir = NULL)
 
 spm12_coregister(..., add_spm_dir = TRUE, spmdir = spm_dir(verbose =
-  verbose), clean = TRUE, verbose = TRUE, outdir = NULL)
+  verbose, install_dir = install_dir), clean = TRUE, verbose = TRUE,
+  outdir = NULL, install_dir = NULL)
 
 spm12_coregister_estimate(..., add_spm_dir = TRUE,
-  spmdir = spm_dir(verbose = verbose), clean = TRUE, verbose = TRUE,
-  outdir = NULL)
+  spmdir = spm_dir(verbose = verbose, install_dir = install_dir),
+  clean = TRUE, verbose = TRUE, outdir = NULL, install_dir = NULL)
 
 spm12_coregister_reslice(..., add_spm_dir = TRUE,
-  spmdir = spm_dir(verbose = verbose), clean = TRUE, verbose = TRUE,
-  outdir = NULL)
+  spmdir = spm_dir(verbose = verbose, install_dir = install_dir),
+  clean = TRUE, verbose = TRUE, outdir = NULL, install_dir = NULL)
 }
 \arguments{
 \item{fixed}{File that is assumed fixed}
@@ -101,6 +103,8 @@ from outside  the  original  images.  Where  this  occurs,
 \item{outdir}{Directory to copy results.  If full filename 
 given, then results will
 be in \code{dirname(filename)}}
+
+\item{install_dir}{directory to download SPM12}
 }
 \value{
 List of output files, the \code{matlabbatch} object, 

@@ -18,6 +18,8 @@
 #' @param reorient if \code{retimg=TRUE} pass to \code{\link{readNIfTI}}
 #' @param ... Arguments passed to \code{\link{run_spm12_script}}
 #' \code{\link{readNIfTI}}
+#' @param install_dir directory to download SPM12
+#' 
 #' @export
 #' @return Result from run_matlab_script or nifti file, depending on
 #' \code{retimg}
@@ -30,13 +32,16 @@ spm12_smooth <- function(
   implicit_mask = FALSE,
   prefix = "s",
   add_spm_dir = TRUE,
-  spmdir = spm_dir(verbose = verbose),
+  spmdir = spm_dir(verbose = verbose,
+                   install_dir = install_dir),
   clean = TRUE,
   verbose = TRUE,
   reorient = FALSE,
+  install_dir = NULL,
   ...
 ){
-  install_spm12(verbose = verbose)
+  install_spm12(verbose = verbose,
+                install_dir = install_dir)
   # check filenames
   filename = filename_check(filename)
   xfilename = filename

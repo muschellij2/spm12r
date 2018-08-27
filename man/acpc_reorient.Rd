@@ -5,7 +5,7 @@
 \title{AC/PC Reorientation}
 \usage{
 acpc_reorient(infiles, modality = c("T1", "T2", "CT", "fMRI"),
-  spmdir = spm_dir(), verbose = TRUE, ...)
+  spmdir = spm_dir(), verbose = TRUE, install_dir = NULL, ...)
 }
 \arguments{
 \item{infiles}{(character) Files to reorient.
@@ -21,6 +21,8 @@ Must have nii_setOrigin installed.  In
 http://www.mccauslandcenter.sc.edu/CRNL/sw/spm8/spm.zip}
 
 \item{verbose}{(logical) Print diagnostic output}
+
+\item{install_dir}{directory to download SPM12}
 
 \item{...}{Arguments to pass to \code{\link{run_matlab_code}}}
 }

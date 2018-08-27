@@ -27,6 +27,7 @@
 #' @param reorient (logical) If retimg, should file be 
 #' reoriented when read in?
 #' Passed to \code{\link{readNIfTI}}.
+#' @param install_dir directory to download SPM12
 #' @param ... Arguments passed to \code{\link{run_spm12_script}}
 #' @export
 #' @importFrom oro.nifti readNIfTI
@@ -43,15 +44,17 @@ spm12_slice_timing <- function(
   ref_slice,
   prefix = "a",
   add_spm_dir = TRUE,
-  spmdir = spm_dir(verbose = verbose),
+  spmdir = spm_dir(verbose = verbose,
+                   install_dir = install_dir),
   clean = TRUE,
   verbose = TRUE,
   outdir = tempdir(),
   retimg = FALSE,
   reorient = FALSE,
+  install_dir = NULL,
   ...
 ){
-  install_spm12(verbose = verbose)
+  install_spm12(verbose = verbose, install_dir = install_dir)
   
   L = build_spm12_slice_timing(
     filename = filename,
@@ -127,10 +130,12 @@ build_spm12_slice_timing <- function(
   ref_slice,
   prefix = "a",
   add_spm_dir = TRUE,
-  spmdir = spm_dir(),
+  spmdir = spm_dir(verbose = verbose,
+                   install_dir = install_dir),
   clean = TRUE,
   verbose = TRUE,
   outdir = tempdir(),
+  install_dir = NULL,
   ...
 ){
   

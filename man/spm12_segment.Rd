@@ -12,8 +12,9 @@ spm12_segment(filename, set_origin = TRUE, biasreg = 0.001,
   affine = c("mni", "eastern", "subj", "none"), mrf = 1,
   def_inverse = TRUE, def_forward = TRUE, warp_cleanup = c("light",
   "none", "thorough"), retimg = TRUE, add_spm_dir = TRUE,
-  spmdir = spm_dir(verbose = verbose), clean = TRUE, verbose = TRUE,
-  reorient = FALSE, ...)
+  spmdir = spm_dir(verbose = verbose, install_dir = install_dir),
+  clean = TRUE, verbose = TRUE, reorient = FALSE,
+  install_dir = NULL, ...)
 }
 \arguments{
 \item{filename}{File to be segmented}
@@ -75,6 +76,8 @@ result from \code{\link{run_matlab_script}}}
 \item{verbose}{Print diagnostic messages}
 
 \item{reorient}{if \code{retimg=TRUE} pass to \code{\link{readNIfTI}}}
+
+\item{install_dir}{directory to download SPM12}
 
 \item{...}{Arguments passed to \code{\link{run_spm12_script}}}
 }

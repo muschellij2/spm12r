@@ -11,7 +11,7 @@ run_spm12_script(script_name, jobvec = NULL, mvec = NULL,
 
 build_spm12_script(script_name, jobvec = NULL, mvec = NULL,
   add_spm_dir = TRUE, spmdir = spm_dir(verbose = verbose),
-  verbose = TRUE, ...)
+  verbose = TRUE, install_dir = NULL, ...)
 }
 \arguments{
 \item{script_name}{Name of the script filename without .m ext,
@@ -33,6 +33,8 @@ passed to \code{\link{spm12_script}}}
 be executed to limit MATLAB to a single computational thread?}
 
 \item{...}{Arguments to pass to \code{\link{spm12_script}}}
+
+\item{install_dir}{directory to download SPM12}
 }
 \value{
 Result of \code{\link{run_matlab_script}}

@@ -7,8 +7,9 @@
 spm12_smooth(filename, retimg = FALSE, fwhm = 8, dtype = c("SAME",
   "UINT8", "INT16", "INT32", "FLOAT32", "FLOAT64"),
   implicit_mask = FALSE, prefix = "s", add_spm_dir = TRUE,
-  spmdir = spm_dir(verbose = verbose), clean = TRUE, verbose = TRUE,
-  reorient = FALSE, ...)
+  spmdir = spm_dir(verbose = verbose, install_dir = install_dir),
+  clean = TRUE, verbose = TRUE, reorient = FALSE,
+  install_dir = NULL, ...)
 }
 \arguments{
 \item{filename}{File to be smoothed}
@@ -36,6 +37,8 @@ NaN for float images).}
 \item{verbose}{Print diagnostic messages}
 
 \item{reorient}{if \code{retimg=TRUE} pass to \code{\link{readNIfTI}}}
+
+\item{install_dir}{directory to download SPM12}
 
 \item{...}{Arguments passed to \code{\link{run_spm12_script}}
 \code{\link{readNIfTI}}}

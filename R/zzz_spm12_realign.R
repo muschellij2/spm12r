@@ -249,17 +249,21 @@ build_spm12_realign <- function(
 #' @param retimg (logical) return image of class nifti
 #' @param reorient (logical) If retimg, should file be 
 #' reoriented when read in? 
+#' @param install_dir directory to download SPM12
 spm12_realign = function(
   ...,
   add_spm_dir = TRUE,
-  spmdir = spm_dir(verbose = verbose),
+  spmdir = spm_dir(verbose = verbose,
+                   install_dir = install_dir),
   clean = TRUE,
   retimg = FALSE,
   reorient = FALSE,  
   verbose = TRUE,
-  outdir = NULL
+  outdir = NULL,
+  install_dir = NULL
 ) {
-  install_spm12(verbose = verbose)
+  install_spm12(verbose = verbose, 
+                install_dir = install_dir)
   L = build_spm12_realign(verbose = verbose, ...)
   spm = L$spm
   outfile = L$outfile 

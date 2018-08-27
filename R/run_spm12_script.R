@@ -69,6 +69,7 @@ run_spm12_script <- function(
 
 #' @export
 #' @rdname run_spm12_script
+#' @param install_dir directory to download SPM12
 build_spm12_script <- function(
   script_name,
   jobvec = NULL,
@@ -76,9 +77,11 @@ build_spm12_script <- function(
   add_spm_dir = TRUE,
   spmdir = spm_dir(verbose = verbose),
   verbose = TRUE,
+  install_dir = NULL,
   ...
 ){
-  install_spm12(verbose = verbose)
+  install_spm12(verbose = verbose, 
+                install_dir = install_dir)
   
   scripts = spm12_script(script_name, ...)
   # put in the correct filenames

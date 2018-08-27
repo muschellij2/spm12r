@@ -294,18 +294,23 @@ build_spm12_first_level_spec = function(
 
 
 #' @rdname spm12_first_level_spec
+#' @param install_dir directory to download SPM12
+#' 
 #' @export
 spm12_first_level_spec = function(
   ...,   
   outdir = NULL,
   add_spm_dir = TRUE,
-  spmdir = spm_dir(verbose = verbose),
+  spmdir = spm_dir(verbose = verbose,
+                   install_dir = install_dir),
   clean = TRUE,
   verbose = TRUE,
-  overwrite = TRUE
+  overwrite = TRUE,
+  install_dir = NULL
 ){
   
-  install_spm12(verbose = verbose)
+  install_spm12(verbose = verbose,
+                install_dir = install_dir)
   
   L = build_spm12_first_level_spec(
     outdir = outdir,

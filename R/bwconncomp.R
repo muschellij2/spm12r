@@ -10,6 +10,8 @@
 #' @param spmdir (character) path for SPM12.  If NULL, assumes
 #' SPM12 is in matlabpath.
 #' @param verbose Print Diagnostics
+#' @param install_dir directory to download SPM12
+#' 
 #' @return Name of output file or \code{nifti} object,
 #' depending on \code{retimg}
 #' @importFrom R.utils gzip gunzip
@@ -32,8 +34,10 @@ bwconncomp = function(infile, # input filename
                       conn = 26,
                       reorient = FALSE,
                       spmdir = spm_dir(),
-                      verbose = TRUE){
-  install_spm12()
+                      verbose = TRUE,
+                      install_dir = NULL){
+  install_spm12(verbose = verbose, 
+                install_dir = install_dir)
 
   infile = checkimg(infile, gzipped = FALSE)
   infile = path.expand(infile)

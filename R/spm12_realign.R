@@ -16,6 +16,8 @@
 #' @param outdir Directory to copy results.  
 #' If full filename given, then results will
 #' be in \code{dirname(filename)}
+#' @param install_dir directory to download SPM12
+#' 
 #' @param ... Arguments passed to \code{\link{run_spm12_script}}
 #' @export
 #' @return Result from run_matlab_script
@@ -26,15 +28,18 @@ spm12_realign.deprecated <- function(
   reslice = c("all","2:n", "all+mean", "mean"),
   prefix = "r",
   add_spm_dir = TRUE,
-  spmdir = spm_dir(),
+  spmdir = spm_dir(verbose = verbose,
+                   install_dir = install_dir),
   clean = TRUE,
   verbose = TRUE,
   outdir = NULL,
+  install_dir = NULL,
   ...
 ){
   # .Deprecated(new = "spm12_realign"s)
   
-  install_spm12()
+  install_spm12(verbose = verbose,
+                install_dir = install_dir)
   
   ########################
   # Getting Number of Time points

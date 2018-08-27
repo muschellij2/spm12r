@@ -6,7 +6,8 @@
 \usage{
 spm12_coregister.deprecated(fixed, moving, other.files = NULL,
   prefix = "r", add_spm_dir = TRUE, spmdir = spm_dir(),
-  clean = TRUE, verbose = TRUE, outdir = NULL, ...)
+  clean = TRUE, verbose = TRUE, outdir = NULL, install_dir = NULL,
+  ...)
 }
 \arguments{
 \item{fixed}{File that is assumed fixed}
@@ -29,6 +30,8 @@ space as moving file}
 \item{outdir}{Directory to copy results.  If full filename given, 
 then results will
 be in \code{dirname(filename)}}
+
+\item{install_dir}{directory to download SPM12}
 
 \item{...}{Arguments passed to \code{\link{run_spm12_script}}}
 }

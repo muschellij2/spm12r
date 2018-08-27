@@ -14,6 +14,8 @@
 #' @param spmdir SPM dir to add, will use package default directory
 #' @param clean Remove scripts from temporary directory after running
 #' @param verbose Print diagnostic messages
+#' @param install_dir directory to download SPM12
+#' 
 #' @param ... Arguments passed to \code{\link{run_spm12_script}}
 #' @export
 #' @return Result from run_matlab_script
@@ -26,13 +28,16 @@ spm12_normalize_est <- function(
   smoothness = 0,
   sampling_distance = 3,    
   add_spm_dir = TRUE,
-  spmdir = spm_dir(verbose = verbose),
+  spmdir = spm_dir(verbose = verbose,
+                   install_dir = install_dir),
   clean = TRUE,
   verbose = TRUE,
+  install_dir = NULL,
   ...
 ){
   
-  install_spm12(verbose = verbose)
+  install_spm12(verbose = verbose,
+                install_dir = install_dir)
   # check filenames
   filename = filename_check(filename)
   

@@ -15,8 +15,9 @@ build_spm12_realign(filename, time_points = NULL, fwhm = 5,
   mask = FALSE, prefix = "r", verbose = TRUE, ...)
 
 spm12_realign(..., add_spm_dir = TRUE, spmdir = spm_dir(verbose =
-  verbose), clean = TRUE, retimg = FALSE, reorient = FALSE,
-  verbose = TRUE, outdir = NULL)
+  verbose, install_dir = install_dir), clean = TRUE, retimg = FALSE,
+  reorient = FALSE, verbose = TRUE, outdir = NULL,
+  install_dir = NULL)
 }
 \arguments{
 \item{filename}{Files to be realigned and resliced}
@@ -92,6 +93,8 @@ reoriented when read in?}
 \item{outdir}{Directory to copy results.
 If full filename given, then results will
 be in \code{dirname(filename)}}
+
+\item{install_dir}{directory to download SPM12}
 }
 \value{
 List of output files, the \code{matlabbatch} object, 

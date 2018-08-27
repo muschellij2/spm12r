@@ -11,8 +11,8 @@ spm12_normalize(filename, other.files = NULL,
   smoothness = 0, sampling_distance = 3, voxel_size = c(2, 2, 2),
   interp = c("bspline4", "nearestneighbor", "trilinear",
   paste0("bspline", 2:3), paste0("bspline", 5:7)), add_spm_dir = TRUE,
-  spmdir = spm_dir(verbose = verbose), clean = TRUE, verbose = TRUE,
-  ...)
+  spmdir = spm_dir(verbose = verbose, install_dir = install_dir),
+  clean = TRUE, verbose = TRUE, install_dir = NULL, ...)
 }
 \arguments{
 \item{filename}{File to be normalized to the template}
@@ -52,6 +52,8 @@ of the written normalised images.}
 \item{clean}{Remove scripts from temporary directory after running}
 
 \item{verbose}{Print diagnostic messages}
+
+\item{install_dir}{directory to download SPM12}
 
 \item{...}{Arguments passed to \code{\link{run_spm12_script}}}
 }

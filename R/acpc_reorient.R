@@ -12,6 +12,7 @@
 #' \code{system.file("", package="spm12r")} from
 #' http://www.mccauslandcenter.sc.edu/CRNL/sw/spm8/spm.zip
 #' @param verbose (logical) Print diagnostic output
+#' @param install_dir directory to download SPM12
 #' @param ... Arguments to pass to \code{\link{run_matlab_code}}
 #' @return Exit code from MATLAB.  If not zero, there was an error
 #' @export
@@ -21,10 +22,12 @@ acpc_reorient <- function(
   spmdir = spm_dir(),
   #   add_cttools = TRUE,
   verbose=TRUE,
+  install_dir = NULL,
   ...
 ){
 
-  install_spm12(verbose = verbose)
+  install_spm12(verbose = verbose, 
+                install_dir = install_dir)
 
 
   infiles = checknii(infiles)

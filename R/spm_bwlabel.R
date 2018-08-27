@@ -14,6 +14,8 @@
 #' @param verbose Print Diagnostics
 #' @return Output from \code{run_matlab_script} or \code{nifti} object,
 #' depending on \code{retimg}
+#' @param install_dir directory to download SPM12
+#' 
 #' @importFrom R.utils gzip gunzip
 #' @export
 #' @note Taken from 
@@ -28,11 +30,14 @@ spm_bwlabel = function(
   topN = NULL,
   margin = NULL,
   binary = TRUE,
-  spmdir = spm_dir(),
+  spmdir = spm_dir(verbose = verbose,
+                   install_dir = install_dir),
   reorient = FALSE,
-  verbose = TRUE
+  verbose = TRUE,
+  install_dir = NULL
 ){
-  install_spm12(verbose = verbose)
+  install_spm12(verbose = verbose,
+                install_dir = install_dir)
   
   infile = checkimg(infile, gzipped = FALSE)
   infile = path.expand(infile)

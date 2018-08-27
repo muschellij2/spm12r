@@ -10,8 +10,8 @@ spm12_normalize_write(deformation, other.files = NULL,
   TRUE), voxel_size = c(2, 2, 2), interp = c("bspline4",
   "nearestneighbor", "trilinear", paste0("bspline", 2:3), paste0("bspline",
   5:7)), retimg = FALSE, reorient = FALSE, add_spm_dir = TRUE,
-  spmdir = spm_dir(verbose = verbose), clean = TRUE, verbose = TRUE,
-  ...)
+  spmdir = spm_dir(verbose = verbose, install_dir = install_dir),
+  clean = TRUE, verbose = TRUE, install_dir = NULL, ...)
 
 build_spm12_normalize_write(deformation, other.files = NULL,
   bounding_box = matrix(c(-90, -126, -72, 90, 90, 108), nrow = 2, byrow =
@@ -47,6 +47,8 @@ result from \code{\link{run_matlab_script}}}
 \item{clean}{Remove scripts from temporary directory after running}
 
 \item{verbose}{Print diagnostic messages}
+
+\item{install_dir}{directory to download SPM12}
 
 \item{...}{Arguments passed to \code{\link{run_spm12_script}}}
 }
