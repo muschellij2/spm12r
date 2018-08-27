@@ -5,7 +5,7 @@
 #' @param script_name Name of the script filename without ".m" ext
 #' @param outdir Path to copy scripts and run
 #' @export
-#' @return Chracter vector of script paths
+#' @return Character vector of script paths
 #' @examples spm12_script(script_name = "Segment")
 spm12_script <- function(
   script_name, 

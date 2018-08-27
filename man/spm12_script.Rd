@@ -12,7 +12,7 @@ spm12_script(script_name, outdir = tempdir())
 \item{outdir}{Path to copy scripts and run}
 }
 \value{
-Chracter vector of script paths
+Character vector of script paths
 }
 \description{
 Copies the SPM12 script from the scripts directory
