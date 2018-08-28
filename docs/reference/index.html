@@ -18,13 +18,22 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="Function reference" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,12 +56,16 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">spm12r</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">spm12r</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.8.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -73,13 +86,20 @@
     <li>
       <a href="../articles/fmri_task_processing.html">Preprocessing and First Level Model for Task fMRI</a>
     </li>
+    <li>
+      <a href="../articles/fmri_task_processing_acpc.html">Preprocessing and First Level Model for Task fMRI</a>
+    </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -87,256 +107,252 @@
       
       </header>
 
-      <div class="row">
-  <div class="col-md-9">
+<div class="row">
+  <div class="contents col-md-9">
     <div class="page-header">
-      <h1>
-        Reference
-        <small>version&nbsp;2.6.6</small>
-      </h1>
+      <h1>Reference</h1>
     </div>
 
-    <div class="contents">
-      <table class="ref-index">
+    <table class="ref-index">
 
-      <colgroup>
-        <col class="alias" />
-        <col class="title" />
-      </colgroup>
+    <colgroup>
+      
+      <col class="alias" />
+      <col class="title" />
+    </colgroup>
 
-      <tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="acpc_reorient.html">acpc_reorient</a></code> </p>
-          </td>
-          <td><p>AC/PC Reorientation</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="add_spm_dir.html">add_spm_dir</a></code> <code><a href="add_spm_dir.html">add_spm12_dir</a></code> </p>
-          </td>
-          <td><p>Add SPM Directory</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="bwconncomp.html">bwconncomp</a></code> </p>
-          </td>
-          <td><p>Label Connected Clusters of Certain Size</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="filename_check.html">filename_check</a></code> </p>
-          </td>
-          <td><p>Perform filename checks for SPM</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="group_xyz.html">group_xyz</a></code> </p>
-          </td>
-          <td><p>Center of Gravity for Multiple Areas</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="install_spm12.html">install_spm12</a></code> </p>
-          </td>
-          <td><p>Install SPM12 file into directory</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ntime_points.html">ntime_points</a></code> </p>
-          </td>
-          <td><p>Get number of time points from a file</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="run_matlabbatch.html">run_matlabbatch</a></code> <code><a href="run_matlabbatch.html">matlabbatch_job</a></code> <code><a href="run_matlabbatch.html">matlabbatch_to_script</a></code> </p>
-          </td>
-          <td><p>Run Matlab Batch from List</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="run_spm12_script.html">run_spm12_script</a></code> <code><a href="run_spm12_script.html">build_spm12_script</a></code> </p>
-          </td>
-          <td><p>Wrapper for running <code>spm12_script</code></p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="spm_bwlabel.html">spm_bwlabel</a></code> </p>
-          </td>
-          <td><p>SPM BWLabel Clusters of Certain Size</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="spm_dir.html">spm_dir</a></code> </p>
-          </td>
-          <td><p>Get SPM12 Directory</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="spm_directory.html">spm_directory</a></code> </p>
-          </td>
-          <td><p>SPM Directory</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="spm_probs_to_seg.html">spm_probs_to_seg</a></code> </p>
-          </td>
-          <td><p>SPM Probability to Hard Segmentation</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="spm_version.html">spm_version</a></code> <code><a href="spm_version.html">spm12_version</a></code> </p>
-          </td>
-          <td><p>SPM Version</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="spm_xmat.html">spm_xmat</a></code> </p>
-          </td>
-          <td><p>SPM X Matrix</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="spm12_condition.html">spm12_condition</a></code> <code><a href="spm12_condition.html">spm12_condition_list</a></code> </p>
-          </td>
-          <td><p>Build Conditions for SPM12 first level model</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="spm12_contrast_manager.html">spm12_contrast_manager</a></code> <code><a href="spm12_contrast_manager.html">build_spm12_contrast_manager</a></code> </p>
-          </td>
-          <td><p>SPM12 fMRI Contrasts</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="spm12_contrast_query.html">spm12_contrast_query</a></code> <code><a href="spm12_contrast_query.html">spm12_contrast_query_list</a></code> </p>
-          </td>
-          <td><p>Build contrasts query for SPM12 results</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="spm12_contrast.html">spm12_contrast</a></code> <code><a href="spm12_contrast.html">spm12_contrast_list</a></code> </p>
-          </td>
-          <td><p>Build contrasts for SPM12 first level model</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="spm12_coregister.deprecated.html">spm12_coregister.deprecated</a></code> </p>
-          </td>
-          <td><p>SPM12 Coregister (Estimate and Reslice)</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="spm12_coregister.html">build_spm12_coregister</a></code> <code><a href="spm12_coregister.html">build_spm12_coregister_estimate</a></code> <code><a href="spm12_coregister.html">build_spm12_coregister_reslice</a></code> <code><a href="spm12_coregister.html">spm12_coregister_wrapper</a></code> <code><a href="spm12_coregister.html">spm12_coregister</a></code> <code><a href="spm12_coregister.html">spm12_coregister_estimate</a></code> <code><a href="spm12_coregister.html">spm12_coregister_reslice</a></code> </p>
-          </td>
-          <td><p>Batch SPM12 Coregister (Estimate and Reslice)</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="spm12_first_level_spec.html">build_spm12_first_level_spec</a></code> <code><a href="spm12_first_level_spec.html">spm12_first_level_spec</a></code> </p>
-          </td>
-          <td><p>SPM12 fMRI First Level Specification</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="spm12_first_level.html">build_spm12_first_level</a></code> <code><a href="spm12_first_level.html">spm12_first_level</a></code> </p>
-          </td>
-          <td><p>SPM12 fMRI First Level Model</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="spm12_fmri_est.html">spm12_fmri_est</a></code> <code><a href="spm12_fmri_est.html">build_spm12_fmri_est</a></code> </p>
-          </td>
-          <td><p>SPM12 FMRI Estimation</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="spm12_normalize_est.html">spm12_normalize_est</a></code> </p>
-          </td>
-          <td><p>SPM12 Normalize (Estimate)</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="spm12_normalize_write.html">spm12_normalize_write</a></code> <code><a href="spm12_normalize_write.html">build_spm12_normalize_write</a></code> </p>
-          </td>
-          <td><p>SPM12 Normalize (Write)</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="spm12_normalize.html">spm12_normalize</a></code> </p>
-          </td>
-          <td><p>SPM12 Normalize (Estimate and Write)</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="spm12_realign_est.html">spm12_realign_est</a></code> </p>
-          </td>
-          <td><p>SPM12 Realign (Estimate)</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="spm12_realign.deprecated.html">spm12_realign.deprecated</a></code> </p>
-          </td>
-          <td><p>SPM12 Realign (Estimate and Reslice)</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="spm12_realign.html">build_spm12_realign</a></code> <code><a href="spm12_realign.html">spm12_realign</a></code> </p>
-          </td>
-          <td><p>SPM12 Realign (Estimate and Reslice)</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="spm12_regressor.html">spm12_regressor</a></code> <code><a href="spm12_regressor.html">spm12_regressor_list</a></code> </p>
-          </td>
-          <td><p>Build Regressors for SPM12 first level model</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="spm12_results.html">spm12_results</a></code> <code><a href="spm12_results.html">build_spm12_results</a></code> </p>
-          </td>
-          <td><p>SPM12 Results Report</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="spm12_script.html">spm12_script</a></code> </p>
-          </td>
-          <td><p>Find SPM12 Script</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="spm12_segment.html">spm12_segment</a></code> </p>
-          </td>
-          <td><p>SPM12 Segment</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="spm12_slice_timing.deprecated.html">spm12_slice_timing.deprecated</a></code> </p>
-          </td>
-          <td><p>SPM12 Slice Timing Correction</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="spm12_slice_timing.html">spm12_slice_timing</a></code> <code><a href="spm12_slice_timing.html">build_spm12_slice_timing</a></code> </p>
-          </td>
-          <td><p>SPM12 Slice Timing Correction</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="spm12_smooth.html">spm12_smooth</a></code> </p>
-          </td>
-          <td><p>SPM12 Smooth</p></td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
+    <tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="acpc_reorient.html">acpc_reorient()</a></code> </p>
+        </td>
+        <td><p>AC/PC Reorientation</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="add_spm_dir.html">add_spm_dir()</a></code> <code><a href="add_spm_dir.html">add_spm12_dir()</a></code> </p>
+        </td>
+        <td><p>Add SPM Directory</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="bwconncomp.html">bwconncomp()</a></code> </p>
+        </td>
+        <td><p>Label Connected Clusters of Certain Size</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="filename_check.html">filename_check()</a></code> </p>
+        </td>
+        <td><p>Perform filename checks for SPM</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="group_xyz.html">group_xyz()</a></code> </p>
+        </td>
+        <td><p>Center of Gravity for Multiple Areas</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="install_spm12.html">install_spm12()</a></code> </p>
+        </td>
+        <td><p>Install SPM12 file into directory</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ntime_points.html">ntime_points()</a></code> </p>
+        </td>
+        <td><p>Get number of time points from a file</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="run_matlabbatch.html">run_matlabbatch()</a></code> <code><a href="run_matlabbatch.html">matlabbatch_job()</a></code> <code><a href="run_matlabbatch.html">matlabbatch_to_script()</a></code> </p>
+        </td>
+        <td><p>Run Matlab Batch from List</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="run_spm12_script.html">run_spm12_script()</a></code> <code><a href="run_spm12_script.html">build_spm12_script()</a></code> </p>
+        </td>
+        <td><p>Wrapper for running <code>spm12_script</code></p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spm12_condition.html">spm12_condition()</a></code> <code><a href="spm12_condition.html">spm12_condition_list()</a></code> </p>
+        </td>
+        <td><p>Build Conditions for SPM12 first level model</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spm12_contrast.html">spm12_contrast()</a></code> <code><a href="spm12_contrast.html">spm12_contrast_list()</a></code> </p>
+        </td>
+        <td><p>Build contrasts for SPM12 first level model</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spm12_contrast_manager.html">spm12_contrast_manager()</a></code> <code><a href="spm12_contrast_manager.html">build_spm12_contrast_manager()</a></code> </p>
+        </td>
+        <td><p>SPM12 fMRI Contrasts</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spm12_contrast_query.html">spm12_contrast_query()</a></code> <code><a href="spm12_contrast_query.html">spm12_contrast_query_list()</a></code> </p>
+        </td>
+        <td><p>Build contrasts query for SPM12 results</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spm12_coregister.html">build_spm12_coregister()</a></code> <code><a href="spm12_coregister.html">build_spm12_coregister_estimate()</a></code> <code><a href="spm12_coregister.html">build_spm12_coregister_reslice()</a></code> <code><a href="spm12_coregister.html">spm12_coregister_wrapper()</a></code> <code><a href="spm12_coregister.html">spm12_coregister()</a></code> <code><a href="spm12_coregister.html">spm12_coregister_estimate()</a></code> <code><a href="spm12_coregister.html">spm12_coregister_reslice()</a></code> </p>
+        </td>
+        <td><p>Batch SPM12 Coregister (Estimate and Reslice)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spm12_coregister.deprecated.html">spm12_coregister.deprecated()</a></code> </p>
+        </td>
+        <td><p>SPM12 Coregister (Estimate and Reslice)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spm12_first_level.html">build_spm12_first_level()</a></code> <code><a href="spm12_first_level.html">spm12_first_level()</a></code> </p>
+        </td>
+        <td><p>SPM12 fMRI First Level Model</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spm12_first_level_spec.html">build_spm12_first_level_spec()</a></code> <code><a href="spm12_first_level_spec.html">spm12_first_level_spec()</a></code> </p>
+        </td>
+        <td><p>SPM12 fMRI First Level Specification</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spm12_fmri_est.html">spm12_fmri_est()</a></code> <code><a href="spm12_fmri_est.html">build_spm12_fmri_est()</a></code> </p>
+        </td>
+        <td><p>SPM12 FMRI Estimation</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spm12_normalize.html">spm12_normalize()</a></code> </p>
+        </td>
+        <td><p>SPM12 Normalize (Estimate and Write)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spm12_normalize_est.html">spm12_normalize_est()</a></code> </p>
+        </td>
+        <td><p>SPM12 Normalize (Estimate)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spm12_normalize_write.html">spm12_normalize_write()</a></code> <code><a href="spm12_normalize_write.html">build_spm12_normalize_write()</a></code> </p>
+        </td>
+        <td><p>SPM12 Normalize (Write)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spm12_realign.html">build_spm12_realign()</a></code> <code><a href="spm12_realign.html">spm12_realign()</a></code> </p>
+        </td>
+        <td><p>SPM12 Realign (Estimate and Reslice)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spm12_realign.deprecated.html">spm12_realign.deprecated()</a></code> </p>
+        </td>
+        <td><p>SPM12 Realign (Estimate and Reslice)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spm12_realign_est.html">spm12_realign_est()</a></code> </p>
+        </td>
+        <td><p>SPM12 Realign (Estimate)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spm12_regressor.html">spm12_regressor()</a></code> <code><a href="spm12_regressor.html">spm12_regressor_list()</a></code> </p>
+        </td>
+        <td><p>Build Regressors for SPM12 first level model</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spm12_results.html">spm12_results()</a></code> <code><a href="spm12_results.html">build_spm12_results()</a></code> </p>
+        </td>
+        <td><p>SPM12 Results Report</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spm12_script.html">spm12_script()</a></code> </p>
+        </td>
+        <td><p>Find SPM12 Script</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spm12_segment.html">spm12_segment()</a></code> </p>
+        </td>
+        <td><p>SPM12 Segment</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spm12_slice_timing.html">spm12_slice_timing()</a></code> <code><a href="spm12_slice_timing.html">build_spm12_slice_timing()</a></code> </p>
+        </td>
+        <td><p>SPM12 Slice Timing Correction</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spm12_slice_timing.deprecated.html">spm12_slice_timing.deprecated()</a></code> </p>
+        </td>
+        <td><p>SPM12 Slice Timing Correction</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spm12_smooth.html">spm12_smooth()</a></code> </p>
+        </td>
+        <td><p>SPM12 Smooth</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spm_bwlabel.html">spm_bwlabel()</a></code> </p>
+        </td>
+        <td><p>SPM BWLabel Clusters of Certain Size</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spm_dir.html">spm_dir()</a></code> </p>
+        </td>
+        <td><p>Get SPM12 Directory</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spm_directory.html">spm_directory()</a></code> </p>
+        </td>
+        <td><p>SPM Directory</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spm_probs_to_seg.html">spm_probs_to_seg()</a></code> </p>
+        </td>
+        <td><p>SPM Probability to Hard Segmentation</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spm_version.html">spm_version()</a></code> <code><a href="spm_version.html">spm12_version()</a></code> </p>
+        </td>
+        <td><p>SPM Version</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spm_xmat.html">spm_xmat()</a></code> </p>
+        </td>
+        <td><p>SPM X Matrix</p></td>
+      </tr>
+    </tbody>
+    </table>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -353,11 +369,14 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

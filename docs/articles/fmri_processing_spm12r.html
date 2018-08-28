@@ -8,14 +8,17 @@
 <title>fMRI Preprocessing using SPM 12 • spm12r</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script><meta property="og:title" content="fMRI Preprocessing using SPM 12">
+<meta property="og:description" content="">
+<meta name="twitter:card" content="summary">
+<!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
 <body>
-    <div class="container template-vignette">
+    <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -24,12 +27,16 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">spm12r</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">spm12r</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.8.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="..//index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -50,7 +57,13 @@
     <li>
       <a href="../articles/fmri_task_processing.html">Preprocessing and First Level Model for Task fMRI</a>
     </li>
+    <li>
+      <a href="../articles/fmri_task_processing_acpc.html">Preprocessing and First Level Model for Task fMRI</a>
+    </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right"></ul>
@@ -63,17 +76,20 @@
 
       
       </header><div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>fMRI Preprocessing using SPM 12</h1>
                         <h4 class="author">John Muschelli</h4>
             
-            <h4 class="date">2017-10-02</h4>
-          </div>
+            <h4 class="date">2018-08-27</h4>
+      
+      
+      <div class="hidden name"><code>fmri_processing_spm12r.Rmd</code></div>
+
+    </div>
 
     
     
-<div class="contents">
 <div id="overview-of-spm12r-functions" class="section level1">
 <h1 class="hasAnchor">
 <a href="#overview-of-spm12r-functions" class="anchor"></a>Overview of <code>spm12r</code> functions</h1>
@@ -97,44 +113,66 @@
 <h1 class="hasAnchor">
 <a href="#kirby21-data-used" class="anchor"></a>Kirby21 Data used</h1>
 <p>We will use the subject 113 from the Kirby21 data set to illustrate some basic operations of functional magnetic resonance imaging (fMRI). We will load in the T1 anatomical image and the fMRI from the respective packages.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(kirby21.t1)
-<span class="kw">library</span>(kirby21.fmri)
-<span class="kw">stopifnot</span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/kirby21.fmri/topics/download_fmri_data">download_fmri_data</a></span>())
-<span class="kw">stopifnot</span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/kirby21.t1/topics/download_t1_data">download_t1_data</a></span>())
-functional =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/kirby21.fmri/topics/get_fmri_filenames">get_fmri_filenames</a></span>(<span class="dt">ids =</span> <span class="dv">113</span>, <span class="dt">visit =</span> <span class="dv">1</span>)
-anatomical =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/kirby21.t1/topics/get_t1_filenames">get_t1_filenames</a></span>(<span class="dt">ids =</span> <span class="dv">113</span>, <span class="dt">visit =</span> <span class="dv">1</span>)
-files =<span class="st"> </span><span class="kw">c</span>(<span class="dt">anatomical =</span> anatomical,
-          <span class="dt">functional =</span> functional)
-files</code></pre></div>
-<pre><code>##                                                                                                   anatomical 
-##     "/Library/Frameworks/R.framework/Versions/3.4/Resources/library/kirby21.t1/visit_1/113/113-01-T1.nii.gz" 
-##                                                                                                   functional 
-## "/Library/Frameworks/R.framework/Versions/3.4/Resources/library/kirby21.fmri/visit_1/113/113-01-fMRI.nii.gz"</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(kirby21.t1)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(kirby21.fmri)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">install_dir =<span class="st"> </span><span class="kw">tempdir</span>()</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">outdir =<span class="st"> </span><span class="kw">tempfile</span>()</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">dir.create</span>(outdir)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">stopifnot</span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/kirby21.fmri/topics/download_fmri_data">download_fmri_data</a></span>(<span class="dt">outdir =</span> outdir))</a></code></pre></div>
+<pre><code>## cloning into '/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/filef5037f58f8db/kirby21.fmri'...
+## Receiving objects:   1% (1/98),    8 kb
+## Receiving objects:  11% (11/98),    8 kb
+## Receiving objects:  21% (21/98),    8 kb
+## Receiving objects:  31% (31/98),    8 kb
+## Receiving objects:  41% (41/98),    8 kb
+## Receiving objects:  51% (50/98), 132735 kb
+## Receiving objects:  61% (60/98), 267438 kb
+## Receiving objects:  71% (70/98), 267438 kb
+## Receiving objects:  81% (80/98), 267438 kb
+## Receiving objects:  91% (90/98), 267438 kb
+## Receiving objects: 100% (98/98), 267438 kb, done.</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">stopifnot</span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/kirby21.t1/topics/download_t1_data">download_t1_data</a></span>(<span class="dt">outdir =</span> outdir))</a></code></pre></div>
+<pre><code>## cloning into '/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/filef5032a3a332e/kirby21.t1'...
+## Receiving objects:   1% (2/117),    8 kb
+## Receiving objects:  11% (13/117),    8 kb
+## Receiving objects:  21% (25/117),    8 kb
+## Receiving objects:  31% (37/117),    8 kb
+## Receiving objects:  41% (48/117),    8 kb
+## Receiving objects:  51% (60/117), 30713 kb
+## Receiving objects:  61% (72/117), 46544 kb
+## Receiving objects:  71% (84/117), 46544 kb
+## Receiving objects:  81% (95/117), 46544 kb
+## Receiving objects:  91% (107/117), 46544 kb
+## Receiving objects: 100% (117/117), 46544 kb, done.</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">functional =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/kirby21.fmri/topics/get_fmri_filenames">get_fmri_filenames</a></span>(<span class="dt">ids =</span> <span class="dv">113</span>, <span class="dt">visit =</span> <span class="dv">1</span>, <span class="dt">outdir =</span> outdir)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">anatomical =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/kirby21.t1/topics/get_t1_filenames">get_t1_filenames</a></span>(<span class="dt">ids =</span> <span class="dv">113</span>, <span class="dt">visit =</span> <span class="dv">1</span>, <span class="dt">outdir =</span> outdir)</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">files =<span class="st"> </span><span class="kw">c</span>(<span class="dt">anatomical =</span> anatomical,</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">          <span class="dt">functional =</span> functional)</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">files</a></code></pre></div>
+<pre><code>##                                                                                                     anatomical 
+##   "/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/filef50351ee793a/visit_1/113/113-01-T1.nii.gz" 
+##                                                                                                     functional 
+## "/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/filef50351ee793a/visit_1/113/113-01-fMRI.nii.gz"</code></pre>
 <p>We know the repetition time (TR) is 2 seconds for this data. It may be encoded in the NIfTI file itself or come from a parameter file from the scanner. We will drop the first 20 seconds to allow for signal stabilization.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(neurobase)</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">library</span>(neurobase)</a></code></pre></div>
 <pre><code>## Loading required package: oro.nifti</code></pre>
-<pre><code>## oro.nifti 0.8.0</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tr =<span class="st"> </span><span class="dv">2</span> <span class="co"># seconds</span>
-DROP =<span class="st"> </span><span class="dv">10</span> <span class="co"># 20 seconds for stabilization</span>
-
-fmri =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/readNIfTI2">readnii</a></span>(files[<span class="st">"functional"</span>])
-
-times =<span class="st"> </span>(DROP <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span><span class="kw">ntim</span>(fmri)
-run_fmri =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/copyNIfTIHeader">copyNIfTIHeader</a></span>(fmri, fmri[,,,times], <span class="dt">drop =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## oro.nifti 0.9.7</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">tr =<span class="st"> </span><span class="dv">2</span> <span class="co"># seconds</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">DROP =<span class="st"> </span><span class="dv">10</span> <span class="co"># 20 seconds for stabilization</span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4">fmri =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/readNIfTI2">readnii</a></span>(files[<span class="st">"functional"</span>])</a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6">times =<span class="st"> </span>(DROP <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span><span class="kw">ntim</span>(fmri)</a>
+<a class="sourceLine" id="cb10-7" data-line-number="7">run_fmri =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/copyNIfTIHeader">copyNIfTIHeader</a></span>(fmri, fmri[,,,times], <span class="dt">drop =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p>Now <code>run_fmri</code> contains a <code>nifti</code> object with the first 10 volumes dropped. We will pass this into the subsequent functions.</p>
-<pre><code>##            used  (Mb) gc trigger   (Mb)  max used   (Mb)
-## Ncells   694717  37.2    1168576   62.5   1168576   62.5
-## Vcells 48515712 370.2  399025168 3044.4 489050859 3731.2</code></pre>
-<pre><code>##            used  (Mb) gc trigger   (Mb)  max used   (Mb)
-## Ncells   694737  37.2    1168576   62.5   1168576   62.5
-## Vcells 48515798 370.2  319220134 2435.5 489050859 3731.2</code></pre>
 </div>
 <div id="checking-matlab" class="section level1">
 <h1 class="hasAnchor">
 <a href="#checking-matlab" class="anchor"></a>Checking MATLAB</h1>
 <p>As SPM requires MATLAB and calls all the functions through the <code>matlabr</code> package, we will have checks in this vignette/workflow that the user has MATLAB. The <code><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab()</a></code> function returns a logical that is <code>TRUE</code> when <code>matlabr</code> can find MATLAB to run the subsequent commands.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(matlabr)
-<span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()</code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">library</span>(matlabr)</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()</a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>If this is not <code>TRUE</code>, almost none of the functionality below will run because it would simply result in errors.</p>
 </div>
@@ -146,20 +184,20 @@ run_fmri =<span class="st"> </span><span class="kw"><a href="http://www.rdocumen
 <h2 class="hasAnchor">
 <a href="#image-realignment" class="anchor"></a>Image Realignment</h2>
 <p>Realignment is referring to in this case as within-subject registration of the 4D fMRI data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spm12r)
-####################################
-<span class="co"># Realignment</span>
-####################################
-realign_batch =<span class="st"> </span><span class="kw"><a href="../reference/spm12_realign.html">build_spm12_realign</a></span>( 
-  <span class="dt">filename =</span> run_fmri, 
-  <span class="dt">register_to =</span> <span class="st">"mean"</span>,
-  <span class="dt">reslice =</span> <span class="st">"mean"</span>
-)</code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">library</span>(spm12r)</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2">####################################</a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co"># Realignment</span></a>
+<a class="sourceLine" id="cb14-4" data-line-number="4">####################################</a>
+<a class="sourceLine" id="cb14-5" data-line-number="5">realign_batch =<span class="st"> </span><span class="kw"><a href="../reference/spm12_realign.html">build_spm12_realign</a></span>( </a>
+<a class="sourceLine" id="cb14-6" data-line-number="6">  <span class="dt">filename =</span> run_fmri, </a>
+<a class="sourceLine" id="cb14-7" data-line-number="7">  <span class="dt">register_to =</span> <span class="st">"mean"</span>,</a>
+<a class="sourceLine" id="cb14-8" data-line-number="8">  <span class="dt">reslice =</span> <span class="st">"mean"</span></a>
+<a class="sourceLine" id="cb14-9" data-line-number="9">)</a></code></pre></div>
 <pre><code>## # Getting Number of Time Points</code></pre>
 <pre><code>## # Reslice is mean</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">names</span>(realign_batch))</code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">print</span>(<span class="kw">names</span>(realign_batch))</a></code></pre></div>
 <pre><code>## [1] "spm"      "script"   "outfiles" "rp"       "mean"     "mat"</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">names</span>(<span class="kw">unlist</span>(realign_batch<span class="op">$</span>spm)))</code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">print</span>(<span class="kw">names</span>(<span class="kw">unlist</span>(realign_batch<span class="op">$</span>spm)))</a></code></pre></div>
 <pre><code>##  [1] "spm.spatial.realign.estwrite.data"            
 ##  [2] "spm.spatial.realign.estwrite.eoptions.quality"
 ##  [3] "spm.spatial.realign.estwrite.eoptions.sep"    
@@ -173,36 +211,37 @@ realign_batch =<span class="st"> </span><span class="kw"><a href="../reference/s
 ## [11] "spm.spatial.realign.estwrite.roptions.wrap"   
 ## [12] "spm.spatial.realign.estwrite.roptions.mask"   
 ## [13] "spm.spatial.realign.estwrite.roptions.prefix"</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()) {
-  realigned =<span class="st"> </span><span class="kw"><a href="../reference/spm12_realign.html">spm12_realign</a></span>( 
-    <span class="dt">filename =</span> run_fmri, 
-    <span class="dt">register_to =</span> <span class="st">"mean"</span>,
-    <span class="dt">reslice =</span> <span class="st">"mean"</span>,
-    <span class="dt">clean =</span> <span class="ot">FALSE</span>
-    )
-  <span class="kw">print</span>(<span class="kw">names</span>(realigned))
-}</code></pre></div>
-<pre><code>## cloning into '/Library/Frameworks/R.framework/Versions/3.4/Resources/library/spm12r/spm12'...
-## Receiving objects:   1% (62/6142),   20 kb
-## Receiving objects:  11% (676/6142),  279 kb
-## Receiving objects:  21% (1290/6142),  725 kb
-## Receiving objects:  31% (1905/6142), 6864 kb
-## Receiving objects:  41% (2519/6142), 8274 kb
-## Receiving objects:  51% (3133/6142), 14430 kb
-## Receiving objects:  61% (3747/6142), 33241 kb
-## Receiving objects:  71% (4361/6142), 35386 kb
-## Receiving objects:  81% (4976/6142), 61306 kb
-## Receiving objects:  91% (5590/6142), 69088 kb
-## Receiving objects: 100% (6142/6142), 127106 kb, done.</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()) {</a>
+<a class="sourceLine" id="cb21-2" data-line-number="2">  realigned =<span class="st"> </span><span class="kw"><a href="../reference/spm12_realign.html">spm12_realign</a></span>( </a>
+<a class="sourceLine" id="cb21-3" data-line-number="3">    <span class="dt">filename =</span> run_fmri, </a>
+<a class="sourceLine" id="cb21-4" data-line-number="4">    <span class="dt">register_to =</span> <span class="st">"mean"</span>,</a>
+<a class="sourceLine" id="cb21-5" data-line-number="5">    <span class="dt">reslice =</span> <span class="st">"mean"</span>,</a>
+<a class="sourceLine" id="cb21-6" data-line-number="6">    <span class="dt">clean =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb21-7" data-line-number="7">    <span class="dt">install_dir =</span> install_dir</a>
+<a class="sourceLine" id="cb21-8" data-line-number="8">  )</a>
+<a class="sourceLine" id="cb21-9" data-line-number="9">  <span class="kw">print</span>(<span class="kw">names</span>(realigned))</a>
+<a class="sourceLine" id="cb21-10" data-line-number="10">}</a></code></pre></div>
+<pre><code>## cloning into '/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/spm12'...
+## Receiving objects:   1% (64/6388),   18 kb
+## Receiving objects:  11% (703/6388),  260 kb
+## Receiving objects:  21% (1342/6388), 1188 kb
+## Receiving objects:  31% (1981/6388), 6628 kb
+## Receiving objects:  41% (2620/6388), 8356 kb
+## Receiving objects:  51% (3258/6388), 9699 kb
+## Receiving objects:  61% (3897/6388), 31024 kb
+## Receiving objects:  71% (4536/6388), 35823 kb
+## Receiving objects:  81% (5175/6388), 58189 kb
+## Receiving objects:  91% (5814/6388), 69899 kb
+## Receiving objects: 100% (6388/6388), 127972 kb, done.</code></pre>
 <pre><code>## # Getting Number of Time Points
 ## 
 ## # Reslice is mean</code></pre>
 <pre><code>## # Running matlabbatch job</code></pre>
 <pre><code>## # Creating matlabbatch job</code></pre>
-<pre><code>## # Adding SPMDIR: /Library/Frameworks/R.framework/Versions/3.4/Resources/library/spm12r/spm12\n</code></pre>
-<pre><code>## Running job: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/filee04931cbe123.m, which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/filee0496bd2263a.m</code></pre>
+<pre><code>## # Adding SPMDIR: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/spm12\n</code></pre>
+<pre><code>## Running job: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/filef503763a1ff1.m, which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/filef5036588c4f2.m</code></pre>
 <pre><code>## Command run is:</code></pre>
-<pre><code>## matlab -nodesktop -nosplash -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/filee04931cbe123.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
+<pre><code>## matlab  -nodesktop -nosplash -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/filef503763a1ff1.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
 <pre><code>## # Result is 0</code></pre>
 <pre><code>## [1] "spm"      "script"   "outfiles" "rp"       "mean"     "mat"     
 ## [7] "result"</code></pre>
@@ -211,18 +250,18 @@ realign_batch =<span class="st"> </span><span class="kw"><a href="../reference/s
 <h3 class="hasAnchor">
 <a href="#reading-in-the-rp-file" class="anchor"></a>Reading in the RP file</h3>
 <p>Here we can read in the <code>rp</code> file to show the estiamted parameters. These can be used as regressors in motion correction for further analyses.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">####################################
-<span class="co"># Read in Motion data</span>
-####################################
-<span class="cf">if</span> (<span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()) {
-  rpfile =<span class="st"> </span>realigned[[<span class="st">'rp'</span>]]
-  rp =<span class="st"> </span><span class="kw">read.table</span>(<span class="dt">file =</span> rpfile, <span class="dt">header =</span> <span class="ot">FALSE</span>)
-  <span class="kw">colnames</span>(rp) =<span class="st"> </span><span class="kw">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span>, 
-    <span class="st">"roll"</span>, <span class="st">"pitch"</span>, <span class="st">"yaw"</span>)
-  rp =<span class="st"> </span><span class="kw">as.matrix</span>(rp)
-  <span class="kw">print</span>(<span class="kw">head</span>(rp))
-  <span class="kw">print</span>(<span class="kw">dim</span>(rp))
-}</code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">####################################</a>
+<a class="sourceLine" id="cb32-2" data-line-number="2"><span class="co"># Read in Motion data</span></a>
+<a class="sourceLine" id="cb32-3" data-line-number="3">####################################</a>
+<a class="sourceLine" id="cb32-4" data-line-number="4"><span class="cf">if</span> (<span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()) {</a>
+<a class="sourceLine" id="cb32-5" data-line-number="5">  rpfile =<span class="st"> </span>realigned[[<span class="st">'rp'</span>]]</a>
+<a class="sourceLine" id="cb32-6" data-line-number="6">  rp =<span class="st"> </span><span class="kw">read.table</span>(<span class="dt">file =</span> rpfile, <span class="dt">header =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb32-7" data-line-number="7">  <span class="kw">colnames</span>(rp) =<span class="st"> </span><span class="kw">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span>, </a>
+<a class="sourceLine" id="cb32-8" data-line-number="8">    <span class="st">"roll"</span>, <span class="st">"pitch"</span>, <span class="st">"yaw"</span>)</a>
+<a class="sourceLine" id="cb32-9" data-line-number="9">  rp =<span class="st"> </span><span class="kw">as.matrix</span>(rp)</a>
+<a class="sourceLine" id="cb32-10" data-line-number="10">  <span class="kw">print</span>(<span class="kw">head</span>(rp))</a>
+<a class="sourceLine" id="cb32-11" data-line-number="11">  <span class="kw">print</span>(<span class="kw">dim</span>(rp))</a>
+<a class="sourceLine" id="cb32-12" data-line-number="12">}</a></code></pre></div>
 <pre><code>##                x            y             z          roll         pitch
 ## [1,]  0.00000000  0.000000000 -4.410886e-16 -2.507721e-37  2.507721e-37
 ## [2,] -0.03250006  0.022276041  6.105989e-02 -3.616417e-04 -1.389442e-04
@@ -244,60 +283,65 @@ realign_batch =<span class="st"> </span><span class="kw"><a href="../reference/s
 <h2 class="hasAnchor">
 <a href="#slice-timing-correction" class="anchor"></a>Slice-Timing Correction</h2>
 <p>A slice-timing correction does interpolation since each slice was not actually taken at the same time point, but a shifted time point over the course of an entire TR. The correction requires you to input the reference slice (in this case the median, <code>ref_slice</code>), the repetition time (<code>tr</code>), time between the first and the last slice within one scan (<code>ta</code>), and the order the slices were acquired. In our case, it was done in an ascending, contiguous order, so we created the slice order as such. If you used descending or interleaved acquisition, then this must be changed accordingly.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">####################################
-<span class="co"># Slice Timing Correction</span>
-####################################
-nslices =<span class="st"> </span>oro.nifti<span class="op">::</span><span class="kw">nsli</span>(run_fmri)
-slice_order =<span class="st"> </span><span class="dv">1</span><span class="op">:</span>nslices
-ref_slice =<span class="st"> </span>slice_order[<span class="kw">median</span>(<span class="kw">seq</span>(nslices))]
-ta =<span class="st"> </span>tr <span class="op">-</span><span class="st"> </span>tr<span class="op">/</span>nslices
-n_time_points =<span class="st"> </span><span class="kw">ntim</span>(run_fmri)
-
-<span class="co"># using run_fmri because if you do not have</span>
-<span class="co"># matlab, then realigned not available</span>
-st_batch =<span class="st"> </span><span class="kw"><a href="../reference/spm12_slice_timing.html">build_spm12_slice_timing</a></span>(
-  <span class="dt">filename =</span> run_fmri,
-  <span class="dt">time_points =</span> <span class="kw">seq</span>(n_time_points),
-  <span class="dt">nslices =</span> nslices,
-  <span class="dt">tr =</span> tr,
-  <span class="dt">ref_slice =</span> ref_slice,
-  <span class="dt">prefix =</span> <span class="st">"a"</span>)
-
-<span class="kw">print</span>(<span class="kw">names</span>(st_batch))</code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">####################################</a>
+<a class="sourceLine" id="cb34-2" data-line-number="2"><span class="co"># Slice Timing Correction</span></a>
+<a class="sourceLine" id="cb34-3" data-line-number="3">####################################</a>
+<a class="sourceLine" id="cb34-4" data-line-number="4">nslices =<span class="st"> </span>oro.nifti<span class="op">::</span><span class="kw">nsli</span>(run_fmri)</a>
+<a class="sourceLine" id="cb34-5" data-line-number="5">slice_order =<span class="st"> </span><span class="dv">1</span><span class="op">:</span>nslices</a>
+<a class="sourceLine" id="cb34-6" data-line-number="6">ref_slice =<span class="st"> </span>slice_order[<span class="kw">median</span>(<span class="kw">seq</span>(nslices))]</a>
+<a class="sourceLine" id="cb34-7" data-line-number="7">ta =<span class="st"> </span>tr <span class="op">-</span><span class="st"> </span>tr<span class="op">/</span>nslices</a>
+<a class="sourceLine" id="cb34-8" data-line-number="8">n_time_points =<span class="st"> </span><span class="kw">ntim</span>(run_fmri)</a>
+<a class="sourceLine" id="cb34-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb34-10" data-line-number="10"><span class="co"># using run_fmri because if you do not have</span></a>
+<a class="sourceLine" id="cb34-11" data-line-number="11"><span class="co"># matlab, then realigned not available</span></a>
+<a class="sourceLine" id="cb34-12" data-line-number="12">st_batch =<span class="st"> </span><span class="kw"><a href="../reference/spm12_slice_timing.html">build_spm12_slice_timing</a></span>(</a>
+<a class="sourceLine" id="cb34-13" data-line-number="13">  <span class="dt">filename =</span> run_fmri,</a>
+<a class="sourceLine" id="cb34-14" data-line-number="14">  <span class="dt">time_points =</span> <span class="kw">seq</span>(n_time_points),</a>
+<a class="sourceLine" id="cb34-15" data-line-number="15">  <span class="dt">nslices =</span> nslices,</a>
+<a class="sourceLine" id="cb34-16" data-line-number="16">  <span class="dt">tr =</span> tr,</a>
+<a class="sourceLine" id="cb34-17" data-line-number="17">  <span class="dt">ref_slice =</span> ref_slice,</a>
+<a class="sourceLine" id="cb34-18" data-line-number="18">  <span class="dt">prefix =</span> <span class="st">"a"</span>)</a>
+<a class="sourceLine" id="cb34-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb34-20" data-line-number="20"><span class="kw">print</span>(<span class="kw">names</span>(st_batch))</a></code></pre></div>
 <pre><code>## [1] "spm"                 "script"              "orig_filename"      
 ## [4] "base_name"           "temporary_directory" "outfile"</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">names</span>(<span class="kw">unlist</span>(st_batch<span class="op">$</span>spm)))</code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="kw">print</span>(<span class="kw">names</span>(<span class="kw">unlist</span>(st_batch<span class="op">$</span>spm)))</a></code></pre></div>
 <pre><code>## [1] "spm.temporal.st.scans"    "spm.temporal.st.nslices" 
 ## [3] "spm.temporal.st.tr"       "spm.temporal.st.ta"      
 ## [5] "spm.temporal.st.so"       "spm.temporal.st.refslice"
 ## [7] "spm.temporal.st.prefix"</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()) {
-  
-  st_results =<span class="st"> </span><span class="kw"><a href="../reference/spm12_slice_timing.html">spm12_slice_timing</a></span>(
-    <span class="dt">filename =</span> realigned[[<span class="st">'outfiles'</span>]],
-    <span class="dt">time_points =</span> <span class="kw">seq</span>(n_time_points),
-    <span class="dt">nslices =</span> nslices,
-    <span class="dt">tr =</span> tr, 
-    <span class="dt">slice_order =</span> slice_order,
-    <span class="dt">ta =</span> ta, 
-    <span class="dt">ref_slice =</span> ref_slice,
-    <span class="dt">prefix =</span> <span class="st">"a"</span>, 
-    <span class="dt">clean =</span> <span class="ot">FALSE</span>, 
-    <span class="dt">retimg =</span> <span class="ot">FALSE</span>)
-  aimg =<span class="st"> </span>st_results<span class="op">$</span>outfile
-  <span class="kw">print</span>(aimg)
-  mean_img =<span class="st"> </span>realigned[[<span class="st">"mean"</span>]]
-  mean_nifti =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/readNIfTI2">readnii</a></span>(mean_img)
-}</code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()) {</a>
+<a class="sourceLine" id="cb38-2" data-line-number="2">  </a>
+<a class="sourceLine" id="cb38-3" data-line-number="3">  st_results =<span class="st"> </span><span class="kw"><a href="../reference/spm12_slice_timing.html">spm12_slice_timing</a></span>(</a>
+<a class="sourceLine" id="cb38-4" data-line-number="4">    <span class="dt">filename =</span> realigned[[<span class="st">'outfiles'</span>]],</a>
+<a class="sourceLine" id="cb38-5" data-line-number="5">    <span class="dt">time_points =</span> <span class="kw">seq</span>(n_time_points),</a>
+<a class="sourceLine" id="cb38-6" data-line-number="6">    <span class="dt">nslices =</span> nslices,</a>
+<a class="sourceLine" id="cb38-7" data-line-number="7">    <span class="dt">tr =</span> tr, </a>
+<a class="sourceLine" id="cb38-8" data-line-number="8">    <span class="dt">slice_order =</span> slice_order,</a>
+<a class="sourceLine" id="cb38-9" data-line-number="9">    <span class="dt">ta =</span> ta, </a>
+<a class="sourceLine" id="cb38-10" data-line-number="10">    <span class="dt">ref_slice =</span> ref_slice,</a>
+<a class="sourceLine" id="cb38-11" data-line-number="11">    <span class="dt">prefix =</span> <span class="st">"a"</span>, </a>
+<a class="sourceLine" id="cb38-12" data-line-number="12">    <span class="dt">clean =</span> <span class="ot">FALSE</span>, </a>
+<a class="sourceLine" id="cb38-13" data-line-number="13">    <span class="dt">retimg =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb38-14" data-line-number="14">    <span class="dt">install_dir =</span> install_dir</a>
+<a class="sourceLine" id="cb38-15" data-line-number="15">    )</a>
+<a class="sourceLine" id="cb38-16" data-line-number="16">  aimg =<span class="st"> </span>st_results<span class="op">$</span>outfile</a>
+<a class="sourceLine" id="cb38-17" data-line-number="17">  <span class="kw">print</span>(aimg)</a>
+<a class="sourceLine" id="cb38-18" data-line-number="18">  mean_img =<span class="st"> </span>realigned[[<span class="st">"mean"</span>]]</a>
+<a class="sourceLine" id="cb38-19" data-line-number="19">  mean_nifti =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/readNIfTI2">readnii</a></span>(mean_img)</a>
+<a class="sourceLine" id="cb38-20" data-line-number="20">}</a></code></pre></div>
 <pre><code>## # Running matlabbatch job</code></pre>
 <pre><code>## # Creating matlabbatch job</code></pre>
-<pre><code>## # Adding SPMDIR: /Library/Frameworks/R.framework/Versions/3.4/Resources/library/spm12r/spm12\n</code></pre>
-<pre><code>## Running job: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/filee049ebdefdd.m, which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/filee0495b50b1a1.m</code></pre>
+<pre><code>## # Adding SPMDIR: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/spm12\n</code></pre>
+<pre><code>## Running job: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/filef50335264689.m, which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/filef50331a2c4cc.m</code></pre>
 <pre><code>## Command run is:</code></pre>
-<pre><code>## matlab -nodesktop -nosplash -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/filee049ebdefdd.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
+<pre><code>## matlab  -nodesktop -nosplash -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/filef50335264689.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
 <pre><code>## # Result is 0</code></pre>
-<pre><code>## [1] "/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/afilee049f5e58fb.nii"</code></pre>
+<pre><code>## [1] "/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/afilef5036f3e5467.nii"</code></pre>
 <p>We see the output <code>aimg</code> has the filename of the slice-timing corrected 4D image. We also read in the mean image into a <code>nifti</code> object (<code>mean_nifti</code>).</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()) {</a>
+<a class="sourceLine" id="cb47-2" data-line-number="2">  run_fmri =<span class="st"> </span><span class="kw"><a href="../reference/filename_check.html">filename_check</a></span>(run_fmri)</a>
+<a class="sourceLine" id="cb47-3" data-line-number="3">}</a></code></pre></div>
 </div>
 <div id="spatial-normalization" class="section level2">
 <h2 class="hasAnchor">
@@ -306,49 +350,52 @@ st_batch =<span class="st"> </span><span class="kw"><a href="../reference/spm12_
 <h3 class="hasAnchor">
 <a href="#ac-pc-alignment" class="anchor"></a>AC-PC Alignment</h3>
 <p>For the subsequent image normalization steps, SPM assumes the data is aligned along the anterior commissure (AC) posterior commissure (PC) line (AC-PC). The <code>acpc_reorient</code> function (based on <code>nii_setOrigin</code> from Dr. Chris Rorden) will do this. The syntax is that the first file (<code>mean_img</code>) is used to estimate the line/plane and the subsequent files are reoriented using this estimation (<code>aimg</code>). These are changes to the header of the image and the image with the new header is written to the same file as the input file.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()) {
-  <span class="kw"><a href="../reference/acpc_reorient.html">acpc_reorient</a></span>(
-    <span class="dt">infiles =</span> <span class="kw">c</span>(mean_img, aimg),
-    <span class="dt">modality =</span> <span class="st">"T1"</span>)
-}</code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()) {</a>
+<a class="sourceLine" id="cb48-2" data-line-number="2">  <span class="kw"><a href="../reference/acpc_reorient.html">acpc_reorient</a></span>(</a>
+<a class="sourceLine" id="cb48-3" data-line-number="3">    <span class="dt">infiles =</span> <span class="kw">c</span>(mean_img, aimg),</a>
+<a class="sourceLine" id="cb48-4" data-line-number="4">    <span class="dt">modality =</span> <span class="st">"T1"</span>,</a>
+<a class="sourceLine" id="cb48-5" data-line-number="5">    <span class="dt">install_dir =</span> install_dir</a>
+<a class="sourceLine" id="cb48-6" data-line-number="6">    )</a>
+<a class="sourceLine" id="cb48-7" data-line-number="7">}</a></code></pre></div>
 <pre><code>## 
-##  #Reorientation /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpxoh8qU/meanfilee049f5e58fb.nii</code></pre>
-<pre><code>## Script created: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/filee0493dd54b5f.m</code></pre>
+##  #Reorientation /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpk4weF5/meanfilef5036f3e5467.nii</code></pre>
+<pre><code>## Script created: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/filef50338edcf86.m</code></pre>
 <pre><code>## Command run is:</code></pre>
-<pre><code>## matlab -nodesktop -nosplash -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/filee0493dd54b5f.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
-<pre><code>##   /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpxoh8qU/meanfilee049f5e58fb.nii 
-## "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpxoh8qU/meanfilee049f5e58fb.nii" 
-##             /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/afilee049f5e58fb.nii 
-##    "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpxoh8qU/afilee049f5e58fb.nii"</code></pre>
+<pre><code>## matlab  -nodesktop -nosplash -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/filef50338edcf86.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
+<pre><code>##   /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpk4weF5/meanfilef5036f3e5467.nii 
+## "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpk4weF5/meanfilef5036f3e5467.nii" 
+##             /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/afilef5036f3e5467.nii 
+##    "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpk4weF5/afilef5036f3e5467.nii"</code></pre>
 </div>
 <div id="direct-normalization" class="section level3">
 <h3 class="hasAnchor">
 <a href="#direct-normalization" class="anchor"></a>Direct Normalization</h3>
 <p>Here, we will spatially normalize the fMRI to the MNI template using <code>spm12_normalize</code>. Here we specify a standard bounding box for a 2mm MNI template. We are taking the mean image and directly registering it to the MNI template (T1-weighted), and applying that transform to the <code>other.files</code>, in this case the mean image and the 4D fMRI image.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()) {
-  bbox =<span class="st"> </span><span class="kw">matrix</span>(
-        <span class="kw">c</span>(<span class="op">-</span><span class="dv">90</span>, <span class="op">-</span><span class="dv">126</span>, <span class="op">-</span><span class="dv">72</span>, 
-        <span class="dv">90</span>, <span class="dv">90</span>, <span class="dv">108</span>), 
-        <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)
-  <span class="kw">print</span>(bbox)
-  direct_norm =<span class="st"> </span><span class="kw"><a href="../reference/spm12_normalize.html">spm12_normalize</a></span>(
-    <span class="dt">filename =</span> mean_img,
-    <span class="dt">other.files =</span> <span class="kw">c</span>(mean_img, aimg),
-    <span class="dt">bounding_box =</span> bbox,
-    <span class="dt">clean =</span> <span class="ot">FALSE</span>
-    )
-  <span class="kw">print</span>(<span class="kw">names</span>(direct_norm))
-  dnorm_files =<span class="st"> </span>direct_norm<span class="op">$</span>outfiles
-  dnorm_mean_img =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/readNIfTI2">readnii</a></span>(dnorm_files[<span class="dv">1</span>])
-}</code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()) {</a>
+<a class="sourceLine" id="cb54-2" data-line-number="2">  bbox =<span class="st"> </span><span class="kw">matrix</span>(</a>
+<a class="sourceLine" id="cb54-3" data-line-number="3">        <span class="kw">c</span>(<span class="op">-</span><span class="dv">90</span>, <span class="dv">-126</span>, <span class="dv">-72</span>, </a>
+<a class="sourceLine" id="cb54-4" data-line-number="4">        <span class="dv">90</span>, <span class="dv">90</span>, <span class="dv">108</span>), </a>
+<a class="sourceLine" id="cb54-5" data-line-number="5">        <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb54-6" data-line-number="6">  <span class="kw">print</span>(bbox)</a>
+<a class="sourceLine" id="cb54-7" data-line-number="7">  direct_norm =<span class="st"> </span><span class="kw"><a href="../reference/spm12_normalize.html">spm12_normalize</a></span>(</a>
+<a class="sourceLine" id="cb54-8" data-line-number="8">    <span class="dt">filename =</span> mean_img,</a>
+<a class="sourceLine" id="cb54-9" data-line-number="9">    <span class="dt">other.files =</span> <span class="kw">c</span>(mean_img, aimg),</a>
+<a class="sourceLine" id="cb54-10" data-line-number="10">    <span class="dt">bounding_box =</span> bbox,</a>
+<a class="sourceLine" id="cb54-11" data-line-number="11">    <span class="dt">clean =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb54-12" data-line-number="12">    <span class="dt">install_dir =</span> install_dir</a>
+<a class="sourceLine" id="cb54-13" data-line-number="13">    )</a>
+<a class="sourceLine" id="cb54-14" data-line-number="14">  <span class="kw">print</span>(<span class="kw">names</span>(direct_norm))</a>
+<a class="sourceLine" id="cb54-15" data-line-number="15">  dnorm_files =<span class="st"> </span>direct_norm<span class="op">$</span>outfiles</a>
+<a class="sourceLine" id="cb54-16" data-line-number="16">  dnorm_mean_img =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/readNIfTI2">readnii</a></span>(dnorm_files[<span class="dv">1</span>])</a>
+<a class="sourceLine" id="cb54-17" data-line-number="17">}</a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]  -90 -126  -72
 ## [2,]   90   90  108</code></pre>
-<pre><code>## # Adding SPMDIR: /Library/Frameworks/R.framework/Versions/3.4/Resources/library/spm12r/spm12</code></pre>
-<pre><code>## # Running script /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/Executable.m
-## which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/Normalize_Estimate_and_Write_job.m</code></pre>
+<pre><code>## # Adding SPMDIR: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/spm12</code></pre>
+<pre><code>## # Running script /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/Executable.m
+## which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/Normalize_Estimate_and_Write_job.m</code></pre>
 <pre><code>## Command run is:</code></pre>
-<pre><code>## matlab -nodesktop -nosplash -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/Executable.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
+<pre><code>## matlab  -nodesktop -nosplash -singleCompThread -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/Executable.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
 <pre><code>## # Result is 0</code></pre>
 <pre><code>## [1] "spm"      "script"   "outfiles" "result"</code></pre>
 <p>We see tbe output <code>direct_norm</code> is a list with the output files (<code>outfiles</code>). The order of these files is the same as the order of those put in. In this case, the first file of <code>outfiles</code> is the normalized mean image and second is the normalized 4D image. Here we read in the spatially normalized mean image to compare to the template later.</p>
@@ -362,41 +409,45 @@ st_batch =<span class="st"> </span><span class="kw"><a href="../reference/spm12_
 <a href="#anatomical-mri-coregistration-to-mean-fmri" class="anchor"></a>Anatomical MRI Coregistration to Mean fMRI</h4>
 <p>Here we will perform the registration of the T1-weigted anatomical image into the space of the mean fMRI image after realignment. This is referred to as “co-registration” as it is within-subject registration, but across modalities (where we referred to within-subject, within-modality as realignment).</p>
 <p>Here, we also reorient the anatomical image the AC-PC line. We then perform the coregistration using <code>spm12_coregister</code>, where the fixed image is the mean image and the moving image is the anatomical.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()) {
-  anatomical =<span class="st"> </span>files[<span class="st">"anatomical"</span>]
-  anat_img =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/checknii-methods">checknii</a></span>(anatomical)
-  <span class="kw">print</span>(anat_img)
-  <span class="kw"><a href="../reference/acpc_reorient.html">acpc_reorient</a></span>(
-    <span class="dt">infiles =</span> anat_img,
-    <span class="dt">modality =</span> <span class="st">"T1"</span>)
-
-  coreg =<span class="st"> </span><span class="kw"><a href="../reference/spm12_coregister.html">spm12_coregister</a></span>(
-    <span class="dt">fixed =</span> mean_img,
-    <span class="dt">moving =</span> anat_img,
-    <span class="dt">prefix =</span> <span class="st">"r"</span>)
-  
-  coreg_anat =<span class="st"> </span>coreg<span class="op">$</span>outfile
-  coreg_img =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/readNIfTI2">readnii</a></span>(coreg_anat)
-  <span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/double_ortho">double_ortho</a></span>(coreg_img, mean_nifti)
-}</code></pre></div>
-<pre><code>## [1] "/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpxoh8qU/113-01-T1.nii"
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()) {</a>
+<a class="sourceLine" id="cb62-2" data-line-number="2">  anatomical =<span class="st"> </span>files[<span class="st">"anatomical"</span>]</a>
+<a class="sourceLine" id="cb62-3" data-line-number="3">  anat_img =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/checknii-methods">checknii</a></span>(anatomical)</a>
+<a class="sourceLine" id="cb62-4" data-line-number="4">  <span class="kw">print</span>(anat_img)</a>
+<a class="sourceLine" id="cb62-5" data-line-number="5">  <span class="kw"><a href="../reference/acpc_reorient.html">acpc_reorient</a></span>(</a>
+<a class="sourceLine" id="cb62-6" data-line-number="6">    <span class="dt">infiles =</span> anat_img,</a>
+<a class="sourceLine" id="cb62-7" data-line-number="7">    <span class="dt">modality =</span> <span class="st">"T1"</span>,</a>
+<a class="sourceLine" id="cb62-8" data-line-number="8">    <span class="dt">install_dir =</span> install_dir</a>
+<a class="sourceLine" id="cb62-9" data-line-number="9">    )</a>
+<a class="sourceLine" id="cb62-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb62-11" data-line-number="11">  coreg =<span class="st"> </span><span class="kw"><a href="../reference/spm12_coregister.html">spm12_coregister</a></span>(</a>
+<a class="sourceLine" id="cb62-12" data-line-number="12">    <span class="dt">fixed =</span> mean_img,</a>
+<a class="sourceLine" id="cb62-13" data-line-number="13">    <span class="dt">moving =</span> anat_img,</a>
+<a class="sourceLine" id="cb62-14" data-line-number="14">    <span class="dt">prefix =</span> <span class="st">"r"</span>,</a>
+<a class="sourceLine" id="cb62-15" data-line-number="15">    <span class="dt">install_dir =</span> install_dir</a>
+<a class="sourceLine" id="cb62-16" data-line-number="16">    )</a>
+<a class="sourceLine" id="cb62-17" data-line-number="17">  </a>
+<a class="sourceLine" id="cb62-18" data-line-number="18">  coreg_anat =<span class="st"> </span>coreg<span class="op">$</span>outfile</a>
+<a class="sourceLine" id="cb62-19" data-line-number="19">  coreg_img =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/readNIfTI2">readnii</a></span>(coreg_anat)</a>
+<a class="sourceLine" id="cb62-20" data-line-number="20">  <span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/double_ortho">double_ortho</a></span>(coreg_img, mean_nifti)</a>
+<a class="sourceLine" id="cb62-21" data-line-number="21">}</a></code></pre></div>
+<pre><code>## [1] "/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpk4weF5/113-01-T1.nii"
 ## attr(,"nbrOfBytes")
 ## [1] 44564832</code></pre>
 <pre><code>## 
-##  #Reorientation /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpxoh8qU/113-01-T1.nii</code></pre>
-<pre><code>## Script created: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/filee0493189f906.m</code></pre>
+##  #Reorientation /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpk4weF5/113-01-T1.nii</code></pre>
+<pre><code>## Script created: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/filef503260f0b9c.m</code></pre>
 <pre><code>## Command run is:</code></pre>
-<pre><code>## matlab -nodesktop -nosplash -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/filee0493189f906.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
+<pre><code>## matlab  -nodesktop -nosplash -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/filef503260f0b9c.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
 <pre><code>## Checking Filenames</code></pre>
 <pre><code>## # Running matlabbatch job</code></pre>
 <pre><code>## # Creating matlabbatch job</code></pre>
-<pre><code>## # Adding SPMDIR: /Library/Frameworks/R.framework/Versions/3.4/Resources/library/spm12r/spm12\n</code></pre>
-<pre><code>## Running job: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/filee04919fcaf02.m, which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/filee04976d6f342.m</code></pre>
+<pre><code>## # Adding SPMDIR: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/spm12\n</code></pre>
+<pre><code>## Running job: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/filef50347d38cd8.m, which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/filef5033634d9fd.m</code></pre>
 <pre><code>## Command run is:</code></pre>
-<pre><code>## matlab -nodesktop -nosplash -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/filee04919fcaf02.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
+<pre><code>## matlab  -nodesktop -nosplash -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/filef50347d38cd8.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
 <pre><code>## # Result is 0</code></pre>
 <pre><code>## # Removing scripts</code></pre>
-<p><img src="fmri_processing_spm12r_files/figure-html/coreg-1.png" width="672"></p>
+<p><img src="fmri_processing_spm12r_files/figure-html/coreg-1.png" width="700"></p>
 <p>We see the anatomical image has been transformed and resliced into the mean fMRI image space (and thus has the resolution of that image).</p>
 </div>
 </div>
@@ -405,19 +456,21 @@ st_batch =<span class="st"> </span><span class="kw"><a href="../reference/spm12_
 <h2 class="hasAnchor">
 <a href="#anatomical-mri-segmentation-and-spatial-normalize-estimation" class="anchor"></a>Anatomical MRI Segmentation (and Spatial Normalize Estimation)</h2>
 <p>Here we perform the segmentation of the co-registered anatomical image from above. This will segment the image into 6 different regions, where the regions are gray matter, white matter, cerebrospinal fluid (CSF), bone, soft tissue, and the background. You should inspect these visually before using them to ensure quality and no reordering due to artifacts.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()) {
-  seg_res =<span class="st"> </span><span class="kw"><a href="../reference/spm12_segment.html">spm12_segment</a></span>(
-    <span class="dt">filename =</span> coreg_anat,
-    <span class="dt">set_origin =</span> <span class="ot">FALSE</span>,
-    <span class="dt">retimg =</span> <span class="ot">FALSE</span>,
-    <span class="dt">clean =</span> <span class="ot">FALSE</span>)
-  <span class="kw">print</span>(<span class="kw">names</span>(seg_res))
-}</code></pre></div>
-<pre><code>## # Adding SPMDIR: /Library/Frameworks/R.framework/Versions/3.4/Resources/library/spm12r/spm12</code></pre>
-<pre><code>## # Running script /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/Executable.m
-## which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/Segment_job.m</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()) {</a>
+<a class="sourceLine" id="cb77-2" data-line-number="2">  seg_res =<span class="st"> </span><span class="kw"><a href="../reference/spm12_segment.html">spm12_segment</a></span>(</a>
+<a class="sourceLine" id="cb77-3" data-line-number="3">    <span class="dt">filename =</span> coreg_anat,</a>
+<a class="sourceLine" id="cb77-4" data-line-number="4">    <span class="dt">set_origin =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb77-5" data-line-number="5">    <span class="dt">retimg =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb77-6" data-line-number="6">    <span class="dt">clean =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb77-7" data-line-number="7">    <span class="dt">install_dir =</span> install_dir</a>
+<a class="sourceLine" id="cb77-8" data-line-number="8">    )</a>
+<a class="sourceLine" id="cb77-9" data-line-number="9">  <span class="kw">print</span>(<span class="kw">names</span>(seg_res))</a>
+<a class="sourceLine" id="cb77-10" data-line-number="10">}</a></code></pre></div>
+<pre><code>## # Adding SPMDIR: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/spm12</code></pre>
+<pre><code>## # Running script /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/Executable.m
+## which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/Segment_job.m</code></pre>
 <pre><code>## Command run is:</code></pre>
-<pre><code>## matlab -nodesktop -nosplash -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/Executable.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
+<pre><code>## matlab  -nodesktop -nosplash -singleCompThread -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/Executable.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
 <pre><code>## # Result is 0</code></pre>
 <pre><code>## [1] "spm"                 "script"              "result"             
 ## [4] "outfiles"            "outmat"              "deformation"        
@@ -427,45 +480,47 @@ st_batch =<span class="st"> </span><span class="kw"><a href="../reference/spm12_
 <h3 class="hasAnchor">
 <a href="#hard-segmentations" class="anchor"></a>“Hard” Segmentations</h3>
 <p>If you would like to convert these class probabilities to a “hard” segmentation, you must read the data in and use <code>spm_probs_to_seg</code> for that. In <code>spm_probs_to_seg</code>, each voxel is assigned the class with the maximum probability, with options on how to choose ties (first is default). We can then remove the labels for bone, soft tissue, and background (<code>&gt; 3</code>).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">alpha =<span class="st"> </span><span class="cf">function</span>(col, <span class="dt">alpha =</span> <span class="dv">1</span>) {
-  cols =<span class="st"> </span><span class="kw">t</span>(<span class="kw">col2rgb</span>(col, <span class="dt">alpha =</span> <span class="ot">FALSE</span>)<span class="op">/</span><span class="dv">255</span>)
-  <span class="kw">rgb</span>(cols, <span class="dt">alpha =</span> alpha)
-} 
-<span class="cf">if</span> (<span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()) {
-  seg_files =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/check_nifti-methods">check_nifti</a></span>(seg_res<span class="op">$</span>outfiles)
-  hard_seg =<span class="st"> </span><span class="kw"><a href="../reference/spm_probs_to_seg.html">spm_probs_to_seg</a></span>(seg_files)
-  hard_seg[ hard_seg <span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span>] =<span class="st"> </span><span class="dv">0</span>
-  
-  <span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/ortho2">ortho2</a></span>(coreg_img, hard_seg, 
-         <span class="dt">col.y =</span> <span class="kw">alpha</span>(<span class="kw">c</span>(<span class="st">"red"</span>, <span class="st">"green"</span>, <span class="st">"blue"</span>), <span class="fl">0.5</span>))
-}</code></pre></div>
-<p><img src="fmri_processing_spm12r_files/figure-html/segs_to_hard-1.png" width="672"></p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1">alpha =<span class="st"> </span><span class="cf">function</span>(col, <span class="dt">alpha =</span> <span class="dv">1</span>) {</a>
+<a class="sourceLine" id="cb84-2" data-line-number="2">  cols =<span class="st"> </span><span class="kw">t</span>(<span class="kw">col2rgb</span>(col, <span class="dt">alpha =</span> <span class="ot">FALSE</span>)<span class="op">/</span><span class="dv">255</span>)</a>
+<a class="sourceLine" id="cb84-3" data-line-number="3">  <span class="kw">rgb</span>(cols, <span class="dt">alpha =</span> alpha)</a>
+<a class="sourceLine" id="cb84-4" data-line-number="4">} </a>
+<a class="sourceLine" id="cb84-5" data-line-number="5"><span class="cf">if</span> (<span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()) {</a>
+<a class="sourceLine" id="cb84-6" data-line-number="6">  seg_files =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/check_nifti-methods">check_nifti</a></span>(seg_res<span class="op">$</span>outfiles)</a>
+<a class="sourceLine" id="cb84-7" data-line-number="7">  hard_seg =<span class="st"> </span><span class="kw"><a href="../reference/spm_probs_to_seg.html">spm_probs_to_seg</a></span>(seg_files)</a>
+<a class="sourceLine" id="cb84-8" data-line-number="8">  hard_seg[ hard_seg <span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span>] =<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb84-9" data-line-number="9">  </a>
+<a class="sourceLine" id="cb84-10" data-line-number="10">  <span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/ortho2">ortho2</a></span>(coreg_img, hard_seg, </a>
+<a class="sourceLine" id="cb84-11" data-line-number="11">         <span class="dt">col.y =</span> <span class="kw">alpha</span>(<span class="kw">c</span>(<span class="st">"red"</span>, <span class="st">"green"</span>, <span class="st">"blue"</span>), <span class="fl">0.5</span>))</a>
+<a class="sourceLine" id="cb84-12" data-line-number="12">}</a></code></pre></div>
+<p><img src="fmri_processing_spm12r_files/figure-html/segs_to_hard-1.png" width="700"></p>
 </div>
 <div id="applying-spatial-normalization-transformation" class="section level3">
 <h3 class="hasAnchor">
 <a href="#applying-spatial-normalization-transformation" class="anchor"></a>Applying Spatial Normalization Transformation</h3>
 <p>Now that we have esimated the transformation from the T1 image, we can take that deformation and apply it to the fMRI data using <code>spm12_normalize_write</code>. Again, we are registering to the MNI template and will use a standard bounding box. We pass the anatomical, mean fMRI, and 4D fMRI data in to be transformed.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bbox =<span class="st"> </span><span class="kw">matrix</span>(
-  <span class="kw">c</span>(<span class="op">-</span><span class="dv">90</span>, <span class="op">-</span><span class="dv">126</span>, <span class="op">-</span><span class="dv">72</span>, 
-    <span class="dv">90</span>, <span class="dv">90</span>, <span class="dv">108</span>), 
-  <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)
-<span class="cf">if</span> (<span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()) {
-  norm =<span class="st"> </span><span class="kw"><a href="../reference/spm12_normalize_write.html">spm12_normalize_write</a></span>(
-    <span class="dt">deformation =</span> seg_res<span class="op">$</span>deformation,
-    <span class="dt">other.files =</span> <span class="kw">c</span>(coreg_anat, mean_img, aimg),
-    <span class="dt">bounding_box =</span> bbox,
-    <span class="dt">retimg =</span> <span class="ot">FALSE</span>)
-  <span class="kw">print</span>(<span class="kw">names</span>(norm))
-  norm_data =<span class="st"> </span>norm<span class="op">$</span>outfiles
-  <span class="kw">names</span>(norm_data) =<span class="st"> </span><span class="kw">c</span>(<span class="st">"anat"</span>, <span class="st">"mean"</span>, <span class="st">"fmri"</span>)
-  norm_mean_img =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/readNIfTI2">readnii</a></span>(norm_data[<span class="st">"mean"</span>])
-  norm_anat_img =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/readNIfTI2">readnii</a></span>(norm_data[<span class="st">"anat"</span>])
-}</code></pre></div>
-<pre><code>## # Adding SPMDIR: /Library/Frameworks/R.framework/Versions/3.4/Resources/library/spm12r/spm12</code></pre>
-<pre><code>## # Running script /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/Executable.m
-## which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/Normalize_Write_job.m</code></pre>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1">bbox =<span class="st"> </span><span class="kw">matrix</span>(</a>
+<a class="sourceLine" id="cb85-2" data-line-number="2">  <span class="kw">c</span>(<span class="op">-</span><span class="dv">90</span>, <span class="dv">-126</span>, <span class="dv">-72</span>, </a>
+<a class="sourceLine" id="cb85-3" data-line-number="3">    <span class="dv">90</span>, <span class="dv">90</span>, <span class="dv">108</span>), </a>
+<a class="sourceLine" id="cb85-4" data-line-number="4">  <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb85-5" data-line-number="5"><span class="cf">if</span> (<span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()) {</a>
+<a class="sourceLine" id="cb85-6" data-line-number="6">  norm =<span class="st"> </span><span class="kw"><a href="../reference/spm12_normalize_write.html">spm12_normalize_write</a></span>(</a>
+<a class="sourceLine" id="cb85-7" data-line-number="7">    <span class="dt">deformation =</span> seg_res<span class="op">$</span>deformation,</a>
+<a class="sourceLine" id="cb85-8" data-line-number="8">    <span class="dt">other.files =</span> <span class="kw">c</span>(coreg_anat, mean_img, aimg),</a>
+<a class="sourceLine" id="cb85-9" data-line-number="9">    <span class="dt">bounding_box =</span> bbox,</a>
+<a class="sourceLine" id="cb85-10" data-line-number="10">    <span class="dt">retimg =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb85-11" data-line-number="11">    <span class="dt">install_dir =</span> install_dir</a>
+<a class="sourceLine" id="cb85-12" data-line-number="12">    )</a>
+<a class="sourceLine" id="cb85-13" data-line-number="13">  <span class="kw">print</span>(<span class="kw">names</span>(norm))</a>
+<a class="sourceLine" id="cb85-14" data-line-number="14">  norm_data =<span class="st"> </span>norm<span class="op">$</span>outfiles</a>
+<a class="sourceLine" id="cb85-15" data-line-number="15">  <span class="kw">names</span>(norm_data) =<span class="st"> </span><span class="kw">c</span>(<span class="st">"anat"</span>, <span class="st">"mean"</span>, <span class="st">"fmri"</span>)</a>
+<a class="sourceLine" id="cb85-16" data-line-number="16">  norm_mean_img =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/readNIfTI2">readnii</a></span>(norm_data[<span class="st">"mean"</span>])</a>
+<a class="sourceLine" id="cb85-17" data-line-number="17">  norm_anat_img =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/readNIfTI2">readnii</a></span>(norm_data[<span class="st">"anat"</span>])</a>
+<a class="sourceLine" id="cb85-18" data-line-number="18">}</a></code></pre></div>
+<pre><code>## # Adding SPMDIR: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/spm12</code></pre>
+<pre><code>## # Running script /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/Executable.m
+## which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/Normalize_Write_job.m</code></pre>
 <pre><code>## Command run is:</code></pre>
-<pre><code>## matlab -nodesktop -nosplash -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/Executable.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
+<pre><code>## matlab  -nodesktop -nosplash -singleCompThread -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/Executable.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
 <pre><code>## # Result is 0</code></pre>
 <pre><code>## # Removing scripts</code></pre>
 <pre><code>## [1] "spm"          "script"       "deformation"  "other_fnames"
@@ -476,29 +531,29 @@ st_batch =<span class="st"> </span><span class="kw"><a href="../reference/spm12_
 <h3 class="hasAnchor">
 <a href="#comparison-of-direct-and-indirect-normalization" class="anchor"></a>Comparison of Direct and Indirect Normalization</h3>
 <p>Here we will use the MNI 152 template to view results (the one we registered to). We create some crude masks to see how the overall brain overlaps with the template to make some comparisons.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()) {
-  template_path =<span class="st"> </span><span class="kw">file.path</span>(<span class="kw"><a href="../reference/spm_dir.html">spm_dir</a></span>(), 
-                            <span class="st">"canonical"</span>, <span class="st">"avg152T1.nii"</span>)
-
-  template =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/readNIfTI2">readnii</a></span>(template_path)
-  
-  dnorm_mask =<span class="st"> </span>dnorm_mean_img <span class="op">&gt;</span><span class="st"> </span><span class="kw">quantile</span>(
-    dnorm_mean_img[dnorm_mean_img <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>], 
-    <span class="dt">probs =</span> <span class="fl">0.6</span>)
-  norm_mask =<span class="st"> </span>norm_mean_img <span class="op">&gt;</span><span class="st"> </span><span class="kw">quantile</span>(
-    norm_mean_img[norm_mean_img <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>], 
-    <span class="dt">probs =</span> <span class="fl">0.6</span>)  
-  
-  <span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/double_ortho">double_ortho</a></span>(template, norm_anat_img)
-  <span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/double_ortho">double_ortho</a></span>(template, norm_mean_img)
-  <span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/double_ortho">double_ortho</a></span>(norm_mean_img, norm_anat_img)
-  <span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/ortho2">ortho2</a></span>(template, norm_mask, <span class="dt">col.y =</span> <span class="kw">alpha</span>(<span class="st">"red"</span>, <span class="fl">0.5</span>))
-
-  <span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/double_ortho">double_ortho</a></span>(template, dnorm_mean_img)
-  <span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/ortho2">ortho2</a></span>(template, dnorm_mask, <span class="dt">col.y =</span> <span class="kw">alpha</span>(<span class="st">"red"</span>, <span class="fl">0.5</span>))
-  <span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/double_ortho">double_ortho</a></span>(norm_mean_img, dnorm_mean_img)
-}</code></pre></div>
-<p><img src="fmri_processing_spm12r_files/figure-html/check_norm-1.png" width="672"><img src="fmri_processing_spm12r_files/figure-html/check_norm-2.png" width="672"><img src="fmri_processing_spm12r_files/figure-html/check_norm-3.png" width="672"><img src="fmri_processing_spm12r_files/figure-html/check_norm-4.png" width="672"><img src="fmri_processing_spm12r_files/figure-html/check_norm-5.png" width="672"><img src="fmri_processing_spm12r_files/figure-html/check_norm-6.png" width="672"><img src="fmri_processing_spm12r_files/figure-html/check_norm-7.png" width="672"></p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()) {</a>
+<a class="sourceLine" id="cb93-2" data-line-number="2">  template_path =<span class="st"> </span><span class="kw">file.path</span>(<span class="kw"><a href="../reference/spm_dir.html">spm_dir</a></span>(), </a>
+<a class="sourceLine" id="cb93-3" data-line-number="3">                            <span class="st">"canonical"</span>, <span class="st">"avg152T1.nii"</span>)</a>
+<a class="sourceLine" id="cb93-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb93-5" data-line-number="5">  template =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/readNIfTI2">readnii</a></span>(template_path)</a>
+<a class="sourceLine" id="cb93-6" data-line-number="6">  </a>
+<a class="sourceLine" id="cb93-7" data-line-number="7">  dnorm_mask =<span class="st"> </span>dnorm_mean_img <span class="op">&gt;</span><span class="st"> </span><span class="kw">quantile</span>(</a>
+<a class="sourceLine" id="cb93-8" data-line-number="8">    dnorm_mean_img[dnorm_mean_img <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>], </a>
+<a class="sourceLine" id="cb93-9" data-line-number="9">    <span class="dt">probs =</span> <span class="fl">0.6</span>)</a>
+<a class="sourceLine" id="cb93-10" data-line-number="10">  norm_mask =<span class="st"> </span>norm_mean_img <span class="op">&gt;</span><span class="st"> </span><span class="kw">quantile</span>(</a>
+<a class="sourceLine" id="cb93-11" data-line-number="11">    norm_mean_img[norm_mean_img <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>], </a>
+<a class="sourceLine" id="cb93-12" data-line-number="12">    <span class="dt">probs =</span> <span class="fl">0.6</span>)  </a>
+<a class="sourceLine" id="cb93-13" data-line-number="13">  </a>
+<a class="sourceLine" id="cb93-14" data-line-number="14">  <span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/double_ortho">double_ortho</a></span>(template, norm_anat_img)</a>
+<a class="sourceLine" id="cb93-15" data-line-number="15">  <span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/double_ortho">double_ortho</a></span>(template, norm_mean_img)</a>
+<a class="sourceLine" id="cb93-16" data-line-number="16">  <span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/double_ortho">double_ortho</a></span>(norm_mean_img, norm_anat_img)</a>
+<a class="sourceLine" id="cb93-17" data-line-number="17">  <span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/ortho2">ortho2</a></span>(template, norm_mask, <span class="dt">col.y =</span> <span class="kw">alpha</span>(<span class="st">"red"</span>, <span class="fl">0.5</span>))</a>
+<a class="sourceLine" id="cb93-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb93-19" data-line-number="19">  <span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/double_ortho">double_ortho</a></span>(template, dnorm_mean_img)</a>
+<a class="sourceLine" id="cb93-20" data-line-number="20">  <span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/ortho2">ortho2</a></span>(template, dnorm_mask, <span class="dt">col.y =</span> <span class="kw">alpha</span>(<span class="st">"red"</span>, <span class="fl">0.5</span>))</a>
+<a class="sourceLine" id="cb93-21" data-line-number="21">  <span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/double_ortho">double_ortho</a></span>(norm_mean_img, dnorm_mean_img)</a>
+<a class="sourceLine" id="cb93-22" data-line-number="22">}</a></code></pre></div>
+<p><img src="fmri_processing_spm12r_files/figure-html/check_norm-1.png" width="700"><img src="fmri_processing_spm12r_files/figure-html/check_norm-2.png" width="700"><img src="fmri_processing_spm12r_files/figure-html/check_norm-3.png" width="700"><img src="fmri_processing_spm12r_files/figure-html/check_norm-4.png" width="700"><img src="fmri_processing_spm12r_files/figure-html/check_norm-5.png" width="700"><img src="fmri_processing_spm12r_files/figure-html/check_norm-6.png" width="700"><img src="fmri_processing_spm12r_files/figure-html/check_norm-7.png" width="700"></p>
 </div>
 </div>
 <div id="spatial-smoothing" class="section level2">
@@ -508,59 +563,60 @@ st_batch =<span class="st"> </span><span class="kw"><a href="../reference/spm12_
 <p><span class="math display">\[
 FWHM = \sigma \sqrt{8 \log(2)}
 \]</span> where <span class="math inline">\(\log\)</span>` is the natural log.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()) {
-  smoothed =<span class="st"> </span><span class="kw"><a href="../reference/spm12_smooth.html">spm12_smooth</a></span>(
-    <span class="dt">filename =</span> norm_data[<span class="st">"fmri"</span>],
-    <span class="dt">fwhm =</span> <span class="dv">8</span>,
-    <span class="dt">prefix =</span> <span class="st">"s"</span>,
-    <span class="dt">retimg =</span> <span class="ot">FALSE</span>
-    )
-  smoothed_data =<span class="st"> </span>smoothed<span class="op">$</span>outfiles
-}</code></pre></div>
-<pre><code>## # Adding SPMDIR: /Library/Frameworks/R.framework/Versions/3.4/Resources/library/spm12r/spm12</code></pre>
-<pre><code>## # Running script /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/Executable.m
-## which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/Smooth_job.m</code></pre>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()) {</a>
+<a class="sourceLine" id="cb94-2" data-line-number="2">  smoothed =<span class="st"> </span><span class="kw"><a href="../reference/spm12_smooth.html">spm12_smooth</a></span>(</a>
+<a class="sourceLine" id="cb94-3" data-line-number="3">    <span class="dt">filename =</span> norm_data[<span class="st">"fmri"</span>],</a>
+<a class="sourceLine" id="cb94-4" data-line-number="4">    <span class="dt">fwhm =</span> <span class="dv">8</span>,</a>
+<a class="sourceLine" id="cb94-5" data-line-number="5">    <span class="dt">prefix =</span> <span class="st">"s"</span>,</a>
+<a class="sourceLine" id="cb94-6" data-line-number="6">    <span class="dt">retimg =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb94-7" data-line-number="7">    <span class="dt">install_dir =</span> install_dir</a>
+<a class="sourceLine" id="cb94-8" data-line-number="8">    )</a>
+<a class="sourceLine" id="cb94-9" data-line-number="9">  smoothed_data =<span class="st"> </span>smoothed<span class="op">$</span>outfiles</a>
+<a class="sourceLine" id="cb94-10" data-line-number="10">}</a></code></pre></div>
+<pre><code>## # Adding SPMDIR: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/spm12</code></pre>
+<pre><code>## # Running script /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/Executable.m
+## which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/Smooth_job.m</code></pre>
 <pre><code>## Command run is:</code></pre>
-<pre><code>## matlab -nodesktop -nosplash -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/Executable.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
+<pre><code>## matlab  -nodesktop -nosplash -singleCompThread -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/Executable.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
 <pre><code>## # Result is 0</code></pre>
 <pre><code>## # Removing scripts</code></pre>
 <p>In many applications, this is the data you will use for post-processing and analysis. Motion correction has usually been applied above, but some motion correct this data as well.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()) {
-  smoothed_mean =<span class="st"> </span><span class="kw"><a href="../reference/spm12_smooth.html">spm12_smooth</a></span>(
-    <span class="dt">filename =</span> norm_data[<span class="st">"mean"</span>],
-    <span class="dt">prefix =</span> <span class="st">"s"</span>,
-    <span class="dt">retimg =</span> <span class="ot">FALSE</span>
-    )
-  smoothed_mean_data =<span class="st"> </span>smoothed_mean<span class="op">$</span>outfiles
-}</code></pre></div>
-<pre><code>## # Adding SPMDIR: /Library/Frameworks/R.framework/Versions/3.4/Resources/library/spm12r/spm12</code></pre>
-<pre><code>## # Running script /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/Executable.m
-## which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/Smooth_job.m</code></pre>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()) {</a>
+<a class="sourceLine" id="cb101-2" data-line-number="2">  smoothed_mean =<span class="st"> </span><span class="kw"><a href="../reference/spm12_smooth.html">spm12_smooth</a></span>(</a>
+<a class="sourceLine" id="cb101-3" data-line-number="3">    <span class="dt">filename =</span> norm_data[<span class="st">"mean"</span>],</a>
+<a class="sourceLine" id="cb101-4" data-line-number="4">    <span class="dt">prefix =</span> <span class="st">"s"</span>,</a>
+<a class="sourceLine" id="cb101-5" data-line-number="5">    <span class="dt">retimg =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb101-6" data-line-number="6">    <span class="dt">install_dir =</span> install_dir</a>
+<a class="sourceLine" id="cb101-7" data-line-number="7">    )</a>
+<a class="sourceLine" id="cb101-8" data-line-number="8">  smoothed_mean_data =<span class="st"> </span>smoothed_mean<span class="op">$</span>outfiles</a>
+<a class="sourceLine" id="cb101-9" data-line-number="9">}</a></code></pre></div>
+<pre><code>## # Adding SPMDIR: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/spm12</code></pre>
+<pre><code>## # Running script /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/Executable.m
+## which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/Smooth_job.m</code></pre>
 <pre><code>## Command run is:</code></pre>
-<pre><code>## matlab -nodesktop -nosplash -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpxoh8qU/Executable.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
+<pre><code>## matlab  -nodesktop -nosplash -singleCompThread -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpk4weF5/Executable.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
 <pre><code>## # Result is 0</code></pre>
 <pre><code>## # Removing scripts</code></pre>
 <p>Here we can smooth the mean image in MNI space. We could have also calculated a new mean image and smoothed that. Or we could have calculated a mean of the smoothed 4D data. They all may be slightly different.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()) {
-  smooth_mean_img =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/readNIfTI2">readnii</a></span>(smoothed_mean_data)
-  <span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/ortho2">ortho2</a></span>(smooth_mean_img)
-}</code></pre></div>
-<p><img src="fmri_processing_spm12r_files/figure-html/plot_smoothed_mean-1.png" width="672"></p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="http://www.rdocumentation.org/packages/matlabr/topics/have_matlab">have_matlab</a></span>()) {</a>
+<a class="sourceLine" id="cb108-2" data-line-number="2">  smooth_mean_img =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/readNIfTI2">readnii</a></span>(smoothed_mean_data)</a>
+<a class="sourceLine" id="cb108-3" data-line-number="3">  <span class="kw"><a href="http://www.rdocumentation.org/packages/neurobase/topics/ortho2">ortho2</a></span>(smooth_mean_img)</a>
+<a class="sourceLine" id="cb108-4" data-line-number="4">}</a></code></pre></div>
+<p><img src="fmri_processing_spm12r_files/figure-html/plot_smoothed_mean-1.png" width="700"></p>
 </div>
 <div id="bibliography" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bibliography" class="anchor"></a>Bibliography</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bib =<span class="st"> '@article{ashburner2005unified,</span>
-<span class="st">  title={Unified segmentation},</span>
-<span class="st">  author={Ashburner, John and Friston, Karl J},</span>
-<span class="st">  journal={Neuroimage},</span>
-<span class="st">  volume={26},</span>
-<span class="st">  number={3},</span>
-<span class="st">  pages={839--851},</span>
-<span class="st">  year={2005},</span>
-<span class="st">  publisher={Elsevier}</span>
-<span class="st">}'</span></code></pre></div>
-</div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb109-1" data-line-number="1">bib =<span class="st"> '@article{ashburner2005unified,</span></a>
+<a class="sourceLine" id="cb109-2" data-line-number="2"><span class="st">  title={Unified segmentation},</span></a>
+<a class="sourceLine" id="cb109-3" data-line-number="3"><span class="st">  author={Ashburner, John and Friston, Karl J},</span></a>
+<a class="sourceLine" id="cb109-4" data-line-number="4"><span class="st">  journal={Neuroimage},</span></a>
+<a class="sourceLine" id="cb109-5" data-line-number="5"><span class="st">  volume={26},</span></a>
+<a class="sourceLine" id="cb109-6" data-line-number="6"><span class="st">  number={3},</span></a>
+<a class="sourceLine" id="cb109-7" data-line-number="7"><span class="st">  pages={839--851},</span></a>
+<a class="sourceLine" id="cb109-8" data-line-number="8"><span class="st">  year={2005},</span></a>
+<a class="sourceLine" id="cb109-9" data-line-number="9"><span class="st">  publisher={Elsevier}</span></a>
+<a class="sourceLine" id="cb109-10" data-line-number="10"><span class="st">}'</span></a></code></pre></div>
 </div>
 </div>
   </div>
@@ -595,11 +651,13 @@ FWHM = \sigma \sqrt{8 \log(2)}
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
 </div>
+
+  
 
   </body>
 </html>

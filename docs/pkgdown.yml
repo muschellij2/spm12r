@@ -1,0 +1,8 @@
+pandoc: 2.1.3
+pkgdown: 1.1.0
+pkgdown_sha: ~
+articles:
+  fmri_processing_spm12r: fmri_processing_spm12r.html
+  fmri_task_processing: fmri_task_processing.html
+  fmri_task_processing_acpc: fmri_task_processing_acpc.html
+
