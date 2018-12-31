@@ -1,10 +1,10 @@
 ---
-title: "Preprocessing and First Level Model for Task fMRI"
+title: "Preprocessing and First Level Model for Task fMRI with ACPC Alignment"
 author: "John Muschelli"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-    %\VignetteIndexEntry{Task fMRI Analysis}
+    %\VignetteIndexEntry{Task fMRI Analysis with ACPC Alignment}
       %\VignetteEngine{knitr::rmarkdown}
       %\VignetteEncoding{UTF-8}
 ---
