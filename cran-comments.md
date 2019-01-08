@@ -1,6 +1,6 @@
 ## Test environments
-* local OS X install, R 3.5.1
-* ubuntu 14.04 (on travis-ci), R 3.5.1
+* local OS X install, R 3.5.2
+* ubuntu 14.04 (on travis-ci), R 3.5.2
 * win-builder (devel and release)
 
 ## R CMD check results
@@ -9,6 +9,5 @@
 
 * This is a new release.
 
----
-
-This should no longer write in any other packages directories.  The vignette should be fixed and the package should build using single threaded modes as to not run 6 cores at once (which was CRAN's MATLAB default).
+--- 
+This should no longer have duplicate names for Vignettes.  Also, it seems as though `git2r` has errors with GitHub certificates.  Thus, a `git2r` fix is required.
