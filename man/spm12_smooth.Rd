@@ -24,7 +24,7 @@ result from \code{\link{run_matlab_script}}}
 \item{implicit_mask}{Should an implicit mask be used.
 An "implicit mask" is a mask implied by a 
 particular voxel value (0 for images with integer type, 
-NaN for float images).}
+\code{NaN} for float images).}
 
 \item{prefix}{Prefix to append to front of image filename}
 

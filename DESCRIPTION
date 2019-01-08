@@ -2,8 +2,8 @@ Package: spm12r
 Type: Package
 Title: Wrapper Functions for 'SPM' (Statistical Parametric Mapping) 
     Version 12 from the 'Wellcome' Trust Centre for 'Neuroimaging'
-Version: 2.8.0
-Date: 2018-08-13
+Version: 2.8.1
+Date: 2019-01-01
 Authors@R: c(
     person(given = "John",
            family = "Muschelli",
@@ -28,5 +28,5 @@ Suggests: knitr,
     httr
 SystemRequirements: MATLAB
 Encoding: UTF-8
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 VignetteBuilder: knitr

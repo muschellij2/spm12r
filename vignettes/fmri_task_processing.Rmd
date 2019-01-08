@@ -227,7 +227,7 @@ For the subsequent image normalization steps, SPM assumes the data is aligned al
 ```
 
 #### Anatomical MRI Coregistration to Mean fMRI
-Here we will perform the registration of the T1-weigted anatomical image into the space of the mean fMRI image after realignment.  This is referred to as "co-registration" as it is within-subject registration, but across modalities (where we referred to within-subject, within-modality as realignment).  
+Here we will perform the registration of the T1-weighted anatomical image into the space of the mean fMRI image after realignment.  This is referred to as "co-registration" as it is within-subject registration, but across modalities (where we referred to within-subject, within-modality as realignment).  
 
 Here, we also reorient the anatomical image the AC-PC line.  We then perform the coregistration using `spm12_coregister`, where the fixed image is the mean image and the moving image is the anatomical.
 
@@ -277,7 +277,7 @@ In order to segment the image, SPM spatially normalizes the image to the MNI tem
 
 ### Applying Spatial Normalization Transformation
 
-Now that we have esimated the transformation from the T1 image, we can take that deformation and apply it to the fMRI data using `spm12_normalize_write`.  Again, we are registering to the MNI template and will use a standard bounding box.  We pass the anatomical, mean fMRI, and 4D fMRI data in to be transformed.  
+Now that we have estimated the transformation from the T1 image, we can take that deformation and apply it to the fMRI data using `spm12_normalize_write`.  Again, we are registering to the MNI template and will use a standard bounding box.  We pass the anatomical, mean fMRI, and 4D fMRI data in to be transformed.  
 
 ```{r norm_write}
 if (have_matlab()) {

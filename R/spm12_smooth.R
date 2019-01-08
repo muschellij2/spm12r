@@ -9,7 +9,7 @@
 #' @param implicit_mask Should an implicit mask be used.
 #' An "implicit mask" is a mask implied by a 
 #' particular voxel value (0 for images with integer type, 
-#' NaN for float images).
+#' \code{NaN} for float images).
 #' @param prefix Prefix to append to front of image filename
 #' @param add_spm_dir Add SPM12 directory from this package
 #' @param spmdir SPM dir to add, will use package default directory
