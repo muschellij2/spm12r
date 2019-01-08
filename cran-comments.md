@@ -10,4 +10,4 @@
 * This is a new release.
 
 --- 
-This should no longer have duplicate names for Vignettes.  Also, it seems as though `git2r` has errors with GitHub certificates.  Thus, a `git2r` fix is required.
+This should no longer have duplicate names for Vignettes.  Also, it seems as though `git2r` has errors with GitHub certificates and skipping the `git2r` commands on windows.  A `git2r` fix may be required or the configuration of CRAN may need to revise Windows setup based on TLS change: https://support.microsoft.com/en-us/help/3140245/update-to-enable-tls-1-1-and-tls-1-2-as-default-secure-protocols-in-wi

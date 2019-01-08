@@ -1,8 +1,9 @@
 # spm12r 2.8.1
 
 * New version to CRAN.
-* Added `verbose` to a lot of arguments in `install_spm12r`.
+* Added `verbose` to a lot of arguments in `install_spm12`.
 * Added `install_dir` to a few functions for CRAN compatibility.
+* Unix check on `install_spm12` since `git2r` Windows error.
 
 # spm12r 2.6.6
 
