@@ -46,3 +46,14 @@ Get Cluster of certain size from spm_bwlabel
 Taken from 
 http://en.wikibooks.org/wiki/SPM/How-to#How_to_remove_clusters_under_a_certain_size_in_a_binary_mask.3F
 }
+\examples{
+if (matlabr::have_matlab()) { 
+d = rep(25, 3)
+arr = array(rbinom(prod(d), size = 1, prob = 0.5), dim = d)
+nim = oro.nifti::nifti(arr)
+res = spm_bwlabel(nim, k = 1, binary = FALSE)
+tab = table(c(res))
+tab
+out_arr = as(res, "array")
+}
+}
