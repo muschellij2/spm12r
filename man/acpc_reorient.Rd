@@ -4,8 +4,14 @@
 \alias{acpc_reorient}
 \title{AC/PC Reorientation}
 \usage{
-acpc_reorient(infiles, modality = c("T1", "T2", "CT", "fMRI"),
-  spmdir = spm_dir(), verbose = TRUE, install_dir = NULL, ...)
+acpc_reorient(
+  infiles,
+  modality = c("T1", "T2", "CT", "fMRI"),
+  spmdir = spm_dir(),
+  verbose = TRUE,
+  install_dir = NULL,
+  ...
+)
 }
 \arguments{
 \item{infiles}{(character) Files to reorient.

@@ -5,13 +5,28 @@
 \alias{build_spm12_script}
 \title{Wrapper for running \code{spm12_script}}
 \usage{
-run_spm12_script(script_name, jobvec = NULL, mvec = NULL,
-  add_spm_dir = TRUE, spmdir = spm_dir(verbose = verbose),
-  clean = TRUE, verbose = TRUE, single_thread = FALSE, ...)
+run_spm12_script(
+  script_name,
+  jobvec = NULL,
+  mvec = NULL,
+  add_spm_dir = TRUE,
+  spmdir = spm_dir(verbose = verbose),
+  clean = TRUE,
+  verbose = TRUE,
+  single_thread = FALSE,
+  ...
+)
 
-build_spm12_script(script_name, jobvec = NULL, mvec = NULL,
-  add_spm_dir = TRUE, spmdir = spm_dir(verbose = verbose),
-  verbose = TRUE, install_dir = NULL, ...)
+build_spm12_script(
+  script_name,
+  jobvec = NULL,
+  mvec = NULL,
+  add_spm_dir = TRUE,
+  spmdir = spm_dir(verbose = verbose),
+  verbose = TRUE,
+  install_dir = NULL,
+  ...
+)
 }
 \arguments{
 \item{script_name}{Name of the script filename without .m ext,

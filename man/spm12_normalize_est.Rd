@@ -4,12 +4,21 @@
 \alias{spm12_normalize_est}
 \title{SPM12 Normalize (Estimate)}
 \usage{
-spm12_normalize_est(filename, biasreg = 0.001, biasfwhm = 60,
-  regularization = c(0, 0.001, 0.5, 0.05, 0.2), affine = c("mni",
-  "eastern", "subj", "none", ""), smoothness = 0,
-  sampling_distance = 3, add_spm_dir = TRUE, spmdir = spm_dir(verbose
-  = verbose, install_dir = install_dir), clean = TRUE, verbose = TRUE,
-  install_dir = NULL, ...)
+spm12_normalize_est(
+  filename,
+  biasreg = 0.001,
+  biasfwhm = 60,
+  regularization = c(0, 0.001, 0.5, 0.05, 0.2),
+  affine = c("mni", "eastern", "subj", "none", ""),
+  smoothness = 0,
+  sampling_distance = 3,
+  add_spm_dir = TRUE,
+  spmdir = spm_dir(verbose = verbose, install_dir = install_dir),
+  clean = TRUE,
+  verbose = TRUE,
+  install_dir = NULL,
+  ...
+)
 }
 \arguments{
 \item{filename}{File to be normalized to the template}

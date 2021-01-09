@@ -4,11 +4,20 @@
 \alias{spm12_realign.deprecated}
 \title{SPM12 Realign (Estimate and Reslice)}
 \usage{
-spm12_realign.deprecated(filename, fwhm = 5, register_to = c("first",
-  "mean"), reslice = c("all", "2:n", "all+mean", "mean"), prefix = "r",
-  add_spm_dir = TRUE, spmdir = spm_dir(verbose = verbose, install_dir =
-  install_dir), clean = TRUE, verbose = TRUE, outdir = NULL,
-  install_dir = NULL, ...)
+spm12_realign.deprecated(
+  filename,
+  fwhm = 5,
+  register_to = c("first", "mean"),
+  reslice = c("all", "2:n", "all+mean", "mean"),
+  prefix = "r",
+  add_spm_dir = TRUE,
+  spmdir = spm_dir(verbose = verbose, install_dir = install_dir),
+  clean = TRUE,
+  verbose = TRUE,
+  outdir = NULL,
+  install_dir = NULL,
+  ...
+)
 }
 \arguments{
 \item{filename}{Files to be realigned and resliced}

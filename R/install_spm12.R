@@ -14,8 +14,8 @@
 #' nzchar(Sys.getenv("CI"))
 #' }
 #' if (.Platform$OS.type == "unix" | in_ci()) { # windows problem
-#' res = install_spm12(install_dir = tdir)
-#' res = install_spm12(install_dir = tdir)
+#' res = try({install_spm12(install_dir = tdir)})
+#' res = try({install_spm12(install_dir = tdir)})
 #' }
 install_spm12 = function(
   lib.loc = NULL,
@@ -23,7 +23,7 @@ install_spm12 = function(
   install_dir = NULL) {
   if (is.null(install_dir)) {
     install_dir = system.file(package = "spm12r",
-                lib.loc = lib.loc)
+                              lib.loc = lib.loc)
   }
   spm12_files = file.path(install_dir, "spm12")
   spm12_files = file.path(install_dir, "spm12", "toolbox")  
@@ -33,6 +33,13 @@ install_spm12 = function(
     # utils::download.file(url, urlfile, quiet = TRUE)
     # utils::unzip(urlfile, exdir = system.file(package="spm12r"))
     out_path = file.path(install_dir, "spm12")
+
+    # SSL Certificate workaround
+    value <- Sys.getenv("GIT_SSL_NO_VERIFY")
+    Sys.setenv(GIT_SSL_NO_VERIFY="true")
+    on.exit({
+      Sys.setenv(GIT_SSL_NO_VERIFY=value)    
+    })        
     git2r::clone(
       "https://github.com/muschellij2/spm12r", 
       branch = "gh-pages", 

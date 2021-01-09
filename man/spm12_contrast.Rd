@@ -5,8 +5,11 @@
 \alias{spm12_contrast_list}
 \title{Build contrasts for SPM12 first level model}
 \usage{
-spm12_contrast(name, weights, replicate = c("none", "repl", "replsc",
-  "sess", "both", "bothsc"))
+spm12_contrast(
+  name,
+  weights,
+  replicate = c("none", "repl", "replsc", "sess", "both", "bothsc")
+)
 
 spm12_contrast_list(cons, type = "T")
 }

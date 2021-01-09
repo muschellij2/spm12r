@@ -4,10 +4,18 @@
 \alias{spm12_realign_est}
 \title{SPM12 Realign (Estimate)}
 \usage{
-spm12_realign_est(filename, fwhm = 5, register_to = c("first", "mean"),
-  add_spm_dir = TRUE, spmdir = spm_dir(verbose = verbose, install_dir =
-  install_dir), clean = TRUE, verbose = TRUE, outdir = NULL,
-  install_dir = NULL, ...)
+spm12_realign_est(
+  filename,
+  fwhm = 5,
+  register_to = c("first", "mean"),
+  add_spm_dir = TRUE,
+  spmdir = spm_dir(verbose = verbose, install_dir = install_dir),
+  clean = TRUE,
+  verbose = TRUE,
+  outdir = NULL,
+  install_dir = NULL,
+  ...
+)
 }
 \arguments{
 \item{filename}{Files to be realigned}

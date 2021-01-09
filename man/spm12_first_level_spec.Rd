@@ -5,19 +5,42 @@
 \alias{spm12_first_level_spec}
 \title{SPM12 fMRI First Level Specification}
 \usage{
-build_spm12_first_level_spec(scans = NULL, outdir = NULL,
-  units = c("scans", "secs"), slice_timed = TRUE, nslices = NULL,
-  ref_slice = NULL, tr, condition_mat = NULL, condition_list = NULL,
-  regressor_mat = NULL, regressor_list = NULL, hpf = 128,
-  time_deriv = FALSE, disp_deriv = FALSE, interactions = FALSE,
-  global_norm = c("None", "Scaling"), mthresh = 0.8, mask = NULL,
-  correlation = c("AR(1)", "none", "FAST"), n_time_points = NULL,
-  verbose = TRUE, overwrite = TRUE, ...)
+build_spm12_first_level_spec(
+  scans = NULL,
+  outdir = NULL,
+  units = c("scans", "secs"),
+  slice_timed = TRUE,
+  nslices = NULL,
+  ref_slice = NULL,
+  tr,
+  condition_mat = NULL,
+  condition_list = NULL,
+  regressor_mat = NULL,
+  regressor_list = NULL,
+  hpf = 128,
+  time_deriv = FALSE,
+  disp_deriv = FALSE,
+  interactions = FALSE,
+  global_norm = c("None", "Scaling"),
+  mthresh = 0.8,
+  mask = NULL,
+  correlation = c("AR(1)", "none", "FAST"),
+  n_time_points = NULL,
+  verbose = TRUE,
+  overwrite = TRUE,
+  ...
+)
 
-spm12_first_level_spec(..., outdir = NULL, add_spm_dir = TRUE,
+spm12_first_level_spec(
+  ...,
+  outdir = NULL,
+  add_spm_dir = TRUE,
   spmdir = spm_dir(verbose = verbose, install_dir = install_dir),
-  clean = TRUE, verbose = TRUE, overwrite = TRUE,
-  install_dir = NULL)
+  clean = TRUE,
+  verbose = TRUE,
+  overwrite = TRUE,
+  install_dir = NULL
+)
 }
 \arguments{
 \item{scans}{images to run}

@@ -5,17 +5,43 @@
 \alias{build_spm12_slice_timing}
 \title{SPM12 Slice Timing Correction}
 \usage{
-spm12_slice_timing(filename, time_points = NULL, nslices, tr, ta = tr -
-  tr/nslices, slice_order = 1:nslices, ref_slice, prefix = "a",
-  add_spm_dir = TRUE, spmdir = spm_dir(verbose = verbose, install_dir =
-  install_dir), clean = TRUE, verbose = TRUE, outdir = tempdir(),
-  retimg = FALSE, reorient = FALSE, install_dir = NULL, ...)
+spm12_slice_timing(
+  filename,
+  time_points = NULL,
+  nslices,
+  tr,
+  ta = tr - tr/nslices,
+  slice_order = 1:nslices,
+  ref_slice,
+  prefix = "a",
+  add_spm_dir = TRUE,
+  spmdir = spm_dir(verbose = verbose, install_dir = install_dir),
+  clean = TRUE,
+  verbose = TRUE,
+  outdir = tempdir(),
+  retimg = FALSE,
+  reorient = FALSE,
+  install_dir = NULL,
+  ...
+)
 
-build_spm12_slice_timing(filename, time_points = NULL, nslices, tr,
-  ta = tr - tr/nslices, slice_order = 1:nslices, ref_slice,
-  prefix = "a", add_spm_dir = TRUE, spmdir = spm_dir(verbose =
-  verbose, install_dir = install_dir), clean = TRUE, verbose = TRUE,
-  outdir = tempdir(), install_dir = NULL, ...)
+build_spm12_slice_timing(
+  filename,
+  time_points = NULL,
+  nslices,
+  tr,
+  ta = tr - tr/nslices,
+  slice_order = 1:nslices,
+  ref_slice,
+  prefix = "a",
+  add_spm_dir = TRUE,
+  spmdir = spm_dir(verbose = verbose, install_dir = install_dir),
+  clean = TRUE,
+  verbose = TRUE,
+  outdir = tempdir(),
+  install_dir = NULL,
+  ...
+)
 }
 \arguments{
 \item{filename}{Files to be slice-time corrected}

@@ -24,7 +24,7 @@ in_ci <- function() {
 nzchar(Sys.getenv("CI"))
 }
 if (.Platform$OS.type == "unix" | in_ci()) { # windows problem
-res = install_spm12(install_dir = tdir)
-res = install_spm12(install_dir = tdir)
+res = try({install_spm12(install_dir = tdir)})
+res = try({install_spm12(install_dir = tdir)})
 }
 }

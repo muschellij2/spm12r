@@ -4,10 +4,19 @@
 \alias{spm_bwlabel}
 \title{SPM BWLabel Clusters of Certain Size}
 \usage{
-spm_bwlabel(infile, outfile = NULL, retimg = TRUE, k = NULL,
-  topN = NULL, margin = NULL, binary = TRUE,
+spm_bwlabel(
+  infile,
+  outfile = NULL,
+  retimg = TRUE,
+  k = NULL,
+  topN = NULL,
+  margin = NULL,
+  binary = TRUE,
   spmdir = spm_dir(verbose = verbose, install_dir = install_dir),
-  reorient = FALSE, verbose = TRUE, install_dir = NULL)
+  reorient = FALSE,
+  verbose = TRUE,
+  install_dir = NULL
+)
 }
 \arguments{
 \item{infile}{input filename}

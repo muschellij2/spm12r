@@ -4,10 +4,19 @@
 \alias{spm12_coregister.deprecated}
 \title{SPM12 Coregister (Estimate and Reslice)}
 \usage{
-spm12_coregister.deprecated(fixed, moving, other.files = NULL,
-  prefix = "r", add_spm_dir = TRUE, spmdir = spm_dir(),
-  clean = TRUE, verbose = TRUE, outdir = NULL, install_dir = NULL,
-  ...)
+spm12_coregister.deprecated(
+  fixed,
+  moving,
+  other.files = NULL,
+  prefix = "r",
+  add_spm_dir = TRUE,
+  spmdir = spm_dir(),
+  clean = TRUE,
+  verbose = TRUE,
+  outdir = NULL,
+  install_dir = NULL,
+  ...
+)
 }
 \arguments{
 \item{fixed}{File that is assumed fixed}

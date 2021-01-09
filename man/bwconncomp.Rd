@@ -4,9 +4,16 @@
 \alias{bwconncomp}
 \title{Label Connected Clusters of Certain Size}
 \usage{
-bwconncomp(infile, outfile = NULL, retimg = TRUE, conn = 26,
-  reorient = FALSE, spmdir = spm_dir(), verbose = TRUE,
-  install_dir = NULL)
+bwconncomp(
+  infile,
+  outfile = NULL,
+  retimg = TRUE,
+  conn = 26,
+  reorient = FALSE,
+  spmdir = spm_dir(),
+  verbose = TRUE,
+  install_dir = NULL
+)
 }
 \arguments{
 \item{infile}{input filename}

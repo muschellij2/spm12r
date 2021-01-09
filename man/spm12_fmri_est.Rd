@@ -5,14 +5,24 @@
 \alias{build_spm12_fmri_est}
 \title{SPM12 FMRI Estimation}
 \usage{
-spm12_fmri_est(..., add_spm_dir = TRUE, spmdir = spm_dir(verbose =
-  verbose), clean = TRUE, verbose = TRUE, install_dir = NULL)
+spm12_fmri_est(
+  ...,
+  add_spm_dir = TRUE,
+  spmdir = spm_dir(verbose = verbose),
+  clean = TRUE,
+  verbose = TRUE,
+  install_dir = NULL
+)
 
-build_spm12_fmri_est(spm, write_residuals = FALSE,
+build_spm12_fmri_est(
+  spm,
+  write_residuals = FALSE,
   method = c("Classical", "Bayesian", "Bayesian2"),
-  bayesian = list(space.volume.block_type = "Slices", signal = "UGL", ARP
-  = 3, noise.UGL = 1, LogEv = "No", anova.first = "No", anova.second =
-  "Yes", gcon = list(name = "", convec = numeric(0))), ...)
+  bayesian = list(space.volume.block_type = "Slices", signal = "UGL", ARP = 3,
+    noise.UGL = 1, LogEv = "No", anova.first = "No", anova.second = "Yes", gcon =
+    list(name = "", convec = numeric(0))),
+  ...
+)
 }
 \arguments{
 \item{...}{Arguments passed to 

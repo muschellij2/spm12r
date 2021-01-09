@@ -5,8 +5,14 @@
 \alias{spm12_condition_list}
 \title{Build Conditions for SPM12 first level model}
 \usage{
-spm12_condition(name, onset, duration, time_mod_order = 0,
-  param_mod = NULL, orth = TRUE)
+spm12_condition(
+  name,
+  onset,
+  duration,
+  time_mod_order = 0,
+  param_mod = NULL,
+  orth = TRUE
+)
 
 spm12_condition_list(cond)
 }

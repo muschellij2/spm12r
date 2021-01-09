@@ -10,41 +10,92 @@
 \alias{spm12_coregister_reslice}
 \title{Batch SPM12 Coregister (Estimate and Reslice)}
 \usage{
-build_spm12_coregister(fixed, moving, other.files = NULL,
-  cost_fun = c("nmi", "ecc", "ncc"), separation = c(4, 2),
-  tol = c(0.02, 0.02, 0.02, 0.001, 0.001, 0.001, 0.01, 0.01, 0.01, 0.001,
-  0.001, 0.001), fwhm = c(7, 7), interp = c("bspline4",
-  "nearestneighbor", "trilinear", paste0("bspline", 2:3), paste0("bspline",
-  5:7)), wrap_x = FALSE, wrap_y = FALSE, wrap_z = FALSE,
-  mask = FALSE, prefix = "r", verbose = TRUE, ...)
+build_spm12_coregister(
+  fixed,
+  moving,
+  other.files = NULL,
+  cost_fun = c("nmi", "ecc", "ncc"),
+  separation = c(4, 2),
+  tol = c(0.02, 0.02, 0.02, 0.001, 0.001, 0.001, 0.01, 0.01, 0.01, 0.001, 0.001, 0.001),
+  fwhm = c(7, 7),
+  interp = c("bspline4", "nearestneighbor", "trilinear", paste0("bspline", 2:3),
+    paste0("bspline", 5:7)),
+  wrap_x = FALSE,
+  wrap_y = FALSE,
+  wrap_z = FALSE,
+  mask = FALSE,
+  prefix = "r",
+  verbose = TRUE,
+  ...
+)
 
-build_spm12_coregister_estimate(fixed, moving, other.files = NULL,
-  cost_fun = c("nmi", "ecc", "ncc"), separation = c(4, 2),
-  tol = c(0.02, 0.02, 0.02, 0.001, 0.001, 0.001, 0.01, 0.01, 0.01, 0.001,
-  0.001, 0.001), fwhm = c(7, 7), verbose = TRUE, ...)
+build_spm12_coregister_estimate(
+  fixed,
+  moving,
+  other.files = NULL,
+  cost_fun = c("nmi", "ecc", "ncc"),
+  separation = c(4, 2),
+  tol = c(0.02, 0.02, 0.02, 0.001, 0.001, 0.001, 0.01, 0.01, 0.01, 0.001, 0.001, 0.001),
+  fwhm = c(7, 7),
+  verbose = TRUE,
+  ...
+)
 
-build_spm12_coregister_reslice(fixed, moving, interp = c("bspline4",
-  "nearestneighbor", "trilinear", paste0("bspline", 2:3), paste0("bspline",
-  5:7)), wrap_x = FALSE, wrap_y = FALSE, wrap_z = FALSE,
-  mask = FALSE, prefix = "r", verbose = TRUE, ...)
+build_spm12_coregister_reslice(
+  fixed,
+  moving,
+  interp = c("bspline4", "nearestneighbor", "trilinear", paste0("bspline", 2:3),
+    paste0("bspline", 5:7)),
+  wrap_x = FALSE,
+  wrap_y = FALSE,
+  wrap_z = FALSE,
+  mask = FALSE,
+  prefix = "r",
+  verbose = TRUE,
+  ...
+)
 
-spm12_coregister_wrapper(..., func = c("build_spm12_coregister",
-  "build_spm12_coregister_reslice", "build_spm12_coregister_estimate"),
-  add_spm_dir = TRUE, spmdir = spm_dir(verbose = verbose, install_dir =
-  install_dir), clean = TRUE, verbose = TRUE, outdir = NULL,
-  install_dir = NULL)
-
-spm12_coregister(..., add_spm_dir = TRUE, spmdir = spm_dir(verbose =
-  verbose, install_dir = install_dir), clean = TRUE, verbose = TRUE,
-  outdir = NULL, install_dir = NULL)
-
-spm12_coregister_estimate(..., add_spm_dir = TRUE,
+spm12_coregister_wrapper(
+  ...,
+  func = c("build_spm12_coregister", "build_spm12_coregister_reslice",
+    "build_spm12_coregister_estimate"),
+  add_spm_dir = TRUE,
   spmdir = spm_dir(verbose = verbose, install_dir = install_dir),
-  clean = TRUE, verbose = TRUE, outdir = NULL, install_dir = NULL)
+  clean = TRUE,
+  verbose = TRUE,
+  outdir = NULL,
+  install_dir = NULL
+)
 
-spm12_coregister_reslice(..., add_spm_dir = TRUE,
+spm12_coregister(
+  ...,
+  add_spm_dir = TRUE,
   spmdir = spm_dir(verbose = verbose, install_dir = install_dir),
-  clean = TRUE, verbose = TRUE, outdir = NULL, install_dir = NULL)
+  clean = TRUE,
+  verbose = TRUE,
+  outdir = NULL,
+  install_dir = NULL
+)
+
+spm12_coregister_estimate(
+  ...,
+  add_spm_dir = TRUE,
+  spmdir = spm_dir(verbose = verbose, install_dir = install_dir),
+  clean = TRUE,
+  verbose = TRUE,
+  outdir = NULL,
+  install_dir = NULL
+)
+
+spm12_coregister_reslice(
+  ...,
+  add_spm_dir = TRUE,
+  spmdir = spm_dir(verbose = verbose, install_dir = install_dir),
+  clean = TRUE,
+  verbose = TRUE,
+  outdir = NULL,
+  install_dir = NULL
+)
 }
 \arguments{
 \item{fixed}{File that is assumed fixed}
