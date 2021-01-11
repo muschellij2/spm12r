@@ -1,3 +1,8 @@
+# spm12r 2.8.2
+
+* New version to CRAN.
+* Added `try` catches for http errors.
+
 # spm12r 2.8.1
 
 * New version to CRAN.

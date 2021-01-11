@@ -274,7 +274,7 @@ if (have_matlab()) {
   dnorm_mean_img = readnii(dnorm_files[1])
 }
 ```
-We see tbe output `direct_norm` is a list with the output files (`outfiles`).  The order of these files is the same as the order of those put in.  In this case, the first file of `outfiles` is the normalized mean image and second is the normalized 4D image.   Here we read in the spatially normalized mean image to compare to the template later.
+We see the output `direct_norm` is a list with the output files (`outfiles`).  The order of these files is the same as the order of those put in.  In this case, the first file of `outfiles` is the normalized mean image and second is the normalized 4D image.   Here we read in the spatially normalized mean image to compare to the template later.
 
 
 ### Indirect Normalization

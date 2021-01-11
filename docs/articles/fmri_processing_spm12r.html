@@ -85,7 +85,7 @@
       <h1 data-toc-skip>fMRI Preprocessing using SPM 12</h1>
                         <h4 class="author">John Muschelli</h4>
             
-            <h4 class="date">2021-01-08</h4>
+            <h4 class="date">2021-01-11</h4>
       
       
       <div class="hidden name"><code>fmri_processing_spm12r.Rmd</code></div>
@@ -124,13 +124,13 @@
 <span class="va">outdir</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempfile</a></span><span class="op">(</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/files2.html">dir.create</a></span><span class="op">(</span><span class="va">outdir</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/kirby21.fmri/man/download_fmri_data.html">download_fmri_data</a></span><span class="op">(</span>outdir <span class="op">=</span> <span class="va">outdir</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## cloning into '/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/file11633643cd042/kirby21.fmri'...
-## Receiving objects:   1% (1/98),    8 kb
-## Receiving objects:  11% (11/98),    8 kb
-## Receiving objects:  21% (21/98),    8 kb
-## Receiving objects:  31% (31/98),    8 kb
-## Receiving objects:  41% (41/98), 41497 kb
-## Receiving objects:  51% (50/98), 177337 kb
+<pre><code>## cloning into '/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/file1601d458af091/kirby21.fmri'...
+## Receiving objects:   1% (1/98),    9 kb
+## Receiving objects:  11% (11/98),    9 kb
+## Receiving objects:  21% (21/98),    9 kb
+## Receiving objects:  31% (31/98),    9 kb
+## Receiving objects:  41% (41/98), 41490 kb
+## Receiving objects:  51% (50/98), 177324 kb
 ## Receiving objects:  61% (60/98), 267438 kb
 ## Receiving objects:  71% (70/98), 267438 kb
 ## Receiving objects:  81% (80/98), 267438 kb
@@ -138,17 +138,17 @@
 ## Receiving objects: 100% (98/98), 267438 kb, done.</code></pre>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/kirby21.t1/man/download_t1_data.html">download_t1_data</a></span><span class="op">(</span>outdir <span class="op">=</span> <span class="va">outdir</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## cloning into '/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/file11633548cd077/kirby21.t1'...
-## Receiving objects:   1% (2/163),   12 kb
-## Receiving objects:  11% (18/163),   12 kb
-## Receiving objects:  21% (35/163),   12 kb
-## Receiving objects:  31% (51/163), 15549 kb
-## Receiving objects:  41% (67/163), 46552 kb
-## Receiving objects:  51% (84/163), 46552 kb
-## Receiving objects:  61% (100/163), 46552 kb
-## Receiving objects:  71% (116/163), 46552 kb
-## Receiving objects:  81% (133/163), 46552 kb
-## Receiving objects:  91% (149/163), 46704 kb
+<pre><code>## cloning into '/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/file1601d24b7e342/kirby21.t1'...
+## Receiving objects:   1% (2/163),   10 kb
+## Receiving objects:  11% (18/163),   10 kb
+## Receiving objects:  21% (35/163),   10 kb
+## Receiving objects:  31% (51/163), 15548 kb
+## Receiving objects:  41% (67/163), 46551 kb
+## Receiving objects:  51% (84/163), 46551 kb
+## Receiving objects:  61% (100/163), 46551 kb
+## Receiving objects:  71% (116/163), 46551 kb
+## Receiving objects:  81% (133/163), 46551 kb
+## Receiving objects:  91% (149/163), 46703 kb
 ## Receiving objects: 100% (163/163), 46774 kb, done.</code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">functional</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/kirby21.fmri/man/get_fmri_filenames.html">get_fmri_filenames</a></span><span class="op">(</span>ids <span class="op">=</span> <span class="fl">113</span>, visit <span class="op">=</span> <span class="fl">1</span>, outdir <span class="op">=</span> <span class="va">outdir</span><span class="op">)</span>
@@ -157,9 +157,9 @@
           functional <span class="op">=</span> <span class="va">functional</span><span class="op">)</span>
 <span class="va">files</span></code></pre></div>
 <pre><code>##                                                                                                      anatomical 
-##   "/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/file11633591aa4d9/visit_1/113/113-01-T1.nii.gz" 
+##   "/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/file1601d31a1119b/visit_1/113/113-01-T1.nii.gz" 
 ##                                                                                                      functional 
-## "/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/file11633591aa4d9/visit_1/113/113-01-fMRI.nii.gz"</code></pre>
+## "/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/file1601d31a1119b/visit_1/113/113-01-fMRI.nii.gz"</code></pre>
 <p>We know the repetition time (TR) is 2 seconds for this data. It may be encoded in the NIfTI file itself or come from a parameter file from the scanner. We will drop the first 20 seconds to allow for signal stabilization.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">neurobase</span><span class="op">)</span></code></pre></div>
@@ -236,27 +236,27 @@
   <span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">realigned</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<pre><code>## cloning into '/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/spm12'...
-## Receiving objects:   1% (66/6503),   16 kb
-## Receiving objects:  11% (716/6503), 2946 kb
-## Receiving objects:  21% (1366/6503), 3282 kb
-## Receiving objects:  31% (2016/6503), 9310 kb
-## Receiving objects:  41% (2667/6503), 10831 kb
-## Receiving objects:  51% (3317/6503), 16947 kb
-## Receiving objects:  61% (3967/6503), 35750 kb
-## Receiving objects:  71% (4618/6503), 37944 kb
-## Receiving objects:  81% (5268/6503), 69746 kb
-## Receiving objects:  91% (5918/6503), 71844 kb
-## Receiving objects: 100% (6503/6503), 129904 kb, done.</code></pre>
+<pre><code>## cloning into '/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/spm12'...
+## Receiving objects:   1% (67/6615),   22 kb
+## Receiving objects:  11% (728/6615), 2960 kb
+## Receiving objects:  21% (1390/6615), 3304 kb
+## Receiving objects:  31% (2051/6615), 9420 kb
+## Receiving objects:  41% (2713/6615), 10901 kb
+## Receiving objects:  51% (3374/6615), 29241 kb
+## Receiving objects:  61% (4036/6615), 36020 kb
+## Receiving objects:  71% (4697/6615), 38078 kb
+## Receiving objects:  81% (5359/6615), 70074 kb
+## Receiving objects:  91% (6020/6615), 71938 kb
+## Receiving objects: 100% (6615/6615), 131226 kb, done.</code></pre>
 <pre><code>## # Getting Number of Time Points
 ## 
 ## # Reslice is mean</code></pre>
 <pre><code>## # Running matlabbatch job</code></pre>
 <pre><code>## # Creating matlabbatch job</code></pre>
-<pre><code>## # Adding SPMDIR: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/spm12\n</code></pre>
-<pre><code>## Running job: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/file116336b277646.m, which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/file11633672bc744.m</code></pre>
+<pre><code>## # Adding SPMDIR: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/spm12\n</code></pre>
+<pre><code>## Running job: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/file1601d407e738.m, which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/file1601d755c618a.m</code></pre>
 <pre><code>## Command run is:</code></pre>
-<pre><code>## matlab  -nodesktop -nosplash   -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/file116336b277646.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
+<pre><code>## matlab  -nodesktop -nosplash   -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/file1601d407e738.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
 <pre><code>## # Result is 0</code></pre>
 <pre><code>## [1] "spm"      "script"   "outfiles" "rp"       "mean"     "mat"      "result"</code></pre>
 <p>Overall the <code>spm12_realign</code> does the realignment. There is some discussion of performing realignment <strong>before</strong> slice-timing correction because estimation of motion parameters may be skewed after slice-timing correction. We see that the output <code>realigned</code> has the output 4D fMRI data (<code>outfiles</code>), the realignment parameters (<code>rp</code>), voxel-wise mean after realignment (<code>mean</code>), and the matrix of transformations for the 4D series (<code>mat</code>).</p>
@@ -350,12 +350,12 @@
 <span class="op">}</span></code></pre></div>
 <pre><code>## # Running matlabbatch job</code></pre>
 <pre><code>## # Creating matlabbatch job</code></pre>
-<pre><code>## # Adding SPMDIR: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/spm12\n</code></pre>
-<pre><code>## Running job: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/file116335b46e644.m, which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/file116334dac0fe2.m</code></pre>
+<pre><code>## # Adding SPMDIR: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/spm12\n</code></pre>
+<pre><code>## Running job: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/file1601d4e69c37f.m, which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/file1601d6ecce75d.m</code></pre>
 <pre><code>## Command run is:</code></pre>
-<pre><code>## matlab  -nodesktop -nosplash   -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/file116335b46e644.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
+<pre><code>## matlab  -nodesktop -nosplash   -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/file1601d4e69c37f.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
 <pre><code>## # Result is 0</code></pre>
-<pre><code>## [1] "/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/afile116334ddfd0dc.nii"</code></pre>
+<pre><code>## [1] "/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/afile1601d517664f8.nii"</code></pre>
 <p>We see the output <code>aimg</code> has the filename of the slice-timing corrected 4D image. We also read in the mean image into a <code>nifti</code> object (<code>mean_nifti</code>).</p>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/pkg/matlabr/man/have_matlab.html">have_matlab</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -378,14 +378,14 @@
     <span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <pre><code>## 
-##  #Reorientation /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp1fZcF7/meanfile116334ddfd0dc.nii</code></pre>
-<pre><code>## Script created: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/file11633616306f6.m</code></pre>
+##  #Reorientation /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpeUsnAT/meanfile1601d517664f8.nii</code></pre>
+<pre><code>## Script created: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/file1601d2208e25f.m</code></pre>
 <pre><code>## Command run is:</code></pre>
-<pre><code>## matlab  -nodesktop -nosplash   -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/file11633616306f6.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
-<pre><code>##   /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp1fZcF7/meanfile116334ddfd0dc.nii 
-## "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp1fZcF7/meanfile116334ddfd0dc.nii" 
-##             /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/afile116334ddfd0dc.nii 
-##    "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp1fZcF7/afile116334ddfd0dc.nii"</code></pre>
+<pre><code>## matlab  -nodesktop -nosplash   -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/file1601d2208e25f.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
+<pre><code>##   /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpeUsnAT/meanfile1601d517664f8.nii 
+## "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpeUsnAT/meanfile1601d517664f8.nii" 
+##             /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/afile1601d517664f8.nii 
+##    "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpeUsnAT/afile1601d517664f8.nii"</code></pre>
 </div>
 <div id="direct-normalization" class="section level3">
 <h3 class="hasAnchor">
@@ -412,11 +412,11 @@
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]  -90 -126  -72
 ## [2,]   90   90  108</code></pre>
-<pre><code>## # Adding SPMDIR: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/spm12</code></pre>
-<pre><code>## # Running script /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/Executable.m
-## which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/Normalize_Estimate_and_Write_job.m</code></pre>
+<pre><code>## # Adding SPMDIR: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/spm12</code></pre>
+<pre><code>## # Running script /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/Executable.m
+## which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/Normalize_Estimate_and_Write_job.m</code></pre>
 <pre><code>## Command run is:</code></pre>
-<pre><code>## matlab  -nodesktop -nosplash   -singleCompThread -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/Executable.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
+<pre><code>## matlab  -nodesktop -nosplash   -singleCompThread -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/Executable.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
 <pre><code>## # Result is 0</code></pre>
 <pre><code>## [1] "spm"      "script"   "outfiles" "result"</code></pre>
 <p>We see tbe output <code>direct_norm</code> is a list with the output files (<code>outfiles</code>). The order of these files is the same as the order of those put in. In this case, the first file of <code>outfiles</code> is the normalized mean image and second is the normalized 4D image. Here we read in the spatially normalized mean image to compare to the template later.</p>
@@ -452,21 +452,21 @@
   <span class="va">coreg_img</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/neurobase/man/readNIfTI2.html">readnii</a></span><span class="op">(</span><span class="va">coreg_anat</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/pkg/neurobase/man/double_ortho.html">double_ortho</a></span><span class="op">(</span><span class="va">coreg_img</span>, <span class="va">mean_nifti</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<pre><code>## [1] "/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp1fZcF7/113-01-T1.nii"
+<pre><code>## [1] "/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpeUsnAT/113-01-T1.nii"
 ## attr(,"nbrOfBytes")
 ## [1] 44564832</code></pre>
 <pre><code>## 
-##  #Reorientation /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp1fZcF7/113-01-T1.nii</code></pre>
-<pre><code>## Script created: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/file116334cd3270.m</code></pre>
+##  #Reorientation /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpeUsnAT/113-01-T1.nii</code></pre>
+<pre><code>## Script created: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/file1601d4c849718.m</code></pre>
 <pre><code>## Command run is:</code></pre>
-<pre><code>## matlab  -nodesktop -nosplash   -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/file116334cd3270.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
+<pre><code>## matlab  -nodesktop -nosplash   -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/file1601d4c849718.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
 <pre><code>## Checking Filenames</code></pre>
 <pre><code>## # Running matlabbatch job</code></pre>
 <pre><code>## # Creating matlabbatch job</code></pre>
-<pre><code>## # Adding SPMDIR: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/spm12\n</code></pre>
-<pre><code>## Running job: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/file11633183ca9e.m, which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/file116332cdb8b04.m</code></pre>
+<pre><code>## # Adding SPMDIR: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/spm12\n</code></pre>
+<pre><code>## Running job: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/file1601d2de1718e.m, which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/file1601d6b2e5163.m</code></pre>
 <pre><code>## Command run is:</code></pre>
-<pre><code>## matlab  -nodesktop -nosplash   -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/file11633183ca9e.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
+<pre><code>## matlab  -nodesktop -nosplash   -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/file1601d2de1718e.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
 <pre><code>## # Result is 0</code></pre>
 <pre><code>## # Removing scripts</code></pre>
 <pre><code>## Warning in datatyper(nim, warn = warn): Need to change bitpix and datatype to
@@ -491,11 +491,11 @@
     <span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">seg_res</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<pre><code>## # Adding SPMDIR: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/spm12</code></pre>
-<pre><code>## # Running script /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/Executable.m
-## which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/Segment_job.m</code></pre>
+<pre><code>## # Adding SPMDIR: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/spm12</code></pre>
+<pre><code>## # Running script /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/Executable.m
+## which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/Segment_job.m</code></pre>
 <pre><code>## Command run is:</code></pre>
-<pre><code>## matlab  -nodesktop -nosplash   -singleCompThread -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/Executable.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
+<pre><code>## matlab  -nodesktop -nosplash   -singleCompThread -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/Executable.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
 <pre><code>## # Result is 0</code></pre>
 <pre><code>## [1] "spm"                 "script"              "result"             
 ## [4] "outfiles"            "outmat"              "deformation"        
@@ -543,11 +543,11 @@
   <span class="va">norm_mean_img</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/neurobase/man/readNIfTI2.html">readnii</a></span><span class="op">(</span><span class="va">norm_data</span><span class="op">[</span><span class="st">"mean"</span><span class="op">]</span><span class="op">)</span>
   <span class="va">norm_anat_img</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/neurobase/man/readNIfTI2.html">readnii</a></span><span class="op">(</span><span class="va">norm_data</span><span class="op">[</span><span class="st">"anat"</span><span class="op">]</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<pre><code>## # Adding SPMDIR: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/spm12</code></pre>
-<pre><code>## # Running script /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/Executable.m
-## which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/Normalize_Write_job.m</code></pre>
+<pre><code>## # Adding SPMDIR: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/spm12</code></pre>
+<pre><code>## # Running script /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/Executable.m
+## which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/Normalize_Write_job.m</code></pre>
 <pre><code>## Command run is:</code></pre>
-<pre><code>## matlab  -nodesktop -nosplash   -singleCompThread -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/Executable.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
+<pre><code>## matlab  -nodesktop -nosplash   -singleCompThread -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/Executable.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
 <pre><code>## # Result is 0</code></pre>
 <pre><code>## # Removing scripts</code></pre>
 <pre><code>## [1] "spm"          "script"       "deformation"  "other_fnames" "outfiles"    
@@ -604,11 +604,11 @@ FWHM = \sigma \sqrt{8 \log(2)}
     <span class="op">)</span>
   <span class="va">smoothed_data</span> <span class="op">=</span> <span class="va">smoothed</span><span class="op">$</span><span class="va">outfiles</span>
 <span class="op">}</span></code></pre></div>
-<pre><code>## # Adding SPMDIR: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/spm12</code></pre>
-<pre><code>## # Running script /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/Executable.m
-## which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/Smooth_job.m</code></pre>
+<pre><code>## # Adding SPMDIR: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/spm12</code></pre>
+<pre><code>## # Running script /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/Executable.m
+## which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/Smooth_job.m</code></pre>
 <pre><code>## Command run is:</code></pre>
-<pre><code>## matlab  -nodesktop -nosplash   -singleCompThread -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/Executable.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
+<pre><code>## matlab  -nodesktop -nosplash   -singleCompThread -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/Executable.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
 <pre><code>## # Result is 0</code></pre>
 <pre><code>## # Removing scripts</code></pre>
 <p>In many applications, this is the data you will use for post-processing and analysis. Motion correction has usually been applied above, but some motion correct this data as well.</p>
@@ -622,11 +622,11 @@ FWHM = \sigma \sqrt{8 \log(2)}
     <span class="op">)</span>
   <span class="va">smoothed_mean_data</span> <span class="op">=</span> <span class="va">smoothed_mean</span><span class="op">$</span><span class="va">outfiles</span>
 <span class="op">}</span></code></pre></div>
-<pre><code>## # Adding SPMDIR: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/spm12</code></pre>
-<pre><code>## # Running script /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/Executable.m
-## which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/Smooth_job.m</code></pre>
+<pre><code>## # Adding SPMDIR: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/spm12</code></pre>
+<pre><code>## # Running script /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/Executable.m
+## which calls /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/Smooth_job.m</code></pre>
 <pre><code>## Command run is:</code></pre>
-<pre><code>## matlab  -nodesktop -nosplash   -singleCompThread -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp1fZcF7/Executable.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
+<pre><code>## matlab  -nodesktop -nosplash   -singleCompThread -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeUsnAT/Executable.m'); catch err, disp(err.message); exit(1); end; exit(0);"</code></pre>
 <pre><code>## # Result is 0</code></pre>
 <pre><code>## # Removing scripts</code></pre>
 <p>Here we can smooth the mean image in MNI space. We could have also calculated a new mean image and smoothed that. Or we could have calculated a mean of the smoothed 4D data. They all may be slightly different.</p>

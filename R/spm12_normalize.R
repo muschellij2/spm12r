@@ -18,10 +18,11 @@
 #' @param affine Space to register the image to, using an affine 
 #' registration
 #' @param smoothness FWHM of smoothing done
-#' @param sampling_distance smoothingess of the warping field. 
+#' @param sampling_distance smoothness of the warping field. 
 #' This is used to derive a fudge factor to account for 
-#' correlations between neighbouring voxels.  Smoother data have 
-#' more
+#' correlations between neighbouring voxels.  
+#' Approximate distance between sampled points when estimating 
+#' the model parameters.
 #' @param voxel_size The voxel sizes (x, y & z, in mm) 
 #' of the written normalised images.
 #' @param interp Interpolator for sampling in fixed space

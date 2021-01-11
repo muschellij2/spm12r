@@ -46,10 +46,11 @@ registration}
 
 \item{smoothness}{FWHM of smoothing done}
 
-\item{sampling_distance}{smoothingess of the warping field. 
+\item{sampling_distance}{smoothness of the warping field. 
 This is used to derive a fudge factor to account for 
-correlations between neighbouring voxels.  Smoother data have 
-more}
+correlations between neighbouring voxels.  
+Approximate distance between sampled points when estimating 
+the model parameters.}
 
 \item{voxel_size}{The voxel sizes (x, y & z, in mm) 
 of the written normalised images.}

@@ -25,9 +25,11 @@
 #' @param n_gaus The number of Gaussians used to represent the 
 #' intensity distribution for each tissue class.  Can be 1:8 or infinity
 #' @param smoothness FWHM of smoothing done
-#' @param sampling_distance smoothingess of the warping field. 
+#' @param sampling_distance smoothness of the warping field. 
 #' This is used to derive a fudge factor to account for 
-#' correlations between neighbouring voxels.  Smoother data have more
+#' correlations between neighbouring voxels.  
+#' Approximate distance between sampled points when estimating 
+#' the model parameters.
 #' @param regularization parameters for warping regularization
 #' @param affine Space to register the image to, using an affine registration
 #' @param def_inverse keep the inverse deformation field
