@@ -23,8 +23,10 @@ dir.create(tdir)
 in_ci <- function() {
 nzchar(Sys.getenv("CI"))
 }
+if (matlabr::have_matlab()) {
 if (.Platform$OS.type == "unix" | in_ci()) { # windows problem
 res = try({install_spm12(install_dir = tdir)})
 res = try({install_spm12(install_dir = tdir)})
+}
 }
 }
