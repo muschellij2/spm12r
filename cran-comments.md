@@ -10,4 +10,4 @@
 * This is a new release.
 
 ---
-Adding `try` around http requests to fail gracefully.
+* Fixed home directory write error.

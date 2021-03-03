@@ -1,3 +1,8 @@
+# spm12r 2.8.3
+
+* New version to CRAN.
+* Fixing `spm_bwlabel` example passing in `install_dir`  for `tempdir`.
+
 # spm12r 2.8.2
 
 * New version to CRAN.

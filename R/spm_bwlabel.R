@@ -27,7 +27,7 @@
 #' d = rep(25, 3)
 #' arr = array(rbinom(prod(d), size = 1, prob = 0.5), dim = d)
 #' nim = oro.nifti::nifti(arr)
-#' res = spm_bwlabel(nim, k = 1, binary = FALSE)
+#' res = spm_bwlabel(nim, k = 1, binary = FALSE, install_dir = tempdir())
 #' tab = table(c(res))
 #' tab
 #' out_arr = as(res, "array")
