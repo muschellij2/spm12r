@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spm12r</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8.3</span>
       </span>
     </div>
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -212,23 +212,23 @@ http://en.wikibooks.org/wiki/SPM/How-to#How_to_remove_clusters_under_a_certain_s
 <span class='va'>d</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>25</span>, <span class='fl'>3</span><span class='op'>)</span>
 <span class='va'>arr</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Binomial.html'>rbinom</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/prod.html'>prod</a></span><span class='op'>(</span><span class='va'>d</span><span class='op'>)</span>, size <span class='op'>=</span> <span class='fl'>1</span>, prob <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>, dim <span class='op'>=</span> <span class='va'>d</span><span class='op'>)</span>
 <span class='va'>nim</span> <span class='op'>=</span> <span class='fu'>oro.nifti</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/oro.nifti/man/nifti.html'>nifti</a></span><span class='op'>(</span><span class='va'>arr</span><span class='op'>)</span>
-<span class='va'>res</span> <span class='op'>=</span> <span class='fu'>spm_bwlabel</span><span class='op'>(</span><span class='va'>nim</span>, k <span class='op'>=</span> <span class='fl'>1</span>, binary <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='va'>res</span> <span class='op'>=</span> <span class='fu'>spm_bwlabel</span><span class='op'>(</span><span class='va'>nim</span>, k <span class='op'>=</span> <span class='fl'>1</span>, binary <span class='op'>=</span> <span class='cn'>FALSE</span>, install_dir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>tab</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>tab</span>
 <span class='va'>out_arr</span> <span class='op'>=</span> <span class='fu'>as</span><span class='op'>(</span><span class='va'>res</span>, <span class='st'>"array"</span><span class='op'>)</span>
 <span class='op'>}</span>
-</div><div class='output co'>#&gt; cloning into '/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpq83rWF/temp_libpath31305ec0df87/spm12r/spm12'...
-#&gt; Receiving objects:   1% (67/6700),   23 kb
-#&gt; Receiving objects:  11% (737/6700), 2961 kb
-#&gt; Receiving objects:  21% (1407/6700), 3313 kb
-#&gt; Receiving objects:  31% (2077/6700), 9468 kb
-#&gt; Receiving objects:  41% (2747/6700), 10957 kb
-#&gt; Receiving objects:  51% (3417/6700), 31282 kb
-#&gt; Receiving objects:  61% (4087/6700), 36454 kb
-#&gt; Receiving objects:  71% (4757/6700), 44474 kb
-#&gt; Receiving objects:  81% (5427/6700), 70234 kb
-#&gt; Receiving objects:  91% (6097/6700), 98555 kb
-#&gt; Receiving objects: 100% (6700/6700), 131264 kb, done.</div><div class='output co'>#&gt; <span class='message'># K = 1</span></div><div class='output co'>#&gt; <span class='message'># Script is located at /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp4qbJqT/file31747b121f8b.m</span></div><div class='output co'>#&gt; <span class='message'>Command run is:</span></div><div class='output co'>#&gt; <span class='message'>matlab  -nodesktop -nosplash   -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp4qbJqT/file31747b121f8b.m'); catch err, disp(err.message); exit(1); end; exit(0);"</span></div><div class='output co'>#&gt; <span class='message'># Reading output file /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp4qbJqT/file317473e0e23.nii</span></div><div class='output co'>#&gt; <span class='message'></span></div></pre>
+</div><div class='output co'>#&gt; cloning into '/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp13birO/spm12'...
+#&gt; Receiving objects:   1% (68/6722),   23 kb
+#&gt; Receiving objects:  11% (740/6722), 2964 kb
+#&gt; Receiving objects:  21% (1412/6722), 3316 kb
+#&gt; Receiving objects:  31% (2084/6722), 9469 kb
+#&gt; Receiving objects:  41% (2757/6722), 10987 kb
+#&gt; Receiving objects:  51% (3429/6722), 31461 kb
+#&gt; Receiving objects:  61% (4101/6722), 36479 kb
+#&gt; Receiving objects:  71% (4773/6722), 46980 kb
+#&gt; Receiving objects:  81% (5445/6722), 70570 kb
+#&gt; Receiving objects:  91% (6118/6722), 99259 kb
+#&gt; Receiving objects: 100% (6722/6722), 131273 kb, done.</div><div class='output co'>#&gt; <span class='message'># K = 1</span></div><div class='output co'>#&gt; <span class='message'># Script is located at /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp13birO/file9be853c26c6.m</span></div><div class='output co'>#&gt; <span class='message'>Command run is:</span></div><div class='output co'>#&gt; <span class='message'>matlab  -nodesktop -nosplash   -nodisplay -r  "try, run('/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp13birO/file9be853c26c6.m'); catch err, disp(err.message); exit(1); end; exit(0);"</span></div><div class='output co'>#&gt; <span class='message'># Reading output file /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp13birO/file9be874478c0e.nii</span></div><div class='output co'>#&gt; <span class='message'></span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
