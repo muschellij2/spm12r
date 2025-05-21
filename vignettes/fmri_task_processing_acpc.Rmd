@@ -74,7 +74,7 @@ library(neurobase)
 ##################################
 oro_pkg = packageVersion("oro.nifti")
 neuro_pkg = packageVersion("neurobase")
-if (oro_pkg < 0.8 || neuro_pkg < 1.22) {
+if (compareVersion(as.character(oro_pkg), "0.8") == -1 || compareVersion(as.character(neuro_pkg), "1.22") == -1){
   get_nifti = neurobase::check_nifti 
 } else {
   get_nifti = neurobase::check_nifti_header
