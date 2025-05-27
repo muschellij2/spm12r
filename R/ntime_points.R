@@ -9,6 +9,7 @@
 #' @importFrom oro.nifti is.nifti ntim 
 #' @importFrom neurobase check_nifti
 #' @importFrom utils packageVersion
+#' @importFrom utils compareVersion
 ntime_points <- function(filename){
   ########################
   # Getting Number of Time points
@@ -17,7 +18,7 @@ ntime_points <- function(filename){
   oro_pkg = packageVersion("oro.nifti")
   neuro_pkg = packageVersion("neurobase")
   
-  if (oro_pkg < 0.8 || neuro_pkg < 1.22) {
+  if (compareVersion(as.character(oro_pkg), "0.8") == -1 || compareVersion(as.character(neuro_pkg), "1.22") == -1){
     nifti_header = neurobase::check_nifti 
   } else {
     nifti_header = neurobase::check_nifti_header

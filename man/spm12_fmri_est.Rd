@@ -18,9 +18,9 @@ build_spm12_fmri_est(
   spm,
   write_residuals = FALSE,
   method = c("Classical", "Bayesian", "Bayesian2"),
-  bayesian = list(space.volume.block_type = "Slices", signal = "UGL", ARP = 3,
-    noise.UGL = 1, LogEv = "No", anova.first = "No", anova.second = "Yes", gcon =
-    list(name = "", convec = numeric(0))),
+  bayesian = list(space.volume.block_type = "Slices", signal = "UGL", ARP = 3, noise.UGL
+    = 1, LogEv = "No", anova.first = "No", anova.second = "Yes", gcon = list(name = "",
+    convec = numeric(0))),
   ...
 )
 }
